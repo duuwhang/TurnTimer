@@ -1,5 +1,7 @@
 package com.turntimer;
 
+import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -13,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.getSupportActionBar().hide();
+        Objects.requireNonNull(this.getSupportActionBar()).hide();
         final Context context = this;
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -25,19 +27,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mainLayout);
     }
 
-    public int dpToPx(Context context, int dp){
+    public int dpToPx(@NotNull Context context, int dp){
         return (int) ((float) dp * context.getResources().getDisplayMetrics().density);
     }
 
-    public int pxToDp(Context context, int px){
+    public int pxToDp(@NotNull Context context, int px){
         return (int) ((float) px / context.getResources().getDisplayMetrics().density);
     }
 
-    public void debug(Context context){
+    public void debug(@NotNull Context context){
         Toast.makeText(context,"debug",Toast.LENGTH_LONG).show();
     }
 
-    public void debug(Context context, String msg){
+    public void debug(@NotNull Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
     }
 }
