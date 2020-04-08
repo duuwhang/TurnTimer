@@ -27,19 +27,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(mainLayout);
     }
 
-    public int dpToPx(@NotNull Context context, int dp){
+    public int dpToPx(Context context, int dp){
         return (int) ((float) dp * context.getResources().getDisplayMetrics().density);
     }
 
-    public int pxToDp(@NotNull Context context, int px){
+    public int pxToDp(Context context, int px){
         return (int) ((float) px / context.getResources().getDisplayMetrics().density);
     }
 
-    public void debug(@NotNull Context context){
-        Toast.makeText(context,"debug",Toast.LENGTH_LONG).show();
+    public void debug(Context context){
+        Toast.makeText(context, "debug", Toast.LENGTH_LONG).show();
     }
 
-    public void debug(@NotNull Context context, String msg){
-        Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
+    public void debug(Context context, String msg){
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 }
