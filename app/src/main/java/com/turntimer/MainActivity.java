@@ -1,7 +1,6 @@
 package com.turntimer;
 
 import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -25,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
         MainLayout mainLayout = new MainLayout(context);
         setContentView(mainLayout);
+        TimerLayout timerLayout = new TimerLayout(context);
+        mainLayout.addView(timerLayout);
     }
 
     public int dpToPx(Context context, int dp){
