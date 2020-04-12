@@ -1,29 +1,81 @@
 package com.turntimer;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.RemoteViews;
+import android.util.AttributeSet;
+import android.graphics.Rect;
+import static com.turntimer.MainActivity.screenWidth;
+import static com.turntimer.MainActivity.dpToPx;
 
-public class MainLayout extends ViewGroup {
+public class MainLayout extends ViewGroup
+{
     Context context;
+    int timerAmount = 2;
+    int offsetY;
+    float offsetYDp = -2.5f;
+    private Rect tempChildRect = new Rect();
 
-    public MainLayout(Context context) {
+    public MainLayout(Context context)
+    {
         super(context);
         this.context = context;
+        init();
     }
 
-    public MainLayout(Context context, AttributeSet attributes) {
-        this(context, attributes, 0);
+    public MainLayout(Context context, AttributeSet attrs)
+    {
+        this(context, attrs, 0);
         this.context = context;
+        init();
     }
 
-    public MainLayout(Context context, AttributeSet attributes, int defStyle) {
-        super(context, attributes, defStyle);
+    public MainLayout(Context context, AttributeSet attrs, int defStyle)
+    {
+        super(context, attrs, defStyle);
         this.context = context;
+        init();
+    }
+
+    private void init()
+    {
+        offsetY = dpToPx(context, offsetYDp);
+        this.removeAllViewsInLayout();
+        //this.layout(0, 0, 0, 0);
+        for (int i = 0; i < timerAmount; i++)
+        {
+            TimerLayout timerLayout = new TimerLayout(context);
+            this.addView(timerLayout);
+        }
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    public boolean shouldDelayChildPressedState()
+    {
+        return false;
+    }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
+    {
+        int maxWidth = Math.max(screenWidth, getSuggestedMinimumWidth());
+        int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
+
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0), resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+    {
+        for (int i = 0; i < getChildCount(); i++)
+        {
+            tempChildRect.top = top + offsetY + i * getHeight() / timerAmount;
+            tempChildRect.bottom = bottom + offsetY - (getChildCount() - 1 - i) * getHeight() / timerAmount;
+            tempChildRect.left = left;
+            tempChildRect.right = right;
+
+            getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
+        }
     }
 }

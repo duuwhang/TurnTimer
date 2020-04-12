@@ -1,21 +1,20 @@
 package com.turntimer;
 
-import android.app.ActionBar;
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
-import androidx.core.view.MarginLayoutParamsCompat;
-
-public class TimerLayout extends View {
+public class TimerLayout extends RelativeLayout
+{
     Context context;
-    public TimerLayout(Context context) {
+    Button button;
+
+    public TimerLayout(Context context)
+    {
         super(context);
         this.context = context;
-        Button button = new Button(context);
-        button.setHeight(FrameLayout.LayoutParams.MATCH_PARENT);
-        button.setText("helo");
+        button = new Button(context);
+        button.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        this.addView(button);
     }
 }
