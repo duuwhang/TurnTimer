@@ -6,4 +6,5 @@
     <color name = "colorAccent">#DCA81445</color>
     <color name = "colorAccentDark">#2FC91953</color>
     <color name = "colorAccentGray">#14FFFFFF</color>
+    <color name = "colorSeparation">#FFFFFFFF</color>
 </resources>
