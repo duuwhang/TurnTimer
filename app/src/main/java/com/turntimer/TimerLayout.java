@@ -1,20 +1,14 @@
 package com.turntimer;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import androidx.annotation.Nullable;
-import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import static com.turntimer.MainActivity.dpToPx;
+import static com.turntimer.MainActivity.DpToPx;
 import static com.turntimer.MainActivity.screenWidth;
 
 public class TimerLayout extends ViewGroup
@@ -29,59 +23,32 @@ public class TimerLayout extends ViewGroup
     {
         super(context);
         this.context = context;
-        init();
+        Init();
     }
     
     public TimerLayout(Context context, AttributeSet attrs)
     {
         this(context, attrs, 0);
         this.context = context;
-        init();
+        Init();
     }
     
     public TimerLayout(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
         this.context = context;
-        init();
+        Init();
     }
     
-    private void init()
+    private void Init()
     {
-        Drawable drawable = new Drawable()
-        {
-            @Override
-            public void draw(@NonNull Canvas canvas)
-            {
-                //canvas.drawRect();
-                Paint paint = new Paint();
-                paint.setStyle(Paint.Style.STROKE);
-                paint.setColor(ContextCompat.getColor(context, R.color.colorSeparation));
-                paint.setStrokeWidth(dpToPx(context, outlineWidthDp));
-                canvas.drawPaint(paint);
-            }
-            
-            @Override
-            public void setAlpha(int alpha)
-            {
-            
-            }
-            
-            @Override
-            public void setColorFilter(@Nullable ColorFilter colorFilter)
-            {
-            
-            }
-            
-            @Override
-            public int getOpacity()
-            {
-                return PixelFormat.OPAQUE;
-            }
-        };
-        //this.setBackground(drawable);
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setStroke(DpToPx(context, outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
+        this.setBackground(gradientDrawable);
+        
         textView = new EditText(context);
         this.addView(textView);
+        
         timerView = new TextView(context);
         timerView.setText("gamer");
         this.addView(timerView);

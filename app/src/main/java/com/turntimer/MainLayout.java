@@ -4,42 +4,40 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import static com.turntimer.MainActivity.dpToPx;
+import static com.turntimer.MainActivity.DpToPx;
 import static com.turntimer.MainActivity.screenWidth;
 
 public class MainLayout extends ViewGroup
 {
     Context context;
     int timerAmount = 2;
-    int offsetY;
-    float offsetYDp = 0;//-2.5f;
+    int scaleFromMiddlePx = 1;
     private Rect tempChildRect = new Rect();
     
     public MainLayout(Context context)
     {
         super(context);
         this.context = context;
-        init();
+        Init();
     }
     
     public MainLayout(Context context, AttributeSet attrs)
     {
         this(context, attrs, 0);
         this.context = context;
-        init();
+        Init();
     }
     
     public MainLayout(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
         this.context = context;
-        init();
+        Init();
     }
     
-    private void init()
+    private void Init()
     {
-        offsetY = dpToPx(context, offsetYDp);
-        updateTimerAmount(timerAmount);
+        UpdateTimerAmount(timerAmount);
     }
     
     @Override
@@ -61,10 +59,16 @@ public class MainLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
+        left = ScaleLeftFromMiddle(scaleFromMiddlePx, left);
+        top = ScaleTopFromMiddle(scaleFromMiddlePx, top);
+        right = ScaleRightFromMiddle(scaleFromMiddlePx, right);
+        bottom = ScaleBottomFromMiddle(scaleFromMiddlePx, bottom);
+        int height = bottom - top;
+        
         for (int i = 0; i < getChildCount(); i++)
         {
-            tempChildRect.top = top + offsetY + i * getHeight() / timerAmount;
-            tempChildRect.bottom = bottom + offsetY - (getChildCount() - 1 - i) * getHeight() / timerAmount;
+            tempChildRect.top = top + i * height / timerAmount;
+            tempChildRect.bottom = bottom - (getChildCount() - 1 - i) * height / timerAmount;
             tempChildRect.left = left;
             tempChildRect.right = right;
             
@@ -72,7 +76,7 @@ public class MainLayout extends ViewGroup
         }
     }
     
-    public void updateTimerAmount(int timerAmount)
+    public void UpdateTimerAmount(int timerAmount)
     {
         this.timerAmount = timerAmount;
         this.removeAllViewsInLayout();
@@ -82,5 +86,25 @@ public class MainLayout extends ViewGroup
             TimerLayout timerLayout = new TimerLayout(context);
             this.addView(timerLayout);
         }
+    }
+    
+    private int ScaleLeftFromMiddle(int scaleFromMiddlePx, int left)
+    {
+        return left - scaleFromMiddlePx;
+    }
+    
+    private int ScaleTopFromMiddle(int scaleFromMiddlePx, int top)
+    {
+        return top - scaleFromMiddlePx;
+    }
+    
+    private int ScaleRightFromMiddle(int scaleFromMiddlePx, int right)
+    {
+        return right + 2 * scaleFromMiddlePx;
+    }
+    
+    private int ScaleBottomFromMiddle(int scaleFromMiddlePx, int bottom)
+    {
+        return bottom + 2 * scaleFromMiddlePx;
     }
 }

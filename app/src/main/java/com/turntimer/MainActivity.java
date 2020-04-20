@@ -45,22 +45,22 @@ public class MainActivity extends AppCompatActivity
         setContentView(mainLayout);
     }
     
-    public static int dpToPx(Context context, float dp)
+    public static int DpToPx(Context context, float dp)
     {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
     
-    public static float pxToDp(Context context, int px)
+    public static float PxToDp(Context context, int px)
     {
         return ((float) px / context.getResources().getDisplayMetrics().density);
     }
     
-    public static void debug(Context context)
+    public static void Debug(Context context)
     {
         Toast.makeText(context, "debug", Toast.LENGTH_LONG).show();
     }
     
-    public static void debug(Context context, String msg)
+    public static void Debug(Context context, String msg)
     {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
