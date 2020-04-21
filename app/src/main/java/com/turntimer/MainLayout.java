@@ -4,13 +4,12 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import static com.turntimer.MainActivity.DpToPx;
-import static com.turntimer.MainActivity.screenWidth;
+import static com.turntimer.MainActivity.displayMetricsController;
 
 public class MainLayout extends ViewGroup
 {
     Context context;
-    int timerAmount = 2;
+    int timerAmount = 4;
     int scaleFromMiddlePx = 1;
     private Rect tempChildRect = new Rect();
     
@@ -49,7 +48,7 @@ public class MainLayout extends ViewGroup
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int maxWidth = Math.max(screenWidth, getSuggestedMinimumWidth());
+        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
         
         measureChildren(widthMeasureSpec, heightMeasureSpec);
@@ -59,10 +58,10 @@ public class MainLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        left = ScaleLeftFromMiddle(scaleFromMiddlePx, left);
-        top = ScaleTopFromMiddle(scaleFromMiddlePx, top);
-        right = ScaleRightFromMiddle(scaleFromMiddlePx, right);
-        bottom = ScaleBottomFromMiddle(scaleFromMiddlePx, bottom);
+        left = ScaleFromMiddle.ScaleLeft(scaleFromMiddlePx, left);
+        top = ScaleFromMiddle.ScaleTop(scaleFromMiddlePx, top);
+        right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
+        bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom);
         int height = bottom - top;
         
         for (int i = 0; i < getChildCount(); i++)
@@ -88,23 +87,26 @@ public class MainLayout extends ViewGroup
         }
     }
     
-    private int ScaleLeftFromMiddle(int scaleFromMiddlePx, int left)
+    private static class ScaleFromMiddle
     {
-        return left - scaleFromMiddlePx;
-    }
-    
-    private int ScaleTopFromMiddle(int scaleFromMiddlePx, int top)
-    {
-        return top - scaleFromMiddlePx;
-    }
-    
-    private int ScaleRightFromMiddle(int scaleFromMiddlePx, int right)
-    {
-        return right + 2 * scaleFromMiddlePx;
-    }
-    
-    private int ScaleBottomFromMiddle(int scaleFromMiddlePx, int bottom)
-    {
-        return bottom + 2 * scaleFromMiddlePx;
+        private static int ScaleLeft(int scaleFromMiddlePx, int left)
+        {
+            return left - scaleFromMiddlePx;
+        }
+        
+        private static int ScaleTop(int scaleFromMiddlePx, int top)
+        {
+            return top - scaleFromMiddlePx;
+        }
+        
+        private static int ScaleRight(int scaleFromMiddlePx, int right)
+        {
+            return right + 2 * scaleFromMiddlePx;
+        }
+        
+        private static int ScaleBottom(int scaleFromMiddlePx, int bottom)
+        {
+            return bottom + 2 * scaleFromMiddlePx;
+        }
     }
 }

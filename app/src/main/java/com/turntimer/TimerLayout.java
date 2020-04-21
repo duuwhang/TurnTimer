@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-import static com.turntimer.MainActivity.DpToPx;
-import static com.turntimer.MainActivity.screenWidth;
+import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends ViewGroup
 {
@@ -43,7 +42,7 @@ public class TimerLayout extends ViewGroup
     private void Init()
     {
         GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(DpToPx(context, outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
+        gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
         
         textView = new EditText(context);
@@ -63,7 +62,7 @@ public class TimerLayout extends ViewGroup
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int maxWidth = Math.max(screenWidth, getSuggestedMinimumWidth());
+        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
         
         measureChildren(widthMeasureSpec, heightMeasureSpec);
