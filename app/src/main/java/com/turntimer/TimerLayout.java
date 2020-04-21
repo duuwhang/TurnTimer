@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-import static com.turntimer.MainActivity.displayMetricsController;
+import static com.turntimer.MainActivity.*;
 
 public class TimerLayout extends ViewGroup
 {

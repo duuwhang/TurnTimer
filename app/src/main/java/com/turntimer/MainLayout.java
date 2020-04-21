@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
-import static com.turntimer.MainActivity.displayMetricsController;
+import static com.turntimer.MainActivity.*;
 
 public class MainLayout extends ViewGroup
 {

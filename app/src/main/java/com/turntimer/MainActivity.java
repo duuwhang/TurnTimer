@@ -1,20 +1,20 @@
 package com.turntimer;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.WindowManager;
-import android.widget.Toast;
+import android.annotation.SuppressLint;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Objects;
 
+@SuppressLint("StaticFieldLeak")
 public class MainActivity extends AppCompatActivity
 {
     Context context;
     Resources resources;
     WindowManager windowManager;
-    @SuppressLint("StaticFieldLeak")
+    static ActivityController activityController;
     static DisplayMetricsController displayMetricsController;
     
     @Override
@@ -26,18 +26,9 @@ public class MainActivity extends AppCompatActivity
         resources = getResources();
         windowManager = getWindowManager();
         displayMetricsController = new DisplayMetricsController(context, resources, windowManager);
+        activityController = new ActivityController(context);
         
         MainLayout mainLayout = new MainLayout(context);
         setContentView(mainLayout);
-    }
-    
-    public static void Debug(Context context)
-    {
-        Toast.makeText(context, "debug", Toast.LENGTH_LONG).show();
-    }
-    
-    public static void Debug(Context context, String msg)
-    {
-        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 }
