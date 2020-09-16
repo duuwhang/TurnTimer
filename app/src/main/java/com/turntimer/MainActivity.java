@@ -11,7 +11,7 @@ import java.util.Objects;
 @SuppressLint("StaticFieldLeak")
 public class MainActivity extends AppCompatActivity
 {
-    Context context;
+    Context context ;
     Resources resources;
     WindowManager windowManager;
     static ActivityController activityController;
