@@ -73,13 +73,16 @@ public class TimerLayout extends ViewGroup
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
         top = 0;
+        //int height = bottom - top;
+        int width = right - left;
         for (int i = 0; i < getChildCount(); i++)
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
+            int childWidth = getChildAt(i).getMeasuredWidth();
             tempChildRect.top = top + (1 + i) * getHeight() / 3 - childHeight / 2;
             tempChildRect.bottom = tempChildRect.top + childHeight;
-            tempChildRect.left = left + getChildAt(i).getWidth() / 2;
-            tempChildRect.right = right - getChildAt(i).getWidth() / 2;
+            tempChildRect.left = left + width / 2 - childWidth / 2;
+            tempChildRect.right = tempChildRect.left + childWidth;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
