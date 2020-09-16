@@ -14,11 +14,10 @@ import static com.turntimer.MainActivity.*;
 public class TimerLayout extends ViewGroup
 {
     Context context;
-    int timerId;
     private Rect tempChildRect = new Rect();
-    float outlineWidthDp = 0.5f;
-    EditText textView;
+    float outlineWidthDp = 0.8f;
     TextView timerView;
+    EditText textView;
 
     public TimerLayout(Context context)
     {
@@ -41,19 +40,17 @@ public class TimerLayout extends ViewGroup
         Init();
     }
 
-    @SuppressLint("SetTextI18n")
     private void Init()
     {
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
 
+        timerView = new TextView(context);
+        this.addView(timerView);
+
         textView = new EditText(context);
         this.addView(textView);
-
-        timerView = new TextView(context);
-        timerView.setText("Timer "+(timerId+1));
-        this.addView(timerView);
     }
 
     @Override
@@ -75,16 +72,21 @@ public class TimerLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
+        top = 0;
         for (int i = 0; i < getChildCount(); i++)
         {
-            float childRatio = (float) getChildAt(i).getMeasuredWidth() / (float) getChildAt(i).getMeasuredHeight();
-            int childHeight = (int) ((float) (right - left) / childRatio);
+            int childHeight = getChildAt(i).getMeasuredHeight();
             tempChildRect.top = top + (1 + i) * getHeight() / 3 - childHeight / 2;
             tempChildRect.bottom = tempChildRect.top + childHeight;
-            tempChildRect.left = left;
-            tempChildRect.right = right;
+            tempChildRect.left = left+getChildAt(i).getWidth()/2;
+            tempChildRect.right = right-getChildAt(i).getWidth()/2;
 
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    public void setTimerId(int id){
+        timerView.setText("Timer "+(id+1));
     }
 }

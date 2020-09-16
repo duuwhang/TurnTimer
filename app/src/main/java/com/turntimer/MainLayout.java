@@ -9,7 +9,7 @@ import static com.turntimer.MainActivity.*;
 
 public class MainLayout extends ViewGroup {
     Context context;
-    int timerAmount = 2;
+    int timerAmount = 5;
     int scaleFromMiddlePx = 1;
     private Rect tempChildRect = new Rect();
 
@@ -52,14 +52,14 @@ public class MainLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         left = ScaleFromMiddle.ScaleLeft(scaleFromMiddlePx, left);
-        top = ScaleFromMiddle.ScaleTop(scaleFromMiddlePx, top);
+        top = ScaleFromMiddle.ScaleTop(scaleFromMiddlePx, top-1);
         right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
-        bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom);
+        bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom+1);
         int height = bottom - top;
 
         for (int i = 0; i < getChildCount(); i++) {
             tempChildRect.top = top + i * height / timerAmount;
-            tempChildRect.bottom = bottom - (getChildCount() - 1 - i) * height / timerAmount;
+            tempChildRect.bottom = tempChildRect.top + height / timerAmount;
             tempChildRect.left = left;
             tempChildRect.right = right;
 
@@ -73,7 +73,7 @@ public class MainLayout extends ViewGroup {
         //this.layout(0, 0, 0, 0);
         for (int i = 0; i < timerAmount; i++) {
             TimerLayout timerLayout = new TimerLayout(context);
-            timerLayout.timerId = i;
+            timerLayout.setTimerId(i);
             this.addView(timerLayout);
         }
     }
