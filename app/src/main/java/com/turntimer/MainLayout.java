@@ -63,6 +63,7 @@ public class MainLayout extends ViewGroup
         right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
         bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom + 1);
         int height = bottom - top;
+        int width = left - right;
         
         for (int i = 0; i < getChildCount(); i++)
         {
@@ -79,7 +80,7 @@ public class MainLayout extends ViewGroup
     {
         this.timerAmount = timerAmount;
         this.removeAllViewsInLayout();
-        //this.layout(0, 0, 0, 0);
+        this.layout(0, 0, 0, 0);
         for (int i = 0; i < timerAmount; i++)
         {
             TimerLayout timerLayout = new TimerLayout(context);
