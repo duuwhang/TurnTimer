@@ -1,5 +1,6 @@
 package com.turntimer;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
@@ -13,62 +14,64 @@ import static com.turntimer.MainActivity.*;
 public class TimerLayout extends ViewGroup
 {
     Context context;
+    int timerId;
     private Rect tempChildRect = new Rect();
     float outlineWidthDp = 0.5f;
     EditText textView;
     TextView timerView;
-    
+
     public TimerLayout(Context context)
     {
         super(context);
         this.context = context;
         Init();
     }
-    
+
     public TimerLayout(Context context, AttributeSet attrs)
     {
         this(context, attrs, 0);
         this.context = context;
         Init();
     }
-    
+
     public TimerLayout(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
         this.context = context;
         Init();
     }
-    
+
+    @SuppressLint("SetTextI18n")
     private void Init()
     {
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
-        
+
         textView = new EditText(context);
         this.addView(textView);
-        
+
         timerView = new TextView(context);
-        timerView.setText("gamer");
+        timerView.setText("Timer "+(timerId+1));
         this.addView(timerView);
     }
-    
+
     @Override
     public boolean shouldDelayChildPressedState()
     {
         return false;
     }
-    
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
-        
+
         measureChildren(widthMeasureSpec, heightMeasureSpec);
         setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0), resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
     }
-    
+
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
@@ -80,7 +83,7 @@ public class TimerLayout extends ViewGroup
             tempChildRect.bottom = tempChildRect.top + childHeight;
             tempChildRect.left = left;
             tempChildRect.right = right;
-            
+
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
     }

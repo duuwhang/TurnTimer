@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity
     WindowManager windowManager;
     static ActivityController activityController;
     static DisplayMetricsController displayMetricsController;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity
         context = this;
         resources = getResources();
         windowManager = getWindowManager();
-        displayMetricsController = new DisplayMetricsController(context, resources, windowManager);
         activityController = new ActivityController(context);
-        
+        displayMetricsController = new DisplayMetricsController(context, resources, windowManager);
+
         MainLayout mainLayout = new MainLayout(context);
         setContentView(mainLayout);
     }
