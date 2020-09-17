@@ -8,14 +8,25 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import androidx.core.content.ContextCompat;
-import static com.turntimer.MainActivity.*;
+
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.turntimer.MainActivity.activityController;
+import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends ViewGroup
 {
     Context context;
-    TextView timerView;
     EditText textView;
+    TextView timerView;
     private Rect tempChildRect = new Rect();
     float outlineWidthDp = 0.8f;
 
@@ -45,12 +56,22 @@ public class TimerLayout extends ViewGroup
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
-        
-        timerView = new TextView(context);
-        this.addView(timerView);
-        
+
         textView = new EditText(context);
         this.addView(textView);
+
+        timerView = new TextView(context);
+        this.addView(timerView);
+
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Calendar date = Calendar.getInstance();
+                activityController.Debug(""+ date.get(Calendar.MINUTE)+":"+date.get(Calendar.SECOND));
+                /*timerView.setText(""+ date.get(Calendar.MINUTE)+":"+date.get(Calendar.SECOND));*/
+            }
+        }, 1000, 500);
     }
     
     @Override
@@ -72,6 +93,10 @@ public class TimerLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
+        Clock clock = Clock.systemDefaultZone();
+        Instant instant = clock.instant();
+        timerView.setText(""+ LocalTime.of(10,00));
+
         int height = bottom - top;
         int width = right - left;
         for (int i = 0; i < getChildCount(); i++)
@@ -90,6 +115,6 @@ public class TimerLayout extends ViewGroup
     @SuppressLint("SetTextI18n")
     public void setTimerId(int id)
     {
-        timerView.setText("Timer " + (id + 1));
+        textView.setText("Timer " + (id + 1));
     }
 }
