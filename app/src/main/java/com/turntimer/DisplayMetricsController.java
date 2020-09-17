@@ -28,21 +28,21 @@ public class DisplayMetricsController
     {
         return ((float) px / context.getResources().getDisplayMetrics().density);
     }
-    
-    public int GetScreenWidth()
-    {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics.widthPixels;
-    }
-    
+
     public int GetScreenHeight()
     {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
     }
-    
+
+    public int GetScreenWidth()
+    {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
+    }
+
     public int GetStatusBarHeight()
     {
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
