@@ -8,17 +8,13 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import androidx.core.content.ContextCompat;
-
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import static com.turntimer.MainActivity.activityController;
 import static com.turntimer.MainActivity.displayMetricsController;
 
@@ -29,7 +25,7 @@ public class TimerLayout extends ViewGroup
     TextView timerView;
     private Rect tempChildRect = new Rect();
     float outlineWidthDp = 0.8f;
-
+    
     public TimerLayout(Context context)
     {
         super(context);
@@ -56,19 +52,21 @@ public class TimerLayout extends ViewGroup
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
-
+        
         textView = new EditText(context);
         this.addView(textView);
-
+        
         timerView = new TextView(context);
         this.addView(timerView);
-
+        
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 Calendar date = Calendar.getInstance();
-                activityController.Debug(""+ date.get(Calendar.MINUTE)+":"+date.get(Calendar.SECOND));
+                activityController.Debug("" + date.get(Calendar.MINUTE) + ":" + date.get(Calendar.SECOND));
                 /*timerView.setText(""+ date.get(Calendar.MINUTE)+":"+date.get(Calendar.SECOND));*/
             }
         }, 1000, 500);
@@ -95,15 +93,15 @@ public class TimerLayout extends ViewGroup
     {
         Clock clock = Clock.systemDefaultZone();
         Instant instant = clock.instant();
-        timerView.setText(""+ LocalTime.of(10,00));
-
+        timerView.setText("" + LocalTime.of(10, 00));
+        
         int height = bottom - top;
         int width = right - left;
         for (int i = 0; i < getChildCount(); i++)
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
-            tempChildRect.top = (i+1) * height / (getChildCount() + 1) - childHeight / 2;
+            tempChildRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
             tempChildRect.bottom = tempChildRect.top + childHeight;
             tempChildRect.left = width / 2 - childWidth / 2;
             tempChildRect.right = tempChildRect.left + childWidth;
