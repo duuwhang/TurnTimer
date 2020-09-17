@@ -14,11 +14,11 @@ import static com.turntimer.MainActivity.*;
 public class TimerLayout extends ViewGroup
 {
     Context context;
-    private Rect tempChildRect = new Rect();
-    float outlineWidthDp = 0.8f;
     TextView timerView;
     EditText textView;
-    
+    private Rect tempChildRect = new Rect();
+    float outlineWidthDp = 0.8f;
+
     public TimerLayout(Context context)
     {
         super(context);
@@ -72,16 +72,15 @@ public class TimerLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        top = 0;
-        //int height = bottom - top;
+        int height = bottom - top;
         int width = right - left;
         for (int i = 0; i < getChildCount(); i++)
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
-            tempChildRect.top = top + (1 + i) * getHeight() / 3 - childHeight / 2;
+            tempChildRect.top = (i+1) * height / (getChildCount() + 1) - childHeight / 2;
             tempChildRect.bottom = tempChildRect.top + childHeight;
-            tempChildRect.left = left + width / 2 - childWidth / 2;
+            tempChildRect.left = width / 2 - childWidth / 2;
             tempChildRect.right = tempChildRect.left + childWidth;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
