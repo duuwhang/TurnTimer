@@ -58,7 +58,7 @@ public class TimerLayout extends ViewGroup
     
     public void startCountdown()
     {
-        countDownTimer = new CountDownTimer(timeMillis, 1000)
+        countDownTimer = new CountDownTimer(timeMillis, 200)
         {
             @Override
             public void onTick(long millisUntilFinished)

@@ -41,21 +41,6 @@ public class TimerParentLayout extends ViewGroup
     private void Init()
     {
         UpdateTimerAmount(timerAmount);
-        
-        TimerLayout timer = (TimerLayout) getChildAt(0);
-        timer.startCountdown();
-        this.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                TimerLayout timer = (TimerLayout) getChildAt(activeTimerId);
-                timer.stopCountdown();
-                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
-                timer = (TimerLayout) getChildAt(activeTimerId);
-                timer.startCountdown();
-            }
-        });
         /*
         new CountDownTimer(3000, 1000)
         {
@@ -184,14 +169,32 @@ public class TimerParentLayout extends ViewGroup
     public void UpdateTimerAmount(int timerAmount)
     {
         this.timerAmount = timerAmount;
+        final int timerCount = timerAmount;
+        
+        activeTimerId = 0;
         this.removeAllViewsInLayout();
         this.layout(0, 0, 0, 0);
+        
         for (int i = 0; i < timerAmount; i++)
         {
             TimerLayout timerLayout = new TimerLayout(context);
             timerLayout.setTimerId(i);
             this.addView(timerLayout);
         }
+        TimerLayout timer = (TimerLayout) getChildAt(0);
+        timer.startCountdown();
+        this.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                TimerLayout timer = (TimerLayout) getChildAt(activeTimerId);
+                timer.stopCountdown();
+                activeTimerId += 1 - (activeTimerId + 1) / timerCount * timerCount;
+                timer = (TimerLayout) getChildAt(activeTimerId);
+                timer.startCountdown();
+            }
+        });
     }
     
     protected static class ScaleFromMiddle
