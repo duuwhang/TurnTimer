@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
+import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 import static com.turntimer.MainActivity.activityController;
@@ -23,6 +25,8 @@ public class TimerLayout extends ViewGroup
     Context context;
     EditText textView;
     TextView timerView;
+    CountDownTimer countDownTimer;
+    int timeMillis = 300000;
     private Rect tempChildRect = new Rect();
     float outlineWidthDp = 0.8f;
     
@@ -59,17 +63,51 @@ public class TimerLayout extends ViewGroup
         timerView = new TextView(context);
         this.addView(timerView);
         
+        
+        /*
+        Date date = Calendar.getInstance().getTime();
+        Calendar date2 = Calendar.getInstance();
+        activityController.Debug("" + date2.get(Calendar.MINUTE) + ":" + date.toString());
+        
+         */
+        
+        /*
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask()
         {
             @Override
             public void run()
             {
-                Calendar date = Calendar.getInstance();
-                activityController.Debug("" + date.get(Calendar.MINUTE) + ":" + date.get(Calendar.SECOND));
-                /*timerView.setText(""+ date.get(Calendar.MINUTE)+":"+date.get(Calendar.SECOND));*/
+                Date date = Calendar.getInstance().getTime();
+                activityController.Debug("" + date.getTime() + ":" + date.toString());
+                /*timerView.setText(""+ date.get(Calendar.MINUTE)+":"+date.get(Calendar.SECOND));
             }
-        }, 1000, 500);
+        }, 1000, 500);*/
+    }
+    
+    public void startCountdown()
+    {
+        countDownTimer = new CountDownTimer(timeMillis, 1000)
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+                timerView.setText(String.format("%d:%02d", millisUntilFinished / 60000, (millisUntilFinished / 1000) % 60));
+                timeMillis = (int) millisUntilFinished;
+            }
+            
+            @Override
+            public void onFinish()
+            {
+            
+            }
+        };
+        countDownTimer.start();
+    }
+    
+    public void stopCountdown()
+    {
+        countDownTimer.cancel();
     }
     
     @Override
@@ -91,9 +129,11 @@ public class TimerLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
+        /*
         Clock clock = Clock.systemDefaultZone();
         Instant instant = clock.instant();
         timerView.setText("" + LocalTime.of(10, 00));
+        */
         
         int height = bottom - top;
         int width = right - left;

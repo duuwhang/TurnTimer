@@ -2,6 +2,7 @@ package com.turntimer;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import static com.turntimer.MainActivity.*;
@@ -38,6 +39,27 @@ public class MainLayout extends ViewGroup
     private void Init()
     {
         UpdateTimerAmount(timerAmount);
+        
+        TimerLayout timer = (TimerLayout) getChildAt(0);
+        timer.startCountdown();
+        final CountDownTimer countDownTimer = new CountDownTimer(5000, 1000)
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+            
+            }
+            
+            @Override
+            public void onFinish()
+            {
+                TimerLayout timer = (TimerLayout) getChildAt(0);
+                timer.stopCountdown();
+                TimerLayout timer2 = (TimerLayout) getChildAt(1);
+                timer2.startCountdown();
+            }
+        };
+        countDownTimer.start();
     }
     
     @Override
