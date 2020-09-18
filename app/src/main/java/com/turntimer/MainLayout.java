@@ -58,6 +58,10 @@ public class MainLayout extends ViewGroup
     {
         TimerParentLayout parentLayout = new TimerParentLayout(context);
         this.addView(parentLayout);
+        
+        SettingsLayout settingsLayout = new SettingsLayout(context);
+        this.addView(settingsLayout);
+        
         setGestureListener();
         getChildAt(0).setOnTouchListener(touchListener);
     }
