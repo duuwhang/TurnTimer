@@ -8,23 +8,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
+import static com.turntimer.MainActivity.activityController;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class MainLayout extends ViewGroup
 {
     Context context;
     int scaleFromMiddlePx = 1;
-    private int startingChild = 1;
+    private int startingChild = 0;
     private int currentChild = startingChild;
+    boolean interruptClick = true;
     GestureDetector gestureDetector = null;
     View.OnTouchListener touchListener = new View.OnTouchListener()
     {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent)
         {
-            performClick(); // TODO
-            return gestureDetector.onTouchEvent(motionEvent);
+            boolean swiped = gestureDetector.onTouchEvent(motionEvent);
+            if (!interruptClick)
+            {
+                getChildAt(currentChild).performClick();
+            }
+            return swiped;
         }
     };
     
@@ -53,6 +58,8 @@ public class MainLayout extends ViewGroup
     {
         TimerParentLayout parentLayout = new TimerParentLayout(context);
         this.addView(parentLayout);
+        setGestureListener();
+        getChildAt(0).setOnTouchListener(touchListener);
     }
     
     @Override
@@ -90,7 +97,7 @@ public class MainLayout extends ViewGroup
             @Override
             public boolean onDown(MotionEvent e)
             {
-                return true;
+                return false;
             }
             
             @Override
@@ -101,17 +108,18 @@ public class MainLayout extends ViewGroup
                 {
                     float diffY = e2.getY() - e1.getY();
                     float diffX = e2.getX() - e1.getX();
-                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD && Math.abs(diffX) < Math.abs(diffY))
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD && Math.abs(diffX) > Math.abs(diffY))
                     {
                         if (diffX > 0)
                         {
-                            onSwipeRight();
+                            onSwipeLeft();
                         }
                         else
                         {
-                            onSwipeLeft();
+                            onSwipeRight();
                         }
                         result = true;
+                        interruptClick = true;
                     }
                 }
                 catch (Exception exception)
@@ -123,47 +131,47 @@ public class MainLayout extends ViewGroup
             
             void onSwipeLeft()
             {
-                if (currentChild < getChildCount() - 1)
+                if (currentChild > 0)
                 {
                     AnimationSet animationSet;
                     
                     animationSet = new AnimationSet(false);
                     animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutleft));
                     getChildAt(currentChild).startAnimation(animationSet);
+                    getChildAt(currentChild).setVisibility(View.GONE);
                     
-                    currentChild++;
+                    currentChild--;
                     getChildAt(currentChild).setVisibility(View.VISIBLE);
                     animationSet = new AnimationSet(false);
                     animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinleft));
                     getChildAt(currentChild).startAnimation(animationSet);
-                    getChildAt(currentChild - 1).setVisibility(View.GONE);
                 }
                 else
                 {
-                    Toast.makeText(context, "arrived at left", Toast.LENGTH_SHORT).show();
+                    activityController.debug("arrived at left");
                 }
             }
             
             void onSwipeRight()
             {
-                if (currentChild > 0)
+                if (currentChild < getChildCount() - 1)
                 {
                     AnimationSet animationSet;
                     
                     animationSet = new AnimationSet(false);
                     animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutright));
                     getChildAt(currentChild).startAnimation(animationSet);
-                    getChildAt(currentChild).setVisibility(View.GONE);
                     
-                    currentChild--;
+                    currentChild++;
                     getChildAt(currentChild).setVisibility(View.VISIBLE);
                     animationSet = new AnimationSet(false);
                     animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinright));
                     getChildAt(currentChild).startAnimation(animationSet);
+                    getChildAt(currentChild - 1).setVisibility(View.GONE);
                 }
                 else
                 {
-                    Toast.makeText(context, "arrived at right", Toast.LENGTH_SHORT).show();
+                    activityController.debug("arrived at right");
                 }
             }
         });

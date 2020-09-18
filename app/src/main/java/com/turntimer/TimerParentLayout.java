@@ -10,7 +10,7 @@ import static com.turntimer.MainActivity.displayMetricsController;
 public class TimerParentLayout extends ViewGroup
 {
     Context context;
-    int timerAmount = 1;
+    int timerAmount = 4;
     int maxTimerAmount = 30;
     int activeTimerId = 0;
     int scaleFromMiddlePx = 1;
