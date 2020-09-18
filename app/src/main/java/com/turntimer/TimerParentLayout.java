@@ -10,7 +10,8 @@ import static com.turntimer.MainActivity.displayMetricsController;
 public class TimerParentLayout extends ViewGroup
 {
     Context context;
-    int timerAmount = 7;
+    int timerAmount = 1;
+    int maxTimerAmount = 30;
     int activeTimerId = 0;
     int scaleFromMiddlePx = 1;
     private Rect offset = new Rect();
@@ -55,6 +56,26 @@ public class TimerParentLayout extends ViewGroup
                 timer.startCountdown();
             }
         });
+        /*
+        new CountDownTimer(3000, 1000)
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+            
+            }
+            
+            @Override
+            public void onFinish()
+            {
+                if (timerAmount < maxTimerAmount)
+                {
+                    timerAmount++;
+                    UpdateTimerAmount(timerAmount);
+                    start();
+                }
+            }
+        }.start();*/
     }
     
     @Override
@@ -92,14 +113,33 @@ public class TimerParentLayout extends ViewGroup
         {
             int childHeight = height / rows;
             int childWidth = width / columns;
+            tempChildRect.setEmpty();
             
-            tempChildRect.top = offset.top + (int) Math.floor((double) i / columns) * childHeight;
-            tempChildRect.bottom = offset.bottom + tempChildRect.top + childHeight;
+            tempChildRect.top = offset.top + i / columns * childHeight;
             tempChildRect.left = offset.left + (i % columns) * childWidth;
-            tempChildRect.right = offset.right + tempChildRect.left + childWidth * ((int) Math.floor((double) i / (getChildCount() - 1)) * (i + 1) % 2 * (timerAmount % columns) + 1);
+            
+            int timerDifference = rows * columns - timerAmount;
+            if (timerAmount == 13 || timerAmount == 16) // fix double width exception
+            {
+                tempChildRect.right += childWidth * ((i + 1) / timerAmount * (timerAmount / rows));
+            }
+            else if (timerDifference > 0 && i >= timerAmount - timerDifference) // place multiple timers with double width
+            {
+                childWidth *= 2;
+                tempChildRect.left += (timerAmount - i - timerDifference) * -0.5 * childWidth;
+                
+                if ((rows - 1) * columns > i)
+                {
+                    tempChildRect.top += tempChildRect.left / childWidth * childHeight;
+                    tempChildRect.left -= tempChildRect.left / childWidth * width;
+                }
+            }
+            tempChildRect.bottom = offset.bottom + tempChildRect.top + childHeight;
+            tempChildRect.right += offset.right + tempChildRect.left + childWidth;
+            
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
-        }
+        } // flawed system -> hard 13, 16 exception & max amount is 30
     }
     
     private int calculateRows(int timerAmount, int screenHeight, int screenWidth)
