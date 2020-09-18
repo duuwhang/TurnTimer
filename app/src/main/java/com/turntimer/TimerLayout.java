@@ -17,8 +17,8 @@ public class TimerLayout extends ViewGroup
     EditText textView;
     TextView timerView;
     CountDownTimer countDownTimer;
-    int timeMillis = 300000;
     private Rect tempChildRect = new Rect();
+    int timeMillis = 300000;
     float outlineWidthDp = 0.8f;
     
     public TimerLayout(Context context)

@@ -3,18 +3,30 @@ package com.turntimer;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class MainLayout extends ViewGroup
 {
     Context context;
-    int timerAmount = 7;
-    int activeTimerId = 0;
     int scaleFromMiddlePx = 1;
-    private Rect offset = new Rect();
-    private Rect tempChildRect = new Rect();
+    private int startingChild = 1;
+    private int currentChild = startingChild;
+    GestureDetector gestureDetector = null;
+    View.OnTouchListener touchListener = new View.OnTouchListener()
+    {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent)
+        {
+            return gestureDetector.onTouchEvent(motionEvent);
+        }
+    };
     
     public MainLayout(Context context)
     {
@@ -39,22 +51,7 @@ public class MainLayout extends ViewGroup
     
     private void Init()
     {
-        UpdateTimerAmount(timerAmount);
-        
-        TimerLayout timer = (TimerLayout) getChildAt(0);
-        timer.startCountdown();
-        this.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                TimerLayout timer = (TimerLayout) getChildAt(activeTimerId);
-                timer.stopCountdown();
-                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
-                timer = (TimerLayout) getChildAt(activeTimerId);
-                timer.startCountdown();
-            }
-        });
+    
     }
     
     @Override
@@ -76,6 +73,7 @@ public class MainLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
+        /*
         left = ScaleFromMiddle.ScaleLeft(scaleFromMiddlePx, left);
         top = ScaleFromMiddle.ScaleTop(scaleFromMiddlePx, top);
         right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
@@ -99,62 +97,102 @@ public class MainLayout extends ViewGroup
             tempChildRect.right = offset.right + tempChildRect.left + childWidth * ((int) Math.floor((double) i / (getChildCount() - 1)) * (i + 1) % 2 * (timerAmount % columns) + 1);
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
-        }
+        }*/
     }
     
-    private int calculateRows(int timerAmount, int screenHeight, int screenWidth)
+    
+    /*
+    
+    private void setGestureListener()
     {
-        int rows = timerAmount;
-        double minRatio = Double.MAX_VALUE;
-        
-        for (int i = 0; i < timerAmount; i++)
+        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener()
         {
-            double totalRatio = 0;
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
             
-            for (int j = 0; j < timerAmount; j++)
+            @Override
+            public boolean onDown(MotionEvent e)
             {
-                //i + 1 = rows
-                //j + 1 = timerNumber
-                double height = (double) screenHeight / (i + 1);
-                int columns = calculateColumns(timerAmount, i + 1);
-                double width = (double) screenWidth / columns;
-                int timerDifference = (i + 1) * columns - timerAmount;
-                if (timerDifference > 0 && j >= timerAmount - timerDifference)
+                return true;
+            }
+            
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+            {
+                boolean result = false;
+                try
                 {
-                    width *= 3; //punish uneven layouts
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD && Math.abs(diffX) < Math.abs(diffY))
+                    {
+                        if (diffX > 0)
+                        {
+                            onSwipeRight();
+                        }
+                        else
+                        {
+                            onSwipeLeft();
+                        }
+                        result = true;
+                    }
                 }
-                totalRatio += Math.abs(1 - width / height);
+                catch (Exception exception)
+                {
+                    exception.printStackTrace();
+                }
+                return result;
             }
             
-            if (minRatio > totalRatio)
+            void onSwipeLeft()
             {
-                minRatio = totalRatio;
-                rows = i + 1;
+                if (currentChild < getChildCount() - 1)
+                {
+                    AnimationSet animationSet;
+                    
+                    animationSet = new AnimationSet(false);
+                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutleft));
+                    getChildAt(currentChild).startAnimation(animationSet);
+                    
+                    currentChild++;
+                    getChildAt(currentChild).setVisibility(View.VISIBLE);
+                    animationSet = new AnimationSet(false);
+                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinleft));
+                    getChildAt(currentChild).startAnimation(animationSet);
+                    getChildAt(currentChild - 1).setVisibility(View.GONE);
+                }
+                else
+                {
+                    Toast.makeText(context, "arrived at left", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
-        
-        return rows;
+            
+            void onSwipeRight()
+            {
+                if (currentChild > 0)
+                {
+                    AnimationSet animationSet;
+                    
+                    animationSet = new AnimationSet(false);
+                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutright));
+                    getChildAt(currentChild).startAnimation(animationSet);
+                    getChildAt(currentChild).setVisibility(View.GONE);
+                    
+                    currentChild--;
+                    getChildAt(currentChild).setVisibility(View.VISIBLE);
+                    animationSet = new AnimationSet(false);
+                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinright));
+                    getChildAt(currentChild).startAnimation(animationSet);
+                }
+                else
+                {
+                    Toast.makeText(context, "arrived at right", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     
-    private int calculateColumns(int timerAmount, int rows)
-    {
-        return (int) Math.ceil((double) timerAmount / rows);
-    }
-    
-    public void UpdateTimerAmount(int timerAmount)
-    {
-        this.timerAmount = timerAmount;
-        this.removeAllViewsInLayout();
-        this.layout(0, 0, 0, 0);
-        for (int i = 0; i < timerAmount; i++)
-        {
-            TimerLayout timerLayout = new TimerLayout(context);
-            timerLayout.setTimerId(i);
-            this.addView(timerLayout);
-        }
-    }
-    
-    private static class ScaleFromMiddle
+    protected static class ScaleFromMiddle
     {
         private static int ScaleLeft(int scaleFromMiddlePx, int left)
         {
@@ -175,5 +213,5 @@ public class MainLayout extends ViewGroup
         {
             return bottom + 2 * scaleFromMiddlePx;
         }
-    }
+    }*/
 }
