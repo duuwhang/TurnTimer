@@ -2,15 +2,16 @@ package com.turntimer;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.CountDownTimer;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
-import static com.turntimer.MainActivity.*;
+import static com.turntimer.MainActivity.displayMetricsController;
 
 public class MainLayout extends ViewGroup
 {
     Context context;
     int timerAmount = 7;
+    int activeTimerId = 0;
     int scaleFromMiddlePx = 1;
     private Rect offset = new Rect();
     private Rect tempChildRect = new Rect();
@@ -42,24 +43,18 @@ public class MainLayout extends ViewGroup
         
         TimerLayout timer = (TimerLayout) getChildAt(0);
         timer.startCountdown();
-        final CountDownTimer countDownTimer = new CountDownTimer(5000, 1000)
+        this.setOnClickListener(new OnClickListener()
         {
             @Override
-            public void onTick(long millisUntilFinished)
+            public void onClick(View view)
             {
-            
-            }
-            
-            @Override
-            public void onFinish()
-            {
-                TimerLayout timer = (TimerLayout) getChildAt(0);
+                TimerLayout timer = (TimerLayout) getChildAt(activeTimerId);
                 timer.stopCountdown();
-                TimerLayout timer2 = (TimerLayout) getChildAt(1);
-                timer2.startCountdown();
+                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
+                timer = (TimerLayout) getChildAt(activeTimerId);
+                timer.startCountdown();
             }
-        };
-        countDownTimer.start();
+        });
     }
     
     @Override

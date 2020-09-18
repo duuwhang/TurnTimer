@@ -1,6 +1,5 @@
 package com.turntimer;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
@@ -10,14 +9,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.LocalTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
-import static com.turntimer.MainActivity.activityController;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends ViewGroup
@@ -61,28 +52,8 @@ public class TimerLayout extends ViewGroup
         this.addView(textView);
         
         timerView = new TextView(context);
+        timerView.setText(String.format("%d:%02d", 0, 0));
         this.addView(timerView);
-        
-        
-        /*
-        Date date = Calendar.getInstance().getTime();
-        Calendar date2 = Calendar.getInstance();
-        activityController.Debug("" + date2.get(Calendar.MINUTE) + ":" + date.toString());
-        
-         */
-        
-        /*
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                Date date = Calendar.getInstance().getTime();
-                activityController.Debug("" + date.getTime() + ":" + date.toString());
-                /*timerView.setText(""+ date.get(Calendar.MINUTE)+":"+date.get(Calendar.SECOND));
-            }
-        }, 1000, 500);*/
     }
     
     public void startCountdown()
@@ -129,12 +100,6 @@ public class TimerLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        /*
-        Clock clock = Clock.systemDefaultZone();
-        Instant instant = clock.instant();
-        timerView.setText("" + LocalTime.of(10, 00));
-        */
-        
         int height = bottom - top;
         int width = right - left;
         for (int i = 0; i < getChildCount(); i++)
@@ -150,7 +115,6 @@ public class TimerLayout extends ViewGroup
         }
     }
     
-    @SuppressLint("SetTextI18n")
     public void setTimerId(int id)
     {
         textView.setText("Timer " + (id + 1));
