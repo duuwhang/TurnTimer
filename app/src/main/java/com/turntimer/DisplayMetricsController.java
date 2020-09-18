@@ -19,31 +19,31 @@ public class DisplayMetricsController
         this.windowManager = windowManager;
     }
     
-    public int DpToPx(float dp)
+    public int dpToPx(float dp)
     {
         return (int) (dp * context.getResources().getDisplayMetrics().density);
     }
     
-    public float PxToDp(int px)
+    public float pxToDp(int px)
     {
         return ((float) px / context.getResources().getDisplayMetrics().density);
     }
     
-    public int GetScreenHeight()
+    public int getScreenHeight()
     {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
     }
     
-    public int GetScreenWidth()
+    public int getScreenWidth()
     {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
     }
     
-    public int GetStatusBarHeight()
+    public int getStatusBarHeight()
     {
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0)
@@ -53,7 +53,7 @@ public class DisplayMetricsController
         return 0;
     }
     
-    public int GetActionBarHeight()
+    public int getActionBarHeight()
     {
         final TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
         int actionBarHeight = (int) styledAttributes.getDimension(0, 0);
@@ -61,7 +61,7 @@ public class DisplayMetricsController
         return actionBarHeight;
     }
     
-    public int GetNavigationBarHeight()
+    public int getNavigationBarHeight()
     {
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0)

@@ -12,17 +12,17 @@ public class ActivityController
         this.context = context;
     }
     
-    public Context GetContext()
+    public Context getContext()
     {
         return context;
     }
     
-    public void Debug()
+    public void debug()
     {
         Toast.makeText(context, "debug", Toast.LENGTH_LONG).show();
     }
     
-    public void Debug(String msg)
+    public void debug(String msg)
     {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
