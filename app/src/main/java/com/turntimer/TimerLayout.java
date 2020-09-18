@@ -45,7 +45,7 @@ public class TimerLayout extends ViewGroup
     private void Init()
     {
         GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
+        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
         
         textView = new EditText(context);
@@ -90,7 +90,7 @@ public class TimerLayout extends ViewGroup
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
+        int maxWidth = Math.max(displayMetricsController.getScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
         
         measureChildren(widthMeasureSpec, heightMeasureSpec);

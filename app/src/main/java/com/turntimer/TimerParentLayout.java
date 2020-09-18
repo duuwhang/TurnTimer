@@ -3,16 +3,11 @@ package com.turntimer;
 import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 import static com.turntimer.MainActivity.displayMetricsController;
 
-public class PrimaryLayout extends ViewGroup
+public class TimerParentLayout extends ViewGroup
 {
     Context context;
     int timerAmount = 7;
@@ -21,21 +16,21 @@ public class PrimaryLayout extends ViewGroup
     private Rect offset = new Rect();
     private Rect tempChildRect = new Rect();
     
-    public PrimaryLayout(Context context)
+    public TimerParentLayout(Context context)
     {
         super(context);
         this.context = context;
         Init();
     }
     
-    public PrimaryLayout(Context context, AttributeSet attrs)
+    public TimerParentLayout(Context context, AttributeSet attrs)
     {
         this(context, attrs, 0);
         this.context = context;
         Init();
     }
     
-    public PrimaryLayout(Context context, AttributeSet attrs, int defStyle)
+    public TimerParentLayout(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
         this.context = context;
@@ -71,7 +66,7 @@ public class PrimaryLayout extends ViewGroup
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
+        int maxWidth = Math.max(displayMetricsController.getScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
         
         measureChildren(widthMeasureSpec, heightMeasureSpec);
@@ -88,7 +83,7 @@ public class PrimaryLayout extends ViewGroup
         int height = bottom - top;
         int width = right - left;
         
-        int rows = calculateRows(timerAmount, displayMetricsController.GetScreenHeight(), displayMetricsController.GetScreenWidth());
+        int rows = calculateRows(timerAmount, displayMetricsController.getScreenHeight(), displayMetricsController.getScreenWidth());
         int columns = calculateColumns(timerAmount, rows);
         
         offset.set(-1, -2, columns, rows);

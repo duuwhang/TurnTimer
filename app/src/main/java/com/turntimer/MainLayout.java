@@ -1,7 +1,6 @@
 package com.turntimer;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -24,6 +23,7 @@ public class MainLayout extends ViewGroup
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent)
         {
+            performClick(); // TODO
             return gestureDetector.onTouchEvent(motionEvent);
         }
     };
@@ -51,7 +51,8 @@ public class MainLayout extends ViewGroup
     
     private void Init()
     {
-    
+        TimerParentLayout parentLayout = new TimerParentLayout(context);
+        this.addView(parentLayout);
     }
     
     @Override
@@ -63,7 +64,7 @@ public class MainLayout extends ViewGroup
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
+        int maxWidth = Math.max(displayMetricsController.getScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
         
         measureChildren(widthMeasureSpec, heightMeasureSpec);
@@ -73,35 +74,11 @@ public class MainLayout extends ViewGroup
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        /*
-        left = ScaleFromMiddle.ScaleLeft(scaleFromMiddlePx, left);
-        top = ScaleFromMiddle.ScaleTop(scaleFromMiddlePx, top);
-        right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
-        bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom);
-        int height = bottom - top;
-        int width = right - left;
-        
-        int rows = calculateRows(timerAmount, displayMetricsController.GetScreenHeight(), displayMetricsController.GetScreenWidth());
-        int columns = calculateColumns(timerAmount, rows);
-        
-        offset.set(-1, -2, columns, rows);
-        
         for (int i = 0; i < getChildCount(); i++)
         {
-            int childHeight = height / rows;
-            int childWidth = width / columns;
-            
-            tempChildRect.top = offset.top + (int) Math.floor((double) i / columns) * childHeight;
-            tempChildRect.bottom = offset.bottom + tempChildRect.top + childHeight;
-            tempChildRect.left = offset.left + (i % columns) * childWidth;
-            tempChildRect.right = offset.right + tempChildRect.left + childWidth * ((int) Math.floor((double) i / (getChildCount() - 1)) * (i + 1) % 2 * (timerAmount % columns) + 1);
-            
-            getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
-        }*/
+            getChildAt(i).layout(left, top, right, bottom);
+        }
     }
-    
-    
-    /*
     
     private void setGestureListener()
     {
@@ -191,27 +168,4 @@ public class MainLayout extends ViewGroup
             }
         });
     }
-    
-    protected static class ScaleFromMiddle
-    {
-        private static int ScaleLeft(int scaleFromMiddlePx, int left)
-        {
-            return left - scaleFromMiddlePx;
-        }
-        
-        private static int ScaleTop(int scaleFromMiddlePx, int top)
-        {
-            return top - scaleFromMiddlePx;
-        }
-        
-        private static int ScaleRight(int scaleFromMiddlePx, int right)
-        {
-            return right + 2 * scaleFromMiddlePx;
-        }
-        
-        private static int ScaleBottom(int scaleFromMiddlePx, int bottom)
-        {
-            return bottom + 2 * scaleFromMiddlePx;
-        }
-    }*/
 }
