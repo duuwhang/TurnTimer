@@ -15,7 +15,7 @@ public class MainLayout extends ViewGroup
 {
     Context context;
     int scaleFromMiddlePx = 1;
-    private int startingChild = 0;
+    private int startingChild = 1;
     private int currentChild = startingChild;
     boolean interruptClick = true;
     GestureDetector gestureDetector = null;
@@ -24,12 +24,11 @@ public class MainLayout extends ViewGroup
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent)
         {
-            boolean swiped = gestureDetector.onTouchEvent(motionEvent);
             if (!interruptClick)
             {
                 getChildAt(currentChild).performClick();
             }
-            return swiped;
+            return gestureDetector.onTouchEvent(motionEvent);
         }
     };
     
@@ -56,14 +55,24 @@ public class MainLayout extends ViewGroup
     
     private void Init()
     {
-        TimerParentLayout parentLayout = new TimerParentLayout(context);
-        this.addView(parentLayout);
-        
-        SettingsLayout settingsLayout = new SettingsLayout(context);
+        SettingsLayout settingsLayout= new SettingsLayout(context);
         this.addView(settingsLayout);
         
+        TimerParentLayout timerParentLayout = new TimerParentLayout(context);
+        this.addView(timerParentLayout);
+        
+        if (startingChild < 0 || startingChild >= getChildCount())
+        {
+            startingChild = 0;
+        }
+        for (int i = 0; i < getChildCount(); i++)
+        {
+            getChildAt(i).setOnTouchListener(touchListener);
+            getChildAt(i).setVisibility(View.GONE);
+        }
+        getChildAt(startingChild).setVisibility(View.VISIBLE);
+        
         setGestureListener();
-        getChildAt(0).setOnTouchListener(touchListener);
     }
     
     @Override
@@ -137,18 +146,24 @@ public class MainLayout extends ViewGroup
             {
                 if (currentChild > 0)
                 {
-                    AnimationSet animationSet;
+                    AnimationSet animationSet = new AnimationSet(false);
                     
-                    animationSet = new AnimationSet(false);
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutleft));
+                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutright));
                     getChildAt(currentChild).startAnimation(animationSet);
-                    getChildAt(currentChild).setVisibility(View.GONE);
                     
-                    currentChild--;
-                    getChildAt(currentChild).setVisibility(View.VISIBLE);
-                    animationSet = new AnimationSet(false);
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinleft));
-                    getChildAt(currentChild).startAnimation(animationSet);
+                    while (!animationSet.hasEnded())
+                    {
+                        //animationSet.notify();
+                        animationSet.reset();
+                        animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinright));
+                        getChildAt(currentChild - 1).startAnimation(animationSet);
+    
+                        getChildAt(currentChild).setVisibility(View.GONE);
+                        getChildAt(currentChild - 1).setVisibility(View.VISIBLE);
+                        currentChild--;
+                        getChildAt(currentChild).setOnTouchListener(touchListener);
+                    }
+                    
                 }
                 else
                 {
@@ -160,16 +175,15 @@ public class MainLayout extends ViewGroup
             {
                 if (currentChild < getChildCount() - 1)
                 {
-                    AnimationSet animationSet;
+                    AnimationSet animationSet = new AnimationSet(false);
                     
-                    animationSet = new AnimationSet(false);
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutright));
+                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutleft));
                     getChildAt(currentChild).startAnimation(animationSet);
                     
                     currentChild++;
                     getChildAt(currentChild).setVisibility(View.VISIBLE);
-                    animationSet = new AnimationSet(false);
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinright));
+                    animationSet.reset();
+                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinleft));
                     getChildAt(currentChild).startAnimation(animationSet);
                     getChildAt(currentChild - 1).setVisibility(View.GONE);
                 }
