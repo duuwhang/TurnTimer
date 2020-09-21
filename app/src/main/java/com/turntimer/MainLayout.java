@@ -71,7 +71,7 @@ public class MainLayout extends ViewGroup
         for (int i = 0; i < getChildCount(); i++)
         {
             getChildAt(i).setOnTouchListener(touchListener);
-            getChildAt(i).setVisibility(View.GONE);
+            getChildAt(i).setVisibility(View.INVISIBLE);
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
         
