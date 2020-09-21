@@ -56,31 +56,6 @@ public class TimerLayout extends ViewGroup
         this.addView(timerView);
     }
     
-    public void startCountdown()
-    {
-        countDownTimer = new CountDownTimer(timeMillis, 200)
-        {
-            @Override
-            public void onTick(long millisUntilFinished)
-            {
-                timerView.setText(String.format("%d:%02d", millisUntilFinished / 60000, (millisUntilFinished / 1000) % 60));
-                timeMillis = (int) millisUntilFinished;
-            }
-            
-            @Override
-            public void onFinish()
-            {
-            
-            }
-        };
-        countDownTimer.start();
-    }
-    
-    public void stopCountdown()
-    {
-        countDownTimer.cancel();
-    }
-    
     @Override
     public boolean shouldDelayChildPressedState()
     {

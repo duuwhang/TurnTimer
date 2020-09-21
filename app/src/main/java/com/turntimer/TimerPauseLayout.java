@@ -4,11 +4,15 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerPauseLayout extends ViewGroup
 {
     Context context;
+    TextView timersPausedText;
+    Button resetButton;
     private Rect tempChildRect = new Rect();
     
     public TimerPauseLayout(Context context)
@@ -34,7 +38,16 @@ public class TimerPauseLayout extends ViewGroup
     
     private void Init()
     {
-    
+        timersPausedText = new TextView(context);
+        timersPausedText.setText("Timers Paused");
+        timersPausedText.setTextSize(50);
+        this.addView(timersPausedText);
+        
+        //timersPausedText.setOnFocusChangeListener();
+        
+        resetButton = new Button(context);
+        resetButton.setText("Reset Timers");
+        //this.addView(resetButton);
     }
     
     @Override

@@ -200,6 +200,21 @@ public class TimerParentLayout extends ViewGroup
         });
     }
     
+    public void StartTimers()
+    {
+        TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
+        timerLayout.StartTimer();
+    }
+    
+    public void StopTimers()
+    {
+        for (int i = 0; i < getChildCount(); i++)
+        {
+            TimerLayout timerLayout = (TimerLayout) getChildAt(i);
+            timerLayout.StopTimer();
+        }
+    }
+    
     protected static class ScaleFromMiddle
     {
         protected static int ScaleLeft(int scaleFromMiddlePx, int left)
