@@ -32,6 +32,8 @@ public class SettingsLayout extends ViewGroup
     
     private void Init()
     {
+        this.setClickable(true);
+        
         TimerLayout timer = new TimerLayout(context);
         this.addView(timer);
     }

@@ -14,7 +14,6 @@ import static com.turntimer.MainActivity.displayMetricsController;
 public class MainLayout extends ViewGroup
 {
     Context context;
-    int scaleFromMiddlePx = 1;
     private int startingChild = 1;
     private int currentChild = startingChild;
     boolean interruptClick = true;
@@ -55,7 +54,9 @@ public class MainLayout extends ViewGroup
     
     private void Init()
     {
-        SettingsLayout settingsLayout= new SettingsLayout(context);
+        this.setClickable(true);
+        
+        SettingsLayout settingsLayout = new SettingsLayout(context);
         this.addView(settingsLayout);
         
         TimerParentLayout timerParentLayout = new TimerParentLayout(context);
@@ -64,6 +65,7 @@ public class MainLayout extends ViewGroup
         if (startingChild < 0 || startingChild >= getChildCount())
         {
             startingChild = 0;
+            currentChild = startingChild;
         }
         for (int i = 0; i < getChildCount(); i++)
         {
@@ -157,13 +159,12 @@ public class MainLayout extends ViewGroup
                         animationSet.reset();
                         animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinright));
                         getChildAt(currentChild - 1).startAnimation(animationSet);
-    
+                        
                         getChildAt(currentChild).setVisibility(View.GONE);
                         getChildAt(currentChild - 1).setVisibility(View.VISIBLE);
                         currentChild--;
                         getChildAt(currentChild).setOnTouchListener(touchListener);
                     }
-                    
                 }
                 else
                 {

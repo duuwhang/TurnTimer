@@ -41,6 +41,8 @@ public class TimerParentLayout extends ViewGroup
     
     private void Init()
     {
+        this.setClickable(true);
+        
         UpdateTimerAmount(timerAmount);
         
         new CountDownTimer(1500, 1000)
@@ -200,22 +202,22 @@ public class TimerParentLayout extends ViewGroup
     
     protected static class ScaleFromMiddle
     {
-        private static int ScaleLeft(int scaleFromMiddlePx, int left)
+        protected static int ScaleLeft(int scaleFromMiddlePx, int left)
         {
             return left - scaleFromMiddlePx;
         }
         
-        private static int ScaleTop(int scaleFromMiddlePx, int top)
+        protected static int ScaleTop(int scaleFromMiddlePx, int top)
         {
             return top - scaleFromMiddlePx;
         }
         
-        private static int ScaleRight(int scaleFromMiddlePx, int right)
+        protected static int ScaleRight(int scaleFromMiddlePx, int right)
         {
             return right + 2 * scaleFromMiddlePx;
         }
         
-        private static int ScaleBottom(int scaleFromMiddlePx, int bottom)
+        protected static int ScaleBottom(int scaleFromMiddlePx, int bottom)
         {
             return bottom + 2 * scaleFromMiddlePx;
         }
