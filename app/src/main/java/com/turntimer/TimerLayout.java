@@ -45,7 +45,7 @@ public class TimerLayout extends ViewGroup
     private void Init()
     {
         GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
+        gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
         
         textView = new EditText(context);
@@ -90,7 +90,7 @@ public class TimerLayout extends ViewGroup
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int maxWidth = Math.max(displayMetricsController.getScreenWidth(), getSuggestedMinimumWidth());
+        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
         
         measureChildren(widthMeasureSpec, heightMeasureSpec);
@@ -115,7 +115,32 @@ public class TimerLayout extends ViewGroup
         }
     }
     
-    public void setTimerId(int id)
+    public void StartTimer()
+    {
+        countDownTimer = new CountDownTimer(timeMillis, 200)
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+                timerView.setText(String.format("%d:%02d", millisUntilFinished / 60000, (millisUntilFinished / 1000) % 60));
+                timeMillis = (int) millisUntilFinished;
+            }
+            
+            @Override
+            public void onFinish()
+            {
+            
+            }
+        };
+        countDownTimer.start();
+    }
+    
+    public void StopTimer()
+    {
+        countDownTimer.cancel();
+    }
+    
+    public void SetTimerId(int id)
     {
         textView.setText("Timer " + (id + 1));
     }

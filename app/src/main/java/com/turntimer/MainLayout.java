@@ -75,7 +75,7 @@ public class MainLayout extends ViewGroup
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
         
-        setGestureListener();
+        SetGestureListener();
     }
     
     @Override
@@ -87,7 +87,7 @@ public class MainLayout extends ViewGroup
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int maxWidth = Math.max(displayMetricsController.getScreenWidth(), getSuggestedMinimumWidth());
+        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
         
         measureChildren(widthMeasureSpec, heightMeasureSpec);
@@ -103,7 +103,7 @@ public class MainLayout extends ViewGroup
         }
     }
     
-    private void setGestureListener()
+    private void SetGestureListener()
     {
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener()
         {
@@ -209,7 +209,7 @@ public class MainLayout extends ViewGroup
                 }
                 else
                 {
-                    activityController.debug("arrived at left");
+                    activityController.Debug("arrived at left");
                 }
             }
             
@@ -277,7 +277,7 @@ public class MainLayout extends ViewGroup
                 }
                 else
                 {
-                    activityController.debug("arrived at right");
+                    activityController.Debug("arrived at right");
                 }
             }
         });

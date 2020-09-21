@@ -75,7 +75,7 @@ public class TimerParentLayout extends ViewGroup
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
-        int maxWidth = Math.max(displayMetricsController.getScreenWidth(), getSuggestedMinimumWidth());
+        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
         int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
         
         measureChildren(widthMeasureSpec, heightMeasureSpec);
@@ -92,8 +92,8 @@ public class TimerParentLayout extends ViewGroup
         int height = bottom - top;
         int width = right - left;
         
-        int rows = calculateRows(timerAmount, displayMetricsController.getScreenHeight(), displayMetricsController.getScreenWidth());
-        int columns = calculateColumns(timerAmount, rows);
+        int rows = CalculateRows(timerAmount, displayMetricsController.GetScreenHeight(), displayMetricsController.GetScreenWidth());
+        int columns = CalculateColumns(timerAmount, rows);
         
         offset.set(-1, -2, columns, rows);
         
@@ -130,7 +130,7 @@ public class TimerParentLayout extends ViewGroup
         } // flawed system -> hard 13, 16 exception & max amount is 30
     }
     
-    private int calculateRows(int timerAmount, int screenHeight, int screenWidth)
+    private int CalculateRows(int timerAmount, int screenHeight, int screenWidth)
     {
         int rows = timerAmount;
         double minRatio = Double.MAX_VALUE;
@@ -144,7 +144,7 @@ public class TimerParentLayout extends ViewGroup
                 //i + 1 = rows
                 //j + 1 = timerNumber
                 double height = (double) screenHeight / (i + 1);
-                int columns = calculateColumns(timerAmount, i + 1);
+                int columns = CalculateColumns(timerAmount, i + 1);
                 double width = (double) screenWidth / columns;
                 int timerDifference = (i + 1) * columns - timerAmount;
                 if (timerDifference > 0 && j >= timerAmount - timerDifference)
@@ -164,7 +164,7 @@ public class TimerParentLayout extends ViewGroup
         return rows;
     }
     
-    private int calculateColumns(int timerAmount, int rows)
+    private int CalculateColumns(int timerAmount, int rows)
     {
         return (int) Math.ceil((double) timerAmount / rows);
     }
@@ -181,21 +181,21 @@ public class TimerParentLayout extends ViewGroup
         for (int i = 0; i < timerAmount; i++)
         {
             TimerLayout timerLayout = new TimerLayout(context);
-            timerLayout.setTimerId(i);
+            timerLayout.SetTimerId(i);
             this.addView(timerLayout);
         }
         TimerLayout timer = (TimerLayout) getChildAt(0);
-        timer.startCountdown();
+        timer.StartTimer();
         this.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
                 TimerLayout timer = (TimerLayout) getChildAt(activeTimerId);
-                timer.stopCountdown();
+                timer.StopTimer();
                 activeTimerId += 1 - (activeTimerId + 1) / timerCount * timerCount;
                 timer = (TimerLayout) getChildAt(activeTimerId);
-                timer.startCountdown();
+                timer.StartTimer();
             }
         });
     }
