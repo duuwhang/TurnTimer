@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import static com.turntimer.MainActivity.activityController;
 import static com.turntimer.MainActivity.displayMetricsController;
 
@@ -146,7 +145,7 @@ public class MainLayout extends ViewGroup
                 return result;
             }
             
-            void onSwipeLeft()
+            void onSwipeLeft() // experimental
             {
                 if (currentChild > 0)
                 {
@@ -178,7 +177,6 @@ public class MainLayout extends ViewGroup
                     });
                     getChildAt(currentChild).startAnimation(animationSet);
                     
-                    //animationSet.notify();
                     //animationSet.reset();
                     animationSet = new AnimationSet(false);
                     animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinright));
@@ -215,24 +213,8 @@ public class MainLayout extends ViewGroup
                 }
             }
             
-            void onSwipeRight()
+            void onSwipeRight() // experimental
             {
-                /*
-                if (currentChild < getChildCount() - 1)
-                {
-                    AnimationSet animationSet = new AnimationSet(false);
-                    
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutleft));
-                    getChildAt(currentChild).startAnimation(animationSet);
-                    
-                    currentChild++;
-                    getChildAt(currentChild).setVisibility(View.VISIBLE);
-                    animationSet.reset();
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinleft));
-                    getChildAt(currentChild).startAnimation(animationSet);
-                    getChildAt(currentChild - 1).setVisibility(View.GONE);
-                }*/
-                
                 if (currentChild < getChildCount() - 1)
                 {
                     
@@ -263,11 +245,7 @@ public class MainLayout extends ViewGroup
                         }
                     });
                     getChildAt(currentChild).startAnimation(animationSet);
-                    /*
-                    TranslateAnimation tanimationSet = new TranslateAnimation(0.0f, 0.0f, 0.0f, 0.0f);
-                    tanimationSet.setDuration(1);
-                    getChildAt(currentChild + 1).startAnimation(tanimationSet);
-                    */
+                    
                     animationSet = new AnimationSet(false);
                     final View child2 = getChildAt(currentChild + 1);
                     animationSet.setAnimationListener(new Animation.AnimationListener()
