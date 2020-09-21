@@ -1,31 +1,31 @@
 package com.turntimer;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import static com.turntimer.MainActivity.displayMetricsController;
 
-public class SettingsLayout extends ViewGroup
+public class TimerPauseLayout extends ViewGroup
 {
     Context context;
-    TimerPauseLayout timerPauseLayout;
-    SpecificSettingsLayout specificSettingsLayout;
+    private Rect tempChildRect = new Rect();
     
-    public SettingsLayout(Context context)
+    public TimerPauseLayout(Context context)
     {
         super(context);
         this.context = context;
         Init();
     }
     
-    public SettingsLayout(Context context, AttributeSet attrs)
+    public TimerPauseLayout(Context context, AttributeSet attrs)
     {
         this(context, attrs, 0);
         this.context = context;
         Init();
     }
     
-    public SettingsLayout(Context context, AttributeSet attrs, int defStyle)
+    public TimerPauseLayout(Context context, AttributeSet attrs, int defStyle)
     {
         super(context, attrs, defStyle);
         this.context = context;
@@ -34,10 +34,7 @@ public class SettingsLayout extends ViewGroup
     
     private void Init()
     {
-        this.setClickable(true);
-        
-        TimerLayout timer = new TimerLayout(context);
-        this.addView(timer);
+    
     }
     
     @Override
