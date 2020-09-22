@@ -2,14 +2,10 @@ package com.turntimer;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.CountDownTimer;
-import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
-import static com.turntimer.MainActivity.activityController;
 import static com.turntimer.MainActivity.displayMetricsController;
 
-public class TimerParentLayout extends ViewGroup
+public class TimerParentLayout extends BaseLayout
 {
     Context context;
     boolean focus = false;
@@ -27,61 +23,9 @@ public class TimerParentLayout extends ViewGroup
         Init();
     }
     
-    public TimerParentLayout(Context context, AttributeSet attrs)
-    {
-        this(context, attrs, 0);
-        this.context = context;
-        Init();
-    }
-    
-    public TimerParentLayout(Context context, AttributeSet attrs, int defStyle)
-    {
-        super(context, attrs, defStyle);
-        this.context = context;
-        Init();
-    }
-    
     private void Init()
     {
         UpdateTimerAmount(timerAmount);
-        
-        this.setClickable(true);
-        /*
-        new CountDownTimer(1500, 1000)
-        {
-            @Override
-            public void onTick(long millisUntilFinished)
-            {
-            
-            }
-            
-            @Override
-            public void onFinish()
-            {
-                if (timerAmount < maxTimerAmount)
-                {
-                    timerAmount++;
-                    UpdateTimerAmount(timerAmount);
-                    start();
-                }
-            }
-        }.start();*/
-    }
-    
-    @Override
-    public boolean shouldDelayChildPressedState()
-    {
-        return false;
-    }
-    
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
-        int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
-        
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0), resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
     }
     
     @Override

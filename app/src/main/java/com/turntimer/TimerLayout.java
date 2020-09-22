@@ -4,14 +4,12 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
-import android.util.AttributeSet;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import static com.turntimer.MainActivity.displayMetricsController;
 
-public class TimerLayout extends ViewGroup
+public class TimerLayout extends BaseLayout
 {
     Context context;
     EditText textView;
@@ -28,20 +26,6 @@ public class TimerLayout extends ViewGroup
         Init();
     }
     
-    public TimerLayout(Context context, AttributeSet attrs)
-    {
-        this(context, attrs, 0);
-        this.context = context;
-        Init();
-    }
-    
-    public TimerLayout(Context context, AttributeSet attrs, int defStyle)
-    {
-        super(context, attrs, defStyle);
-        this.context = context;
-        Init();
-    }
-    
     private void Init()
     {
         GradientDrawable gradientDrawable = new GradientDrawable();
@@ -54,22 +38,6 @@ public class TimerLayout extends ViewGroup
         timerView = new TextView(context);
         timerView.setText(String.format("%d:%02d", 0, 0));
         this.addView(timerView);
-    }
-    
-    @Override
-    public boolean shouldDelayChildPressedState()
-    {
-        return false;
-    }
-    
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
-        int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
-        
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0), resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
     }
     
     @Override

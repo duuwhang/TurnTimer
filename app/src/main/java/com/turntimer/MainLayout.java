@@ -1,18 +1,15 @@
 package com.turntimer;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import static com.turntimer.MainActivity.activityController;
-import static com.turntimer.MainActivity.displayMetricsController;
 
-public class MainLayout extends ViewGroup
+public class MainLayout extends BaseLayout
 {
     Context context;
     private int startingChild = 1;
@@ -40,20 +37,6 @@ public class MainLayout extends ViewGroup
         Init();
     }
     
-    public MainLayout(Context context, AttributeSet attrs)
-    {
-        this(context, attrs, 0);
-        this.context = context;
-        Init();
-    }
-    
-    public MainLayout(Context context, AttributeSet attrs, int defStyle)
-    {
-        super(context, attrs, defStyle);
-        this.context = context;
-        Init();
-    }
-    
     private void Init()
     {
         SettingsLayout settingsLayout = new SettingsLayout(context);
@@ -74,33 +57,7 @@ public class MainLayout extends ViewGroup
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
         
-        this.setClickable(true);
         SetGestureListener();
-    }
-    
-    @Override
-    public boolean shouldDelayChildPressedState()
-    {
-        return false;
-    }
-    
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
-    {
-        int maxWidth = Math.max(displayMetricsController.GetScreenWidth(), getSuggestedMinimumWidth());
-        int maxHeight = Math.max(maxWidth, getSuggestedMinimumHeight());
-        
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, 0), resolveSizeAndState(maxHeight, heightMeasureSpec, 0));
-    }
-    
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
-    {
-        for (int i = 0; i < getChildCount(); i++)
-        {
-            getChildAt(i).layout(left, top, right, bottom);
-        }
     }
     
     private void SetGestureListener()
