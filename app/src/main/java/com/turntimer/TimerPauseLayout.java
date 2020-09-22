@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 public class TimerPauseLayout extends BaseLayout
 {
-    Context context;
     TextView timersPausedText;
     Button resetButton;
     private Rect tempChildRect = new Rect();
@@ -15,12 +14,7 @@ public class TimerPauseLayout extends BaseLayout
     public TimerPauseLayout(Context context)
     {
         super(context);
-        this.context = context;
-        Init();
-    }
-    
-    private void Init()
-    {
+        
         timersPausedText = new TextView(context);
         timersPausedText.setText("Timers Paused");
         timersPausedText.setTextSize(50);

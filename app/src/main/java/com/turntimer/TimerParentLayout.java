@@ -7,7 +7,6 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
 {
-    Context context;
     boolean focus = false;
     int timerAmount = 4;
     int maxTimerAmount = 30;
@@ -19,13 +18,10 @@ public class TimerParentLayout extends BaseLayout
     public TimerParentLayout(Context context)
     {
         super(context);
-        this.context = context;
-        Init();
-    }
-    
-    private void Init()
-    {
+        
         UpdateTimerAmount(timerAmount);
+        
+        this.setClickable(true);
     }
     
     @Override
@@ -139,8 +135,7 @@ public class TimerParentLayout extends BaseLayout
                 TimerLayout timer = (TimerLayout) getChildAt(activeTimerId);
                 timer.StopTimer();
                 activeTimerId += 1 - (activeTimerId + 1) / timerCount * timerCount;
-                timer = (TimerLayout) getChildAt(activeTimerId);
-                timer.StartTimer();
+                ((TimerLayout) getChildAt(activeTimerId)).StartTimer();
             }
         });
     }
@@ -155,6 +150,19 @@ public class TimerParentLayout extends BaseLayout
     {
         TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
         timerLayout.StopTimer();
+    }
+    
+    public void SetFocus(boolean focus)
+    {
+        this.focus = focus;
+        if (focus)
+        {
+            this.StartTimers();
+        }
+        else
+        {
+            this.StopTimers();
+        }
     }
     
     protected static class ScaleFromMiddle

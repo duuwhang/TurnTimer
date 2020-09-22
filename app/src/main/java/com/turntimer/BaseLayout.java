@@ -12,12 +12,6 @@ public class BaseLayout extends ViewGroup
     {
         super(context);
         this.context = context;
-        Init();
-    }
-    
-    private void Init()
-    {
-        this.setClickable(true);
     }
     
     @Override
@@ -43,5 +37,10 @@ public class BaseLayout extends ViewGroup
         {
             getChildAt(i).layout(left, top, right, bottom);
         }
+    }
+    
+    public void SetFocus(boolean focus)
+    {
+    
     }
 }

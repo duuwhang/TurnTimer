@@ -11,7 +11,6 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends BaseLayout
 {
-    Context context;
     EditText textView;
     TextView timerView;
     CountDownTimer countDownTimer;
@@ -22,12 +21,7 @@ public class TimerLayout extends BaseLayout
     public TimerLayout(Context context)
     {
         super(context);
-        this.context = context;
-        Init();
-    }
-    
-    private void Init()
-    {
+        
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);

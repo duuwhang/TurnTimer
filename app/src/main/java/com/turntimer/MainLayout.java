@@ -11,7 +11,6 @@ import static com.turntimer.MainActivity.activityController;
 
 public class MainLayout extends BaseLayout
 {
-    Context context;
     private int startingChild = 1;
     private int currentChild = startingChild;
     boolean interruptClick = true;
@@ -33,18 +32,13 @@ public class MainLayout extends BaseLayout
     public MainLayout(Context context)
     {
         super(context);
-        this.context = context;
-        Init();
-    }
     
-    private void Init()
-    {
         SettingsLayout settingsLayout = new SettingsLayout(context);
         this.addView(settingsLayout);
-        
+    
         TimerParentLayout timerParentLayout = new TimerParentLayout(context);
         this.addView(timerParentLayout);
-        
+    
         if (startingChild < 0 || startingChild >= getChildCount())
         {
             startingChild = 0;
@@ -56,7 +50,8 @@ public class MainLayout extends BaseLayout
             getChildAt(i).setVisibility(View.INVISIBLE);
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
-        
+        ((BaseLayout) getChildAt(startingChild)).SetFocus(true);
+    
         SetGestureListener();
     }
     
@@ -124,6 +119,7 @@ public class MainLayout extends BaseLayout
                             child1.setVisibility(View.INVISIBLE);
                             child1.clearAnimation();
                             child1.setX(child1.getWidth());
+                            ((BaseLayout) child1).SetFocus(false);
                         }
                         
                         @Override
@@ -152,6 +148,7 @@ public class MainLayout extends BaseLayout
                             child2.setVisibility(View.VISIBLE);
                             child2.clearAnimation();
                             child2.setX(0);
+                            ((BaseLayout) child1).SetFocus(true);
                         }
                         
                         @Override
@@ -193,6 +190,7 @@ public class MainLayout extends BaseLayout
                             child1.setVisibility(View.INVISIBLE);
                             child1.clearAnimation();
                             child1.setX(-child1.getWidth());
+                            ((BaseLayout) child1).SetFocus(false);
                         }
                         
                         @Override
@@ -219,6 +217,7 @@ public class MainLayout extends BaseLayout
                             child2.setVisibility(View.VISIBLE);
                             child2.clearAnimation();
                             child2.setX(0);
+                            ((BaseLayout) child1).SetFocus(true);
                         }
                         
                         @Override
