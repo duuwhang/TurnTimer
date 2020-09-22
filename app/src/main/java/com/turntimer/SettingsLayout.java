@@ -2,7 +2,9 @@ package com.turntimer;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.view.ViewGroup;
+import static com.turntimer.MainActivity.activityController;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class SettingsLayout extends ViewGroup
@@ -35,7 +37,7 @@ public class SettingsLayout extends ViewGroup
     private void Init()
     {
         this.setClickable(true);
-    
+        
         timerPauseLayout = new TimerPauseLayout(context);
         this.addView(timerPauseLayout);
     }

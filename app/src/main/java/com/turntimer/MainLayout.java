@@ -31,6 +31,7 @@ public class MainLayout extends ViewGroup
             return gestureDetector.onTouchEvent(motionEvent);
         }
     };
+    //static TimerParentLayout timerParentLayout;
     
     public MainLayout(Context context)
     {
@@ -55,8 +56,6 @@ public class MainLayout extends ViewGroup
     
     private void Init()
     {
-        this.setClickable(true);
-        
         SettingsLayout settingsLayout = new SettingsLayout(context);
         this.addView(settingsLayout);
         
@@ -75,6 +74,7 @@ public class MainLayout extends ViewGroup
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
         
+        this.setClickable(true);
         SetGestureListener();
     }
     

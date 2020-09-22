@@ -6,12 +6,14 @@ import android.os.CountDownTimer;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import static com.turntimer.MainActivity.activityController;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends ViewGroup
 {
     Context context;
-    int timerAmount = 1;
+    boolean focus = false;
+    int timerAmount = 4;
     int maxTimerAmount = 30;
     int activeTimerId = 0;
     int scaleFromMiddlePx = 1;
@@ -41,10 +43,10 @@ public class TimerParentLayout extends ViewGroup
     
     private void Init()
     {
-        this.setClickable(true);
-        
         UpdateTimerAmount(timerAmount);
         
+        this.setClickable(true);
+        /*
         new CountDownTimer(1500, 1000)
         {
             @Override
@@ -63,7 +65,7 @@ public class TimerParentLayout extends ViewGroup
                     start();
                 }
             }
-        }.start();
+        }.start();*/
     }
     
     @Override
@@ -125,7 +127,6 @@ public class TimerParentLayout extends ViewGroup
             tempChildRect.bottom = offset.bottom + tempChildRect.top + childHeight;
             tempChildRect.right += offset.right + tempChildRect.left + childWidth;
             
-            
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         } // flawed system -> hard 13, 16 exception & max amount is 30
     }
@@ -185,7 +186,7 @@ public class TimerParentLayout extends ViewGroup
             this.addView(timerLayout);
         }
         TimerLayout timer = (TimerLayout) getChildAt(0);
-        timer.StartTimer();
+        //timer.StartTimer();
         this.setOnClickListener(new OnClickListener()
         {
             @Override
@@ -208,11 +209,8 @@ public class TimerParentLayout extends ViewGroup
     
     public void StopTimers()
     {
-        for (int i = 0; i < getChildCount(); i++)
-        {
-            TimerLayout timerLayout = (TimerLayout) getChildAt(i);
-            timerLayout.StopTimer();
-        }
+        TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
+        timerLayout.StopTimer();
     }
     
     protected static class ScaleFromMiddle
