@@ -9,7 +9,6 @@ public class TimerPauseLayout extends BaseLayout
 {
     TextView timersPausedText;
     Button resetButton;
-    private Rect tempChildRect = new Rect();
     
     public TimerPauseLayout(Context context)
     {
@@ -22,6 +21,6 @@ public class TimerPauseLayout extends BaseLayout
         
         resetButton = new Button(context);
         resetButton.setText("Reset Timers");
-        //this.addView(resetButton);
+        this.addView(resetButton);
     }
 }

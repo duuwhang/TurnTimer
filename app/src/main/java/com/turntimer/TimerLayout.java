@@ -37,16 +37,16 @@ public class TimerLayout extends BaseLayout
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        int height = bottom - top;
         int width = right - left;
+        int height = bottom - top;
         for (int i = 0; i < getChildCount(); i++)
         {
-            int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
-            tempChildRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
-            tempChildRect.bottom = tempChildRect.top + childHeight;
+            int childHeight = getChildAt(i).getMeasuredHeight();
             tempChildRect.left = width / 2 - childWidth / 2;
+            tempChildRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
             tempChildRect.right = tempChildRect.left + childWidth;
+            tempChildRect.bottom = tempChildRect.top + childHeight;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }

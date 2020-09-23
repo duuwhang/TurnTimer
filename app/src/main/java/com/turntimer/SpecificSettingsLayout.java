@@ -2,6 +2,8 @@ package com.turntimer;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.widget.Button;
+import android.widget.TextView;
 
 public class SpecificSettingsLayout extends BaseLayout
 {
@@ -10,5 +12,8 @@ public class SpecificSettingsLayout extends BaseLayout
     public SpecificSettingsLayout(Context context)
     {
         super(context);
+        TextView resetButton = new TextView(context);
+        resetButton.setText("Reset Timers");
+        this.addView(resetButton);
     }
 }

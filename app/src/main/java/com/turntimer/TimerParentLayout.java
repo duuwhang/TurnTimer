@@ -18,10 +18,9 @@ public class TimerParentLayout extends BaseLayout
     public TimerParentLayout(Context context)
     {
         super(context);
+        this.setClickable(true);
         
         UpdateTimerAmount(timerAmount);
-        
-        this.setClickable(true);
     }
     
     @Override
@@ -31,8 +30,8 @@ public class TimerParentLayout extends BaseLayout
         top = ScaleFromMiddle.ScaleTop(scaleFromMiddlePx, top);
         right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
         bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom);
-        int height = bottom - top;
         int width = right - left;
+        int height = bottom - top;
         
         int rows = CalculateRows(timerAmount, displayMetricsController.GetScreenHeight(), displayMetricsController.GetScreenWidth());
         int columns = CalculateColumns(timerAmount, rows);
@@ -45,8 +44,8 @@ public class TimerParentLayout extends BaseLayout
             int childWidth = width / columns;
             tempChildRect.setEmpty();
             
-            tempChildRect.top = offset.top + i / columns * childHeight;
             tempChildRect.left = offset.left + (i % columns) * childWidth;
+            tempChildRect.top = offset.top + i / columns * childHeight;
             
             int timerDifference = rows * columns - timerAmount;
             if (timerAmount == 13 || timerAmount == 16) // fix double width exception
@@ -60,12 +59,12 @@ public class TimerParentLayout extends BaseLayout
                 
                 if ((rows - 1) * columns > i)
                 {
-                    tempChildRect.top += tempChildRect.left / childWidth * childHeight;
                     tempChildRect.left -= tempChildRect.left / childWidth * width;
+                    tempChildRect.top += tempChildRect.left / childWidth * childHeight;
                 }
             }
-            tempChildRect.bottom = offset.bottom + tempChildRect.top + childHeight;
             tempChildRect.right += offset.right + tempChildRect.left + childWidth;
+            tempChildRect.bottom = offset.bottom + tempChildRect.top + childHeight;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         } // flawed system -> hard 13, 16 exception & max amount is 30
@@ -114,10 +113,8 @@ public class TimerParentLayout extends BaseLayout
     {
         this.timerAmount = timerAmount;
         final int timerCount = timerAmount;
-        
         activeTimerId = 0;
         this.removeAllViewsInLayout();
-        this.layout(0, 0, 0, 0);
         
         for (int i = 0; i < timerAmount; i++)
         {
@@ -125,8 +122,6 @@ public class TimerParentLayout extends BaseLayout
             timerLayout.SetTimerId(i);
             this.addView(timerLayout);
         }
-        TimerLayout timer = (TimerLayout) getChildAt(0);
-        //timer.StartTimer();
         this.setOnClickListener(new OnClickListener()
         {
             @Override
