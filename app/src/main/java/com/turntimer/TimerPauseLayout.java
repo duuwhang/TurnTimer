@@ -40,12 +40,12 @@ public class TimerPauseLayout extends BaseLayout
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        int width = right - left;
         int height = bottom - top;
+        int width = right - left;
         for (int i = 0; i < getChildCount(); i++)
         {
-            int childWidth = getChildAt(i).getMeasuredWidth();
             int childHeight = getChildAt(i).getMeasuredHeight();
+            int childWidth = getChildAt(i).getMeasuredWidth();
             tempChildRect.left = width / 2 - childWidth / 2;
             tempChildRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
             tempChildRect.right = tempChildRect.left + childWidth;

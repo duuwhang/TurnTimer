@@ -30,8 +30,8 @@ public class TimerParentLayout extends BaseLayout
         top = ScaleFromMiddle.ScaleTop(scaleFromMiddlePx, top);
         right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
         bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom);
-        int width = right - left;
         int height = bottom - top;
+        int width = right - left;
         
         int rows = CalculateRows(timerAmount, displayMetricsController.GetScreenHeight(), displayMetricsController.GetScreenWidth());
         int columns = CalculateColumns(timerAmount, rows);
@@ -83,9 +83,10 @@ public class TimerParentLayout extends BaseLayout
             {
                 //i + 1 = rows
                 //j + 1 = timerNumber
-                double height = (double) screenHeight / (i + 1);
                 int columns = CalculateColumns(timerAmount, i + 1);
+                double height = (double) screenHeight / (i + 1);
                 double width = (double) screenWidth / columns;
+                
                 int timerDifference = (i + 1) * columns - timerAmount;
                 if (timerDifference > 0 && j >= timerAmount - timerDifference)
                 {
