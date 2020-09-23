@@ -109,10 +109,9 @@ public class TimerParentLayout extends BaseLayout
         return (int) Math.ceil((double) timerAmount / rows);
     }
     
-    public void UpdateTimerAmount(int timerAmount)
+    public void UpdateTimerAmount(int timerCount)
     {
-        this.timerAmount = timerAmount;
-        final int timerCount = timerAmount;
+        this.timerAmount = timerCount;
         activeTimerId = 0;
         this.removeAllViewsInLayout();
         
@@ -127,12 +126,16 @@ public class TimerParentLayout extends BaseLayout
             @Override
             public void onClick(View view)
             {
-                TimerLayout timer = (TimerLayout) getChildAt(activeTimerId);
-                timer.StopTimer();
-                activeTimerId += 1 - (activeTimerId + 1) / timerCount * timerCount;
+                ((TimerLayout) getChildAt(activeTimerId)).StopTimer();
+                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
                 ((TimerLayout) getChildAt(activeTimerId)).StartTimer();
             }
         });
+    }
+    
+    public void ResetTimers()
+    {
+        UpdateTimerAmount(timerAmount);
     }
     
     public void StartTimers()

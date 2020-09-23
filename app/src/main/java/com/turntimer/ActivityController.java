@@ -1,20 +1,28 @@
 package com.turntimer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.Toast;
 
 public class ActivityController
 {
     private Context context;
+    private Activity activity;
     
-    public ActivityController(Context context)
+    public ActivityController(Context context, Activity activity)
     {
         this.context = context;
+        this.activity = activity;
     }
     
     public Context GetContext()
     {
         return context;
+    }
+    
+    public Context GetActivity()
+    {
+        return activity;
     }
     
     public void Debug()

@@ -116,10 +116,10 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
+                            ((BaseLayout) child1).SetFocus(false);
                             child1.setVisibility(View.INVISIBLE);
                             child1.clearAnimation();
                             child1.setX(child1.getWidth());
-                            ((BaseLayout) child1).SetFocus(false);
                         }
                         
                         @Override
@@ -145,10 +145,10 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
+                            ((BaseLayout) child2).SetFocus(true);
                             child2.setVisibility(View.VISIBLE);
                             child2.clearAnimation();
                             child2.setX(0);
-                            ((BaseLayout) child1).SetFocus(true);
                         }
                         
                         @Override
@@ -187,10 +187,10 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
+                            ((BaseLayout) child1).SetFocus(false);
                             child1.setVisibility(View.INVISIBLE);
                             child1.clearAnimation();
                             child1.setX(-child1.getWidth());
-                            ((BaseLayout) child1).SetFocus(false);
                         }
                         
                         @Override
@@ -214,10 +214,10 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
+                            ((BaseLayout) child2).SetFocus(true);
                             child2.setVisibility(View.VISIBLE);
                             child2.clearAnimation();
                             child2.setX(0);
-                            ((BaseLayout) child1).SetFocus(true);
                         }
                         
                         @Override

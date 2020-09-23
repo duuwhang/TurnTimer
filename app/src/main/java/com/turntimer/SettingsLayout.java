@@ -3,6 +3,7 @@ package com.turntimer;
 import android.content.Context;
 import android.graphics.Rect;
 import static com.turntimer.MainActivity.activityController;
+import static com.turntimer.MainActivity.displayMetricsController;
 
 public class SettingsLayout extends BaseLayout
 {
@@ -30,10 +31,10 @@ public class SettingsLayout extends BaseLayout
         {
             //tempChildRect.setEmpty();
             tempChildRect.left = left;
-            tempChildRect.top = top + (int) ((float) height * i / 4);
+            tempChildRect.top = top+(int)(height*(0.25f*i));// + (int) ((float) height * i / 4);
             tempChildRect.right = right;
             tempChildRect.bottom = top + (int) (height * (0.25f + 0.75f * i));
-            
+            getChildAt(i).setY(-tempChildRect.top);
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
     }

@@ -12,7 +12,7 @@ public class SpecificSettingsLayout extends BaseLayout
     public SpecificSettingsLayout(Context context)
     {
         super(context);
-        TextView resetButton = new TextView(context);
+        Button resetButton = new Button(context);
         resetButton.setText("Reset Timers");
         this.addView(resetButton);
     }

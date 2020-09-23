@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity
     Context context;
     Resources resources;
     WindowManager windowManager;
+    MainLayout mainLayout;
     static ActivityController activityController;
     static DisplayMetricsController displayMetricsController;
     
@@ -25,10 +26,10 @@ public class MainActivity extends AppCompatActivity
         context = this;
         resources = getResources();
         windowManager = getWindowManager();
-        activityController = new ActivityController(context);
+        activityController = new ActivityController(context,this);
         displayMetricsController = new DisplayMetricsController(context, resources, windowManager);
         
-        MainLayout mainLayout = new MainLayout(context);
+        mainLayout = new MainLayout(context);
         setContentView(mainLayout);
     }
 }
