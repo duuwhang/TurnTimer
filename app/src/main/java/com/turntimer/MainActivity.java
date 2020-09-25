@@ -11,10 +11,10 @@ import java.util.Objects;
 @SuppressLint("StaticFieldLeak")
 public class MainActivity extends AppCompatActivity
 {
-    Context context;
-    Resources resources;
-    WindowManager windowManager;
-    MainLayout mainLayout;
+    private Context context;
+    private Resources resources;
+    private WindowManager windowManager;
+    private MainLayout mainLayout;
     static ActivityController activityController;
     static DisplayMetricsController displayMetricsController;
     
@@ -26,10 +26,15 @@ public class MainActivity extends AppCompatActivity
         context = this;
         resources = getResources();
         windowManager = getWindowManager();
-        activityController = new ActivityController(context,this);
+        activityController = new ActivityController(context);
         displayMetricsController = new DisplayMetricsController(context, resources, windowManager);
         
         mainLayout = new MainLayout(context);
         setContentView(mainLayout);
+    }
+    
+    public BaseLayout getLayout()
+    {
+        return mainLayout;
     }
 }

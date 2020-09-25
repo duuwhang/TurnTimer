@@ -11,11 +11,11 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends BaseLayout
 {
-    EditText editText;
-    TextView timerView;
-    CountDownTimer countDownTimer;
-    int timeMillis = 300000;
-    float outlineWidthDp = 0.8f;
+    private EditText editText;
+    private TextView timerView;
+    private CountDownTimer countDownTimer;
+    private int timeMillis = 300000;
+    private float outlineWidthDp = 0.8f;
     private Rect tempChildRect = new Rect();
     
     public TimerLayout(Context context)

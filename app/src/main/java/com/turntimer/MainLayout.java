@@ -13,9 +13,9 @@ public class MainLayout extends BaseLayout
 {
     private int startingChild = 1;
     private int currentChild = startingChild;
-    boolean interruptClick = true;
-    GestureDetector gestureDetector = null;
-    View.OnTouchListener touchListener = new View.OnTouchListener()
+    private boolean interruptClick = true;
+    private GestureDetector gestureDetector = null;
+    private View.OnTouchListener touchListener = new View.OnTouchListener()
     {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent)
@@ -27,7 +27,6 @@ public class MainLayout extends BaseLayout
             return gestureDetector.onTouchEvent(motionEvent);
         }
     };
-    //static TimerParentLayout timerParentLayout;
     
     public MainLayout(Context context)
     {

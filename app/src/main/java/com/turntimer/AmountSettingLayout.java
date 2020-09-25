@@ -10,8 +10,8 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class AmountSettingLayout extends BaseLayout
 {
-    TextView textView;
-    EditText editText;
+    private TextView textView;
+    private EditText editText;
     private Rect tempChildRect = new Rect();
     
     public AmountSettingLayout(Context context)
@@ -44,7 +44,7 @@ public class AmountSettingLayout extends BaseLayout
                     }
                     
                     MainActivity mainActivity = (MainActivity) activityController.GetActivity();
-                    TimerParentLayout timerParentLayout = (TimerParentLayout) mainActivity.mainLayout.getChildAt(1);
+                    TimerParentLayout timerParentLayout = (TimerParentLayout) mainActivity.getLayout().getChildAt(1);
                     timerParentLayout.UpdateTimerAmount(timerAmount);
                 }
             }

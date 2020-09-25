@@ -9,8 +9,8 @@ import static com.turntimer.MainActivity.activityController;
 
 public class TimerPauseLayout extends BaseLayout
 {
-    TextView timersPausedText;
-    Button resetButton;
+    private TextView timersPausedText;
+    private Button resetButton;
     private Rect tempChildRect = new Rect();
     
     public TimerPauseLayout(final Context context)
@@ -30,7 +30,7 @@ public class TimerPauseLayout extends BaseLayout
             public void onClick(View view)
             {
                 MainActivity mainActivity = (MainActivity) activityController.GetActivity();
-                TimerParentLayout timerParentLayout = (TimerParentLayout) mainActivity.mainLayout.getChildAt(1);
+                TimerParentLayout timerParentLayout = (TimerParentLayout) mainActivity.getLayout().getChildAt(1);
                 timerParentLayout.ResetTimers();
             }
         });

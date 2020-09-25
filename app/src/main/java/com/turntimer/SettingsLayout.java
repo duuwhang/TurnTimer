@@ -7,8 +7,8 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class SettingsLayout extends BaseLayout
 {
-    TimerPauseLayout timerPauseLayout;
-    SpecificSettingsLayout specificSettingsLayout;
+    private TimerPauseLayout timerPauseLayout;
+    private SpecificSettingsLayout specificSettingsLayout;
     private Rect tempChildRect = new Rect();
     
     public SettingsLayout(Context context)

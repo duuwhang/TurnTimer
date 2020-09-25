@@ -7,11 +7,11 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
 {
-    boolean focus = false;
-    int timerAmount = 4;
-    int maxTimerAmount = 30;
-    int activeTimerId = 0;
-    int scaleFromMiddlePx = 1;
+    private boolean focus = false;
+    private int timerAmount = 4;
+    private int maxTimerAmount = 30;
+    private int activeTimerId = 0;
+    private int scaleFromMiddlePx = 1;
     private Rect offset = new Rect();
     private Rect tempChildRect = new Rect();
     

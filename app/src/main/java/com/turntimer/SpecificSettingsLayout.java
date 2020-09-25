@@ -5,9 +5,9 @@ import android.graphics.Rect;
 
 public class SpecificSettingsLayout extends BaseLayout
 {
-    AmountSettingLayout amountSettingLayout;
-    CountdownSettingLayout countdownSettingLayout;
-    StopwatchSettingLayout stopwatchSettingLayout;
+    private AmountSettingLayout amountSettingLayout;
+    private CountdownSettingLayout countdownSettingLayout;
+    private StopwatchSettingLayout stopwatchSettingLayout;
     private Rect tempChildRect = new Rect();
     
     public SpecificSettingsLayout(Context context)

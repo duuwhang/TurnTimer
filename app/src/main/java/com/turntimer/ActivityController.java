@@ -9,10 +9,10 @@ public class ActivityController
     private Context context;
     private Activity activity;
     
-    public ActivityController(Context context, Activity activity)
+    public ActivityController(Context context)
     {
         this.context = context;
-        this.activity = activity;
+        this.activity = (Activity) context;
     }
     
     public Context GetContext()
