@@ -8,13 +8,13 @@ import android.widget.TextView;
 import static com.turntimer.MainActivity.activityController;
 import static com.turntimer.MainActivity.displayMetricsController;
 
-public class AmountSettingLayout extends BaseLayout
+public class SettingsAmountLayout extends BaseLayout
 {
     private TextView textView;
     private EditText editText;
     private Rect tempChildRect = new Rect();
     
-    public AmountSettingLayout(Context context)
+    public SettingsAmountLayout(Context context)
     {
         super(context);
         

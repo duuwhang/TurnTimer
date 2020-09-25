@@ -5,23 +5,23 @@ import android.graphics.Rect;
 
 public class SpecificSettingsLayout extends BaseLayout
 {
-    private AmountSettingLayout amountSettingLayout;
-    private CountdownSettingLayout countdownSettingLayout;
-    private StopwatchSettingLayout stopwatchSettingLayout;
+    private SettingsAmountLayout settingsAmountLayout;
+    private SettingsCountdownLayout settingsCountdownLayout;
+    private SettingsStopwatchLayout settingsStopwatchLayout;
     private Rect tempChildRect = new Rect();
     
     public SpecificSettingsLayout(Context context)
     {
         super(context);
     
-        amountSettingLayout = new AmountSettingLayout(context);
-        this.addView(amountSettingLayout);
+        settingsAmountLayout = new SettingsAmountLayout(context);
+        this.addView(settingsAmountLayout);
+    
+        settingsCountdownLayout = new SettingsCountdownLayout(context);
+        this.addView(settingsCountdownLayout);
         
-        countdownSettingLayout = new CountdownSettingLayout(context);
-        this.addView(countdownSettingLayout);
-        
-        stopwatchSettingLayout = new StopwatchSettingLayout(context);
-        this.addView(stopwatchSettingLayout);
+        settingsStopwatchLayout = new SettingsStopwatchLayout(context);
+        this.addView(settingsStopwatchLayout);
     }
     
     @Override
