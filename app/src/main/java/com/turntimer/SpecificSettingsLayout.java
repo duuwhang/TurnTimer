@@ -13,10 +13,10 @@ public class SpecificSettingsLayout extends BaseLayout
     public SpecificSettingsLayout(Context context)
     {
         super(context);
-    
+        
         settingsAmountLayout = new SettingsAmountLayout(context);
         this.addView(settingsAmountLayout);
-    
+        
         settingsCountdownLayout = new SettingsCountdownLayout(context);
         this.addView(settingsCountdownLayout);
         
@@ -29,6 +29,7 @@ public class SpecificSettingsLayout extends BaseLayout
     {
         int height = bottom - top;
         int width = right - left;
+        
         for (int i = 0; i < getChildCount(); i++)
         {
             tempChildRect.left = left;

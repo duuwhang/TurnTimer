@@ -64,13 +64,12 @@ public class SettingsAmountLayout extends BaseLayout
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
             
-            tempChildRect.left = left + width / 2 - childWidth / 2;
+            tempChildRect.left = left + width / 2 - childWidth / 2 + i * width / 4;
             tempChildRect.top = top - height / 2 - childHeight / 2;
             tempChildRect.right = tempChildRect.left + childWidth;
             tempChildRect.bottom = tempChildRect.top + childHeight;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
-        editText.setX(editText.getX() + (int) ((float) textView.getMeasuredWidth() / 2) + 10);
     }
 }
