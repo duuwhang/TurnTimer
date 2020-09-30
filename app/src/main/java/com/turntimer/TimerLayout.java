@@ -17,6 +17,7 @@ public class TimerLayout extends BaseLayout
     private int timeMillis = 300000;
     private float outlineWidthDp = 0.8f;
     private Rect tempChildRect = new Rect();
+    TimerParentLayout.timerMode mode;
     
     public TimerLayout(Context context)
     {
@@ -61,6 +62,10 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onTick(long millisUntilFinished)
             {
+                if (mode == TimerParentLayout.timerMode.Stopwatch)
+                {
+                    millisUntilFinished = (Integer.MAX_VALUE - millisUntilFinished);
+                }
                 timerView.setText(String.format("%d:%02d", millisUntilFinished / 60000, (millisUntilFinished / 1000) % 60));
                 timeMillis = (int) millisUntilFinished;
             }
@@ -70,7 +75,9 @@ public class TimerLayout extends BaseLayout
             {
             
             }
-        };
+        }
+        
+        ;
         countDownTimer.start();
     }
     
@@ -82,5 +89,10 @@ public class TimerLayout extends BaseLayout
     public void SetTimerId(int id)
     {
         editText.setText("Timer " + (id + 1));
+    }
+    
+    public void SetTime(int millis)
+    {
+        timeMillis = millis;
     }
 }

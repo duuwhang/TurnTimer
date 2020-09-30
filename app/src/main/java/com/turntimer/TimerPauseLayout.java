@@ -30,7 +30,7 @@ public class TimerPauseLayout extends BaseLayout
             public void onClick(View view)
             {
                 MainActivity mainActivity = (MainActivity) activityController.GetActivity();
-                TimerParentLayout timerParentLayout = (TimerParentLayout) mainActivity.getLayout().getChildAt(1);
+                TimerParentLayout timerParentLayout = ((MainLayout) mainActivity.getLayout()).GetTimerParentLayout();
                 timerParentLayout.ResetTimers();
             }
         });

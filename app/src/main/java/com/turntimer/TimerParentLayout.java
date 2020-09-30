@@ -14,6 +14,13 @@ public class TimerParentLayout extends BaseLayout
     private int scaleFromMiddlePx = 1;
     private Rect offset = new Rect();
     private Rect tempChildRect = new Rect();
+    private timerMode mode;
+    
+    enum timerMode
+    {
+        Countdown,
+        Stopwatch
+    }
     
     public TimerParentLayout(Context context)
     {
@@ -21,6 +28,8 @@ public class TimerParentLayout extends BaseLayout
         this.setClickable(true);
         
         UpdateTimerAmount(timerAmount);
+        mode = timerMode.Stopwatch;
+        ChangeTimerMode(false);
     }
     
     @Override
@@ -139,18 +148,6 @@ public class TimerParentLayout extends BaseLayout
         UpdateTimerAmount(timerAmount);
     }
     
-    public void StartTimers()
-    {
-        TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
-        timerLayout.StartTimer();
-    }
-    
-    public void StopTimers()
-    {
-        TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
-        timerLayout.StopTimer();
-    }
-    
     public void SetFocus(boolean focus)
     {
         this.focus = focus;
@@ -161,6 +158,60 @@ public class TimerParentLayout extends BaseLayout
         else
         {
             this.StopTimers();
+        }
+    }
+    
+    private void StartTimers()
+    {
+        TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
+        timerLayout.mode = mode;
+        timerLayout.StartTimer();
+    }
+    
+    private void StopTimers()
+    {
+        TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
+        timerLayout.StopTimer();
+    }
+    
+    private void ChangeTimerMode(boolean toggle)
+    {
+        if (!toggle)
+        {
+            switch (mode)
+            {
+                case Countdown:
+                    mode = timerMode.Stopwatch;
+                    break;
+                default:
+                case Stopwatch:
+                    mode = timerMode.Countdown;
+                    break;
+            }
+        }
+        switch (mode)
+        {
+            case Countdown:
+                mode = timerMode.Stopwatch;
+                ResetTimers();
+                for (int i = 0; i < timerAmount; i++)
+                {
+                    TimerLayout timer = (TimerLayout) getChildAt(i);
+                    timer.SetTime(Integer.MAX_VALUE);
+                    timer.mode = timerMode.Stopwatch;
+                }
+                break;
+            default:
+            case Stopwatch:
+                mode = timerMode.Countdown;
+                ResetTimers();
+                for (int i = 0; i < timerAmount; i++)
+                {
+                    TimerLayout timer = (TimerLayout) getChildAt(i);
+                    timer.SetTime(300000);
+                    timer.mode = timerMode.Countdown;
+                }
+                break;
         }
     }
     

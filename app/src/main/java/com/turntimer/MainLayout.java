@@ -14,6 +14,8 @@ public class MainLayout extends BaseLayout
     private int startingChild = 1;
     private int currentChild = startingChild;
     private boolean interruptClick = true;
+    private SettingsLayout settingsLayout;
+    private TimerParentLayout timerParentLayout;
     private GestureDetector gestureDetector = null;
     private View.OnTouchListener touchListener = new View.OnTouchListener()
     {
@@ -31,13 +33,13 @@ public class MainLayout extends BaseLayout
     public MainLayout(Context context)
     {
         super(context);
-    
-        SettingsLayout settingsLayout = new SettingsLayout(context);
+        
+        settingsLayout = new SettingsLayout(context);
         this.addView(settingsLayout);
-    
-        TimerParentLayout timerParentLayout = new TimerParentLayout(context);
+        
+        timerParentLayout = new TimerParentLayout(context);
         this.addView(timerParentLayout);
-    
+        
         if (startingChild < 0 || startingChild >= getChildCount())
         {
             startingChild = 0;
@@ -50,8 +52,13 @@ public class MainLayout extends BaseLayout
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
         ((BaseLayout) getChildAt(startingChild)).SetFocus(true);
-    
+        
         SetGestureListener();
+    }
+    
+    public TimerParentLayout GetTimerParentLayout()
+    {
+        return timerParentLayout;
     }
     
     private void SetGestureListener()
