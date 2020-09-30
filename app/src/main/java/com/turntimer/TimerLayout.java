@@ -39,10 +39,12 @@ public class TimerLayout extends BaseLayout
     {
         int height = bottom - top;
         int width = right - left;
+        
         for (int i = 0; i < getChildCount(); i++)
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
+            
             tempChildRect.left = width / 2 - childWidth / 2;
             tempChildRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
             tempChildRect.right = tempChildRect.left + childWidth;
