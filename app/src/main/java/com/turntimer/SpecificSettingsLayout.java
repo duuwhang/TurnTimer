@@ -40,4 +40,14 @@ public class SpecificSettingsLayout extends BaseLayout
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
     }
+    
+    public SettingsStopwatchLayout GetStopwatchLayout()
+    {
+        return settingsStopwatchLayout;
+    }
+    
+    public SettingsCountdownLayout GetCountdownLayout()
+    {
+        return settingsCountdownLayout;
+    }
 }

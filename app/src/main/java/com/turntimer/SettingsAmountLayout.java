@@ -25,7 +25,6 @@ public class SettingsAmountLayout extends BaseLayout
         
         editText = new EditText(context);
         editText.setText("" + 4);
-        
         editText.setOnFocusChangeListener(new OnFocusChangeListener()
         {
             @Override
