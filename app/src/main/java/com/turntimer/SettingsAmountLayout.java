@@ -55,7 +55,6 @@ public class SettingsAmountLayout extends BaseLayout
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        
         int height = bottom - top;
         int width = right - left;
         
@@ -65,7 +64,7 @@ public class SettingsAmountLayout extends BaseLayout
             int childWidth = getChildAt(i).getMeasuredWidth();
             
             tempChildRect.left = left + width / 2 - childWidth / 2 + i * width / 4;
-            tempChildRect.top = top - height / 2 - childHeight / 2;
+            tempChildRect.top = top + height / 2 - childHeight / 2;
             tempChildRect.right = tempChildRect.left + childWidth;
             tempChildRect.bottom = tempChildRect.top + childHeight;
             

@@ -35,6 +35,7 @@ public class BaseLayout extends ViewGroup
     {
         for (int i = 0; i < getChildCount(); i++)
         {
+            top = 0;
             getChildAt(i).layout(left, top, right, bottom);
         }
     }

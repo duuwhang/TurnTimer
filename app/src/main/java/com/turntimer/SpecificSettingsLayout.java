@@ -33,7 +33,7 @@ public class SpecificSettingsLayout extends BaseLayout
         for (int i = 0; i < getChildCount(); i++)
         {
             tempChildRect.left = left;
-            tempChildRect.top = top + i * height / getChildCount();
+            tempChildRect.top = top + i * height / getChildCount() - height / getChildCount();
             tempChildRect.right = tempChildRect.left + width;
             tempChildRect.bottom = tempChildRect.top + height / getChildCount();
             

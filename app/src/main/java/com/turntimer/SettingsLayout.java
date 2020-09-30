@@ -31,10 +31,9 @@ public class SettingsLayout extends BaseLayout
         for (int i = 0; i < getChildCount(); i++)
         {
             tempChildRect.left = left;
-            tempChildRect.top = top+(int)(height*(0.25f*i));// + (int) ((float) height * i / 4);
+            tempChildRect.top = top + (int) (height * (0.25f * i));// + (int) ((float) height * i / 4);
             tempChildRect.right = right;
             tempChildRect.bottom = top + (int) (height * (0.25f + 0.75f * i));
-            
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
