@@ -7,6 +7,7 @@ import android.os.CountDownTimer;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
+import java.sql.Time;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends BaseLayout
@@ -31,7 +32,7 @@ public class TimerLayout extends BaseLayout
         this.addView(editText);
         
         timerView = new TextView(context);
-        timerView.setText(String.format("%d:%02d", 0, 0));
+        timerView.setText(FormatTime(timeMillis));
         this.addView(timerView);
     }
     
@@ -66,7 +67,7 @@ public class TimerLayout extends BaseLayout
                 {
                     millisUntilFinished = (Integer.MAX_VALUE - millisUntilFinished);
                 }
-                timerView.setText(String.format("%d:%02d", millisUntilFinished / 60000, (millisUntilFinished / 1000) % 60));
+                timerView.setText(FormatTime((int) millisUntilFinished));
                 timeMillis = (int) millisUntilFinished;
             }
             
@@ -75,9 +76,7 @@ public class TimerLayout extends BaseLayout
             {
             
             }
-        }
-        
-        ;
+        };
         countDownTimer.start();
     }
     
@@ -94,5 +93,10 @@ public class TimerLayout extends BaseLayout
     public void SetTime(int millis)
     {
         timeMillis = millis;
+    }
+    
+    private String FormatTime(int millis)
+    {
+        return String.format("%d:%02d", millis / 60000, (millis / 1000) % 60);
     }
 }

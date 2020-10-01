@@ -28,7 +28,7 @@ public class TimerParentLayout extends BaseLayout
         this.setClickable(true);
         
         UpdateTimerAmount(timerAmount);
-        mode = timerMode.Stopwatch;
+        mode = timerMode.Countdown;
         ChangeTimerMode(false);
     }
     
