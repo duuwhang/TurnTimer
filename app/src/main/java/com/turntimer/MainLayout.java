@@ -134,9 +134,8 @@ public class MainLayout extends BaseLayout
                         
                         }
                     });
-                    getChildAt(currentChild).startAnimation(animationSet);
+                    child1.startAnimation(animationSet);
                     
-                    //animationSet.reset();
                     animationSet = new AnimationSet(false);
                     animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinright));
                     final View child2 = getChildAt(currentChild - 1);
@@ -145,16 +144,16 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationStart(Animation animation)
                         {
-                        
+                            child2.setX(-child1.getWidth());
+                            child2.setVisibility(View.VISIBLE);
                         }
                         
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
-                            ((BaseLayout) child2).SetFocus(true);
-                            child2.setVisibility(View.VISIBLE);
-                            child2.clearAnimation();
                             child2.setX(0);
+                            ((BaseLayout) child2).SetFocus(true);
+                            child2.clearAnimation();
                         }
                         
                         @Override
@@ -163,7 +162,7 @@ public class MainLayout extends BaseLayout
                         
                         }
                     });
-                    getChildAt(currentChild - 1).startAnimation(animationSet);
+                    child2.startAnimation(animationSet);
                     
                     currentChild--;
                 }
@@ -193,10 +192,10 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
+                            child1.setX(-child1.getWidth());
                             ((BaseLayout) child1).SetFocus(false);
                             child1.setVisibility(View.INVISIBLE);
                             child1.clearAnimation();
-                            child1.setX(-child1.getWidth());
                         }
                         
                         @Override
@@ -205,7 +204,7 @@ public class MainLayout extends BaseLayout
                         
                         }
                     });
-                    getChildAt(currentChild).startAnimation(animationSet);
+                    child1.startAnimation(animationSet);
                     
                     animationSet = new AnimationSet(false);
                     final View child2 = getChildAt(currentChild + 1);
@@ -214,16 +213,16 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationStart(Animation animation)
                         {
-                        
+                            child2.setX(child2.getWidth());
+                            child2.setVisibility(View.VISIBLE);
                         }
                         
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
-                            ((BaseLayout) child2).SetFocus(true);
-                            child2.setVisibility(View.VISIBLE);
-                            child2.clearAnimation();
                             child2.setX(0);
+                            ((BaseLayout) child2).SetFocus(true);
+                            child2.clearAnimation();
                         }
                         
                         @Override
@@ -233,7 +232,7 @@ public class MainLayout extends BaseLayout
                         }
                     });
                     animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinleft));
-                    getChildAt(currentChild + 1).startAnimation(animationSet);
+                    child2.startAnimation(animationSet);
                     
                     currentChild++;
                 }
