@@ -11,6 +11,6 @@
         android:duration="@integer/anim_duration"
         android:fromXDelta="0%"
         android:fromYDelta="0%"
-        android:toXDelta="100%"
+        android:toXDelta="@fraction/anim_distance"
         android:toYDelta="0%" />
 </set>
