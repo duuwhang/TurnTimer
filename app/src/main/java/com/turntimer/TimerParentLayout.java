@@ -26,6 +26,16 @@ public class TimerParentLayout extends BaseLayout
     {
         super(context);
         this.setClickable(true);
+        this.setOnClickListener(new OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                StopTimers();
+                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
+                StartTimers();
+            }
+        });
         
         UpdateTimerAmount(timerAmount);
         mode = timerMode.Countdown;
@@ -131,16 +141,6 @@ public class TimerParentLayout extends BaseLayout
             timerLayout.SetTimerId(i);
             this.addView(timerLayout);
         }
-        this.setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                ((TimerLayout) getChildAt(activeTimerId)).StopTimer();
-                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
-                ((TimerLayout) getChildAt(activeTimerId)).StartTimer();
-            }
-        });
     }
     
     public void ResetTimers()
@@ -153,18 +153,17 @@ public class TimerParentLayout extends BaseLayout
         this.focus = focus;
         if (focus)
         {
-            this.StartTimers();
+            StartTimers();
         }
         else
         {
-            this.StopTimers();
+            StopTimers();
         }
     }
     
     private void StartTimers()
     {
         TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
-        timerLayout.mode = mode;
         timerLayout.StartTimer();
     }
     
@@ -208,7 +207,7 @@ public class TimerParentLayout extends BaseLayout
                 for (int i = 0; i < timerAmount; i++)
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.SetTime(300000);
+                    timer.SetTime(5000);
                     timer.mode = timerMode.Countdown;
                 }
                 break;

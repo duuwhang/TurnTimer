@@ -4,10 +4,13 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-import java.sql.Time;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends BaseLayout
@@ -58,6 +61,10 @@ public class TimerLayout extends BaseLayout
     
     public void StartTimer()
     {
+        if (countDownTimer != null)
+        {
+            countDownTimer.cancel();
+        }
         countDownTimer = new CountDownTimer(timeMillis, 200)
         {
             @Override
@@ -74,7 +81,7 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onFinish()
             {
-            
+                EndTimer();
             }
         };
         countDownTimer.start();
@@ -83,6 +90,34 @@ public class TimerLayout extends BaseLayout
     public void StopTimer()
     {
         countDownTimer.cancel();
+    }
+    
+    private void EndTimer()
+    {
+        AnimationSet animationSet = new AnimationSet(false);
+        animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.timerend));
+        animationSet.setAnimationListener(new Animation.AnimationListener()
+        {
+            @Override
+            public void onAnimationStart(Animation animation)
+            {
+            
+            }
+            
+            @Override
+            public void onAnimationEnd(Animation animation)
+            {
+                clearAnimation();
+                setAlpha(0.5f);
+            }
+            
+            @Override
+            public void onAnimationRepeat(Animation animation)
+            {
+            
+            }
+        });
+        this.startAnimation(animationSet);
     }
     
     public void SetTimerId(int id)
