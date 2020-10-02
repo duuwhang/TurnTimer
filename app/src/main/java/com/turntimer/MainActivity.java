@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(mainLayout);
     }
     
-    public BaseLayout getLayout()
+    public MainLayout GetLayout() //BaseLayout?
     {
         return mainLayout;
     }

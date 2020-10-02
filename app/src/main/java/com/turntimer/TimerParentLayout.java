@@ -36,8 +36,8 @@ public class TimerParentLayout extends BaseLayout
             }
         });
         
-        UpdateTimerAmount(timerAmount);
         mode = timerMode.Countdown;
+        UpdateTimerAmount(timerAmount);
         ChangeTimerMode(false);
     }
     
@@ -200,6 +200,10 @@ public class TimerParentLayout extends BaseLayout
     private void SetTimerCountdownTime(int timeMillis)
     {
         timerCountdownTimeMillis = timeMillis;
+        if (mode == timerMode.Countdown)
+        {
+            ResetTimers();
+        }
     }
     
     private void ChangeTimerMode(boolean toggle)
@@ -240,6 +244,35 @@ public class TimerParentLayout extends BaseLayout
                     timer.SetTime(timerCountdownTimeMillis);
                 }
                 break;
+        }
+    }
+    
+    public void ChangeTimerMode(timerMode tMode)
+    {
+        if (tMode != mode)
+        {
+            mode = tMode;
+            ResetTimers();
+            switch (mode)
+            {
+                case Countdown:
+                    for (int i = 0; i < timerAmount; i++)
+                    {
+                        TimerLayout timer = (TimerLayout) getChildAt(i);
+                        timer.mode = timerMode.Countdown;
+                        timer.SetTime(timerCountdownTimeMillis);
+                    }
+                    break;
+                default:
+                case Stopwatch:
+                    for (int i = 0; i < timerAmount; i++)
+                    {
+                        TimerLayout timer = (TimerLayout) getChildAt(i);
+                        timer.mode = timerMode.Stopwatch;
+                        timer.SetTime(Integer.MAX_VALUE);
+                    }
+                    break;
+            }
         }
     }
     

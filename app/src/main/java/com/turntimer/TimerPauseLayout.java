@@ -29,8 +29,8 @@ public class TimerPauseLayout extends BaseLayout
             @Override
             public void onClick(View view)
             {
-                MainActivity mainActivity = (MainActivity) activityController.GetActivity();
-                TimerParentLayout timerParentLayout = ((MainLayout) mainActivity.getLayout()).GetTimerParentLayout();
+                MainLayout mainLayout = ((MainActivity) activityController.GetActivity()).GetLayout();
+                TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
                 timerParentLayout.ResetTimers();
             }
         });

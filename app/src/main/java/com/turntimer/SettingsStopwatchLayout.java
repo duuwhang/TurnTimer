@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import static com.turntimer.MainActivity.activityController;
 
 public class SettingsStopwatchLayout extends BaseLayout
 {
@@ -64,6 +65,16 @@ public class SettingsStopwatchLayout extends BaseLayout
     {
         focusable = false;
         checkBox.setChecked(!checkBox.isChecked());
+        MainLayout mainLayout = ((MainActivity) activityController.GetActivity()).GetLayout();
+        TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
+        if (checkBox.isChecked())
+        {
+            timerParentLayout.ChangeTimerMode(TimerParentLayout.timerMode.Stopwatch);
+        }
+        else
+        {
+            timerParentLayout.ChangeTimerMode(TimerParentLayout.timerMode.Countdown);
+        }
         focusable = true;
     }
 }

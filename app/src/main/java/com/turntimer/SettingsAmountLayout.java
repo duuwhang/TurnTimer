@@ -41,9 +41,9 @@ public class SettingsAmountLayout extends BaseLayout
                     {
                         timerAmount = 1;
                     }
-                    
-                    MainActivity mainActivity = (MainActivity) activityController.GetActivity();
-                    TimerParentLayout timerParentLayout = (TimerParentLayout) mainActivity.getLayout().getChildAt(1);
+    
+                    MainLayout mainLayout = ((MainActivity) activityController.GetActivity()).GetLayout();
+                    TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
                     timerParentLayout.UpdateTimerAmount(timerAmount);
                 }
             }
