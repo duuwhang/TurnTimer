@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -16,9 +15,9 @@ import static com.turntimer.MainActivity.displayMetricsController;
 public class TimerLayout extends BaseLayout
 {
     private EditText editText;
-    private TextView timerView;
+    private TextView textView;
     private CountDownTimer countDownTimer;
-    private int timeMillis = 300000;
+    private int timeMillis = 0;
     private float outlineWidthDp = 0.8f;
     private Rect tempChildRect = new Rect();
     TimerParentLayout.timerMode mode;
@@ -34,9 +33,10 @@ public class TimerLayout extends BaseLayout
         editText = new EditText(context);
         this.addView(editText);
         
-        timerView = new TextView(context);
-        timerView.setText(FormatTime(timeMillis));
-        this.addView(timerView);
+        textView = new TextView(context);
+        this.addView(textView);
+        
+        SetTime(timeMillis);
     }
     
     @Override
@@ -70,12 +70,7 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onTick(long millisUntilFinished)
             {
-                if (mode == TimerParentLayout.timerMode.Stopwatch)
-                {
-                    millisUntilFinished = (Integer.MAX_VALUE - millisUntilFinished);
-                }
-                timerView.setText(FormatTime((int) millisUntilFinished));
-                timeMillis = (int) millisUntilFinished;
+                FormatTime((int) millisUntilFinished);
             }
             
             @Override
@@ -135,10 +130,16 @@ public class TimerLayout extends BaseLayout
     public void SetTime(int millis)
     {
         timeMillis = millis;
+        FormatTime(timeMillis);
     }
     
-    private String FormatTime(int millis)
+    private void FormatTime(int millis)
     {
-        return String.format("%d:%02d", millis / 60000, (millis / 1000) % 60);
+        timeMillis = millis;
+        if (mode == TimerParentLayout.timerMode.Stopwatch)
+        {
+            millis = (Integer.MAX_VALUE - millis);
+        }
+        textView.setText(String.format("%d:%02d", millis / 60000, (millis / 1000) % 60));
     }
 }

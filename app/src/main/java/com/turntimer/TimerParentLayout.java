@@ -11,6 +11,7 @@ public class TimerParentLayout extends BaseLayout
     private int timerAmount = 4;
     private int maxTimerAmount = 30;
     private int activeTimerId = 0;
+    private int timerCountdownTimeMillis = 5 * 60 * 1000;
     private int scaleFromMiddlePx = 1;
     private Rect offset = new Rect();
     private Rect tempChildRect = new Rect();
@@ -161,6 +162,7 @@ public class TimerParentLayout extends BaseLayout
         {
             TimerLayout timerLayout = new TimerLayout(context);
             timerLayout.SetTimerId(i);
+            timerLayout.SetTime(timerCountdownTimeMillis);
             this.addView(timerLayout);
         }
     }
@@ -195,6 +197,11 @@ public class TimerParentLayout extends BaseLayout
         timerLayout.StopTimer();
     }
     
+    private void SetTimerCountdownTime(int timeMillis)
+    {
+        timerCountdownTimeMillis = timeMillis;
+    }
+    
     private void ChangeTimerMode(boolean toggle)
     {
         if (!toggle)
@@ -210,27 +217,27 @@ public class TimerParentLayout extends BaseLayout
                     break;
             }
         }
+        
+        ResetTimers();
         switch (mode)
         {
             case Countdown:
                 mode = timerMode.Stopwatch;
-                ResetTimers();
                 for (int i = 0; i < timerAmount; i++)
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.SetTime(Integer.MAX_VALUE);
                     timer.mode = timerMode.Stopwatch;
+                    timer.SetTime(Integer.MAX_VALUE);
                 }
                 break;
             default:
             case Stopwatch:
                 mode = timerMode.Countdown;
-                ResetTimers();
                 for (int i = 0; i < timerAmount; i++)
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.SetTime(5000);
                     timer.mode = timerMode.Countdown;
+                    timer.SetTime(timerCountdownTimeMillis);
                 }
                 break;
         }
