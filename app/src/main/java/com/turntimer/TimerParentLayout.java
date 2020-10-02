@@ -31,9 +31,7 @@ public class TimerParentLayout extends BaseLayout
             @Override
             public void onClick(View view)
             {
-                StopTimers();
-                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
-                StartTimers();
+                SwitchToNextTimer();
             }
         });
         
@@ -127,6 +125,30 @@ public class TimerParentLayout extends BaseLayout
     private int CalculateColumns(int timerAmount, int rows)
     {
         return (int) Math.ceil((double) timerAmount / rows);
+    }
+    
+    protected void SwitchToNextTimer()
+    {
+        boolean allTimersEnded = true;
+        
+        for (int i = 0; i < timerAmount; i++)
+        {
+            if (!((TimerLayout) getChildAt(i)).HasEnded())
+            {
+                allTimersEnded = false;
+                break;
+            }
+        }
+        
+        if (!allTimersEnded)
+        {
+            StopTimers();
+            do
+            {
+                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
+            } while (((TimerLayout) getChildAt(activeTimerId)).HasEnded());
+            StartTimers();
+        }
     }
     
     public void UpdateTimerAmount(int timerCount)

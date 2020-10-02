@@ -81,7 +81,9 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onFinish()
             {
+                timeMillis = 0;
                 EndTimer();
+                ((TimerParentLayout) getParent()).SwitchToNextTimer();
             }
         };
         countDownTimer.start();
@@ -118,6 +120,11 @@ public class TimerLayout extends BaseLayout
             }
         });
         this.startAnimation(animationSet);
+    }
+    
+    public boolean HasEnded()
+    {
+        return timeMillis == 0;
     }
     
     public void SetTimerId(int id)
