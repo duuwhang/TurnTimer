@@ -1,11 +1,12 @@
-package com.turntimer;
+package com.turntimer.layouts;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import static com.turntimer.MainActivity.activityController;
+
+import com.turntimer.MainActivity;
 
 public class TimerPauseLayout extends BaseLayout
 {
@@ -29,7 +30,7 @@ public class TimerPauseLayout extends BaseLayout
             @Override
             public void onClick(View view)
             {
-                MainLayout mainLayout = ((MainActivity) activityController.GetActivity()).GetLayout();
+                MainLayout mainLayout = (MainActivity.getInstance()).GetLayout();
                 TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
                 timerParentLayout.ResetTimers();
             }

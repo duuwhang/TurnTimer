@@ -1,12 +1,12 @@
-package com.turntimer;
+package com.turntimer.layouts;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import static com.turntimer.MainActivity.activityController;
-import static com.turntimer.MainActivity.displayMetricsController;
+
+import com.turntimer.MainActivity;
 
 public class SettingsAmountLayout extends BaseLayout
 {
@@ -17,7 +17,7 @@ public class SettingsAmountLayout extends BaseLayout
     public SettingsAmountLayout(Context context)
     {
         super(context);
-        
+
         textView = new TextView(context);
         textView.setTextSize(20);
         textView.setText("Timer Amount (1-30): ");
@@ -41,8 +41,8 @@ public class SettingsAmountLayout extends BaseLayout
                     {
                         timerAmount = 1;
                     }
-    
-                    MainLayout mainLayout = ((MainActivity) activityController.GetActivity()).GetLayout();
+
+                    MainLayout mainLayout = (MainActivity.getInstance()).GetLayout();
                     TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
                     timerParentLayout.UpdateTimerAmount(timerAmount);
                 }

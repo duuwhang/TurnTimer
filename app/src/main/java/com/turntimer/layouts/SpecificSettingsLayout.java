@@ -1,7 +1,14 @@
-package com.turntimer;
+package com.turntimer.layouts;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.turntimer.MainActivity;
+import com.turntimer.layouts.settings.Setting;
 
 public class SpecificSettingsLayout extends BaseLayout
 {
@@ -13,7 +20,19 @@ public class SpecificSettingsLayout extends BaseLayout
     public SpecificSettingsLayout(Context context)
     {
         super(context);
-        
+
+        Setting timerAmount = new Setting("Timer Amount", new TextView(context));
+        Setting countdownMode = new Setting("Countdown Mode",
+                new CheckBox(context),
+                new EditText(context),
+                new Spinner(context));
+        Setting stopwatchMode = new Setting("Stopwatch Mode", new CheckBox(context));
+
+        this.addView(timerAmount);
+        this.addView(countdownMode);
+        this.addView(stopwatchMode);
+
+        /*
         settingsAmountLayout = new SettingsAmountLayout(context);
         this.addView(settingsAmountLayout);
         
@@ -22,6 +41,7 @@ public class SpecificSettingsLayout extends BaseLayout
         
         settingsStopwatchLayout = new SettingsStopwatchLayout(context);
         this.addView(settingsStopwatchLayout);
+        */
     }
     
     @Override
