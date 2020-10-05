@@ -15,7 +15,7 @@ import com.turntimer.layouts.BaseLayout;
 import com.turntimer.layouts.MainLayout;
 import com.turntimer.layouts.timers.TimerParentLayout;
 
-public class SpecificSettingsLayout extends BaseLayout
+public class SettingsSubLayout extends BaseLayout
 {
     private Setting timerAmountSetting;
     private Setting countdownSetting;
@@ -23,7 +23,7 @@ public class SpecificSettingsLayout extends BaseLayout
     List<CheckBox> checkBoxes = new ArrayList<>();
     private Rect tempChildRect = new Rect();
     
-    public SpecificSettingsLayout(Context context)
+    public SettingsSubLayout(Context context)
     {
         super(context);
         

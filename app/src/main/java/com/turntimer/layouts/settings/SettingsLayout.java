@@ -7,7 +7,7 @@ import com.turntimer.layouts.BaseLayout;
 public class SettingsLayout extends BaseLayout
 {
     private SettingsPauseLayout settingsPauseLayout;
-    private SpecificSettingsLayout specificSettingsLayout;
+    private SettingsSubLayout settingsSubLayout;
     private Rect tempChildRect = new Rect();
     
     public SettingsLayout(Context context)
@@ -17,9 +17,9 @@ public class SettingsLayout extends BaseLayout
         
         settingsPauseLayout = new SettingsPauseLayout(context);
         this.addView(settingsPauseLayout);
-        
-        specificSettingsLayout = new SpecificSettingsLayout(context);
-        this.addView(specificSettingsLayout);
+    
+        settingsSubLayout = new SettingsSubLayout(context);
+        this.addView(settingsSubLayout);
     }
     
     @Override
