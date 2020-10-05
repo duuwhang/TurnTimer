@@ -27,6 +27,32 @@ public class SettingsSubLayout extends BaseLayout
     {
         super(context);
         
+        addTimerAmountSetting();
+        
+        addCountdownSetting();
+        
+        addStopwatchSetting();
+    }
+    
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+    {
+        int height = bottom - top;
+        int width = right - left;
+        
+        for (int i = 0; i < getChildCount(); i++)
+        {
+            tempChildRect.left = left;
+            tempChildRect.top = top + i * height / getChildCount() - height / getChildCount();
+            tempChildRect.right = tempChildRect.left + width;
+            tempChildRect.bottom = tempChildRect.top + height / getChildCount();
+            
+            getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
+        }
+    }
+    
+    private void addTimerAmountSetting()
+    {
         final EditText editText = new EditText(context);
         editText.setText("" + 4);
         editText.setOnFocusChangeListener(new OnFocusChangeListener()
@@ -55,7 +81,10 @@ public class SettingsSubLayout extends BaseLayout
         
         timerAmountSetting = new Setting(context, "Timer Amount (1-30): ", editText);
         this.addView(timerAmountSetting);
-        
+    }
+    
+    private void addCountdownSetting()
+    {
         checkBoxes.add(new CheckBox(context));
         CheckBox currentCheckBox = checkBoxes.get(checkBoxes.size() - 1);
         currentCheckBox.setChecked(true);
@@ -80,8 +109,10 @@ public class SettingsSubLayout extends BaseLayout
                 }
             }
         });
+        
         EditText editTime = new EditText(context);
         editTime.setText("" + 5.0f);
+        
         Spinner dropDown = new Spinner(context);
         String[] items = new String[]{"min", "sec"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, items);
@@ -92,9 +123,12 @@ public class SettingsSubLayout extends BaseLayout
             editTime,
             dropDown);
         this.addView(countdownSetting);
-        
+    }
+    
+    private void addStopwatchSetting()
+    {
         checkBoxes.add(new CheckBox(context));
-        currentCheckBox = checkBoxes.get(checkBoxes.size() - 1);
+        CheckBox currentCheckBox = checkBoxes.get(checkBoxes.size() - 1);
         currentCheckBox.setChecked(false);
         currentCheckBox.setOnClickListener(new OnClickListener()
         {
@@ -120,23 +154,6 @@ public class SettingsSubLayout extends BaseLayout
         
         stopwatchSetting = new Setting(context, "Stopwatch Mode ", checkBoxes.get(checkBoxes.size() - 1));
         this.addView(stopwatchSetting);
-    }
-    
-    @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
-    {
-        int height = bottom - top;
-        int width = right - left;
-        
-        for (int i = 0; i < getChildCount(); i++)
-        {
-            tempChildRect.left = left;
-            tempChildRect.top = top + i * height / getChildCount() - height / getChildCount();
-            tempChildRect.right = tempChildRect.left + width;
-            tempChildRect.bottom = tempChildRect.top + height / getChildCount();
-            
-            getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
-        }
     }
     
     private void toggleMode()
