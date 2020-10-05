@@ -1,4 +1,4 @@
-package com.turntimer;
+package com.turntimer.layouts;
 
 import android.content.Context;
 import android.view.GestureDetector;
@@ -7,7 +7,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import static com.turntimer.MainActivity.activityController;
+
+import com.turntimer.R;
 
 public class MainLayout extends BaseLayout
 {
@@ -33,13 +34,12 @@ public class MainLayout extends BaseLayout
     public MainLayout(Context context)
     {
         super(context);
-        
         settingsLayout = new SettingsLayout(context);
         this.addView(settingsLayout);
-        
+
         timerParentLayout = new TimerParentLayout(context);
         this.addView(timerParentLayout);
-        
+
         if (startingChild < 0 || startingChild >= getChildCount())
         {
             startingChild = 0;
@@ -51,8 +51,6 @@ public class MainLayout extends BaseLayout
             getChildAt(i).setVisibility(View.INVISIBLE);
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
-        ((BaseLayout) getChildAt(startingChild)).SetFocus(true);
-        
         SetGestureListener();
     }
     
@@ -122,7 +120,6 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
-                            ((BaseLayout) child1).SetFocus(false);
                             child1.setVisibility(View.INVISIBLE);
                             child1.clearAnimation();
                             child1.setX(child1.getWidth());
@@ -152,7 +149,6 @@ public class MainLayout extends BaseLayout
                         public void onAnimationEnd(Animation animation)
                         {
                             child2.setX(0);
-                            ((BaseLayout) child2).SetFocus(true);
                             child2.clearAnimation();
                         }
                         
@@ -165,10 +161,6 @@ public class MainLayout extends BaseLayout
                     child2.startAnimation(animationSet);
                     
                     currentChild--;
-                }
-                else
-                {
-                    activityController.Debug("arrived at left");
                 }
             }
             
@@ -193,7 +185,6 @@ public class MainLayout extends BaseLayout
                         public void onAnimationEnd(Animation animation)
                         {
                             child1.setX(-child1.getWidth());
-                            ((BaseLayout) child1).SetFocus(false);
                             child1.setVisibility(View.INVISIBLE);
                             child1.clearAnimation();
                         }
@@ -221,7 +212,6 @@ public class MainLayout extends BaseLayout
                         public void onAnimationEnd(Animation animation)
                         {
                             child2.setX(0);
-                            ((BaseLayout) child2).SetFocus(true);
                             child2.clearAnimation();
                         }
                         
@@ -235,10 +225,6 @@ public class MainLayout extends BaseLayout
                     child2.startAnimation(animationSet);
                     
                     currentChild++;
-                }
-                else
-                {
-                    activityController.Debug("arrived at right");
                 }
             }
         });

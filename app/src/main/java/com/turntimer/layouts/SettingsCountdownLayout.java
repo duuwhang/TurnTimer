@@ -1,4 +1,4 @@
-package com.turntimer;
+package com.turntimer.layouts;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -8,7 +8,8 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import static com.turntimer.MainActivity.activityController;
+
+import com.turntimer.MainActivity;
 
 public class SettingsCountdownLayout extends BaseLayout
 {
@@ -98,7 +99,7 @@ public class SettingsCountdownLayout extends BaseLayout
     {
         focusable = false;
         checkBox.setChecked(!checkBox.isChecked());
-        MainLayout mainLayout = ((MainActivity) activityController.GetActivity()).GetLayout();
+        MainLayout mainLayout = (MainActivity.getInstance()).GetLayout();
         TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
         if (checkBox.isChecked())
         {

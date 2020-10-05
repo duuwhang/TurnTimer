@@ -1,9 +1,7 @@
-package com.turntimer;
+package com.turntimer.layouts;
 
 import android.content.Context;
 import android.graphics.Rect;
-import static com.turntimer.MainActivity.activityController;
-import static com.turntimer.MainActivity.displayMetricsController;
 
 public class SettingsLayout extends BaseLayout
 {

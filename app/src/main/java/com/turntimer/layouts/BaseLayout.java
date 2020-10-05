@@ -1,4 +1,4 @@
-package com.turntimer;
+package com.turntimer.layouts;
 
 import android.content.Context;
 import android.view.ViewGroup;
@@ -38,10 +38,5 @@ public class BaseLayout extends ViewGroup
             top = 0;
             getChildAt(i).layout(left, top, right, bottom);
         }
-    }
-    
-    public void SetFocus(boolean focus)
-    {
-    
     }
 }

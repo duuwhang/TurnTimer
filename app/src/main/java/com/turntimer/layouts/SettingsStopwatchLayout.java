@@ -1,11 +1,12 @@
-package com.turntimer;
+package com.turntimer.layouts;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import static com.turntimer.MainActivity.activityController;
+
+import com.turntimer.MainActivity;
 
 public class SettingsStopwatchLayout extends BaseLayout
 {
@@ -65,7 +66,7 @@ public class SettingsStopwatchLayout extends BaseLayout
     {
         focusable = false;
         checkBox.setChecked(!checkBox.isChecked());
-        MainLayout mainLayout = ((MainActivity) activityController.GetActivity()).GetLayout();
+        MainLayout mainLayout = (MainActivity.getInstance()).GetLayout();
         TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
         if (checkBox.isChecked())
         {
