@@ -85,10 +85,11 @@ public class SettingsSubLayout extends BaseLayout
     
     private void addCountdownSetting()
     {
-        checkBoxes.add(new CheckBox(context));
-        CheckBox currentCheckBox = checkBoxes.get(checkBoxes.size() - 1);
-        currentCheckBox.setChecked(true);
-        currentCheckBox.setOnClickListener(new OnClickListener()
+        CheckBox checkBox = new CheckBox(context);
+        checkBoxes.add(checkBox);
+        
+        checkBox.setChecked(true);
+        checkBox.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -98,7 +99,7 @@ public class SettingsSubLayout extends BaseLayout
                 view.setEnabled(true);
             }
         });
-        currentCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b)
@@ -119,7 +120,7 @@ public class SettingsSubLayout extends BaseLayout
         dropDown.setAdapter(arrayAdapter);
         
         countdownSetting = new Setting(context, "Countdown Mode ",
-            currentCheckBox,
+            checkBox,
             editTime,
             dropDown);
         this.addView(countdownSetting);
@@ -127,10 +128,11 @@ public class SettingsSubLayout extends BaseLayout
     
     private void addStopwatchSetting()
     {
-        checkBoxes.add(new CheckBox(context));
-        CheckBox currentCheckBox = checkBoxes.get(checkBoxes.size() - 1);
-        currentCheckBox.setChecked(false);
-        currentCheckBox.setOnClickListener(new OnClickListener()
+        CheckBox checkBox = new CheckBox(context);
+        checkBoxes.add(checkBox);
+    
+        checkBox.setChecked(false);
+        checkBox.setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -140,7 +142,7 @@ public class SettingsSubLayout extends BaseLayout
                 view.setEnabled(true);
             }
         });
-        currentCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b)
