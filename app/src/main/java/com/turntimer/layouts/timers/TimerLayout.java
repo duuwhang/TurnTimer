@@ -63,10 +63,7 @@ public class TimerLayout extends BaseLayout
     
     public void startTimer()
     {
-        if (countDownTimer != null)
-        {
-            countDownTimer.cancel();
-        }
+        stopTimer();
         countDownTimer = new CountDownTimer(timeMillis, 200)
         {
             @Override
@@ -88,7 +85,15 @@ public class TimerLayout extends BaseLayout
     
     public void stopTimer()
     {
-        countDownTimer.cancel();
+        if (isRunning())
+        {
+            countDownTimer.cancel();
+        }
+    }
+    
+    protected boolean isRunning()
+    {
+        return countDownTimer != null;
     }
     
     private void endTimer()

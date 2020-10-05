@@ -159,11 +159,14 @@ public class TimerParentLayout extends BaseLayout
         
         if (!allTimersEnded)
         {
-            stopTimers();
-            do
+            if (((TimerLayout) getChildAt(activeTimerId)).isRunning())
             {
-                activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
-            } while (((TimerLayout) getChildAt(activeTimerId)).hasEnded());
+                stopTimers();
+                do
+                {
+                    activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
+                } while (((TimerLayout) getChildAt(activeTimerId)).hasEnded());
+            }
             startTimers();
         }
     }
