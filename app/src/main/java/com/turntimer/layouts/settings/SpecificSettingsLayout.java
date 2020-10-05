@@ -154,6 +154,6 @@ public class SpecificSettingsLayout extends BaseLayout
     {
         MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
         TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
-        timerParentLayout.ChangeTimerMode(mode);
+        timerParentLayout.changeTimerMode(mode);
     }
 }

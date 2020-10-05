@@ -39,23 +39,24 @@ public class TimerParentLayout extends BaseLayout
         
         mode = timerMode.Countdown;
         updateTimerAmount(timerAmount);
-        ChangeTimerMode(false);
+        changeTimerMode(false);
     }
     
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        left = ScaleFromMiddle.ScaleLeft(scaleFromMiddlePx, left);
-        top = ScaleFromMiddle.ScaleTop(scaleFromMiddlePx, top);
-        right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
-        bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom);
-        //offset.set(-1, -2, columns, rows);
+        left = ScaleFromMiddle.scaleLeft(scaleFromMiddlePx, left);
+        top = ScaleFromMiddle.scaleTop(scaleFromMiddlePx, top);
+        right = ScaleFromMiddle.scaleRight(scaleFromMiddlePx, right);
+        bottom = ScaleFromMiddle.scaleBottom(scaleFromMiddlePx, bottom);
         
         int height = bottom - top;
         int width = right - left;
         
         int rows = calculateRows(timerAmount, displayMetricsController.getScreenHeight(), displayMetricsController.getScreenWidth());
         int columns = calculateColumns(timerAmount, rows);
+        
+        offset.set(-1, -2, columns, rows);
         
         for (int i = 0; i < getChildCount(); i++)
         {
@@ -87,6 +88,20 @@ public class TimerParentLayout extends BaseLayout
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         } // flawed system -> hard 13, 16 exception & max amount is 30
+    }
+    
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility)
+    {
+        super.onVisibilityChanged(changedView, visibility);
+        if (visibility == VISIBLE)
+        {
+            startTimers();
+        }
+        else
+        {
+            stopTimers();
+        }
     }
     
     private int calculateRows(int timerAmount, int screenHeight, int screenWidth)
@@ -144,12 +159,12 @@ public class TimerParentLayout extends BaseLayout
         
         if (!allTimersEnded)
         {
-            StopTimers();
+            stopTimers();
             do
             {
                 activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
             } while (((TimerLayout) getChildAt(activeTimerId)).hasEnded());
-            StartTimers();
+            startTimers();
         }
     }
     
@@ -173,19 +188,19 @@ public class TimerParentLayout extends BaseLayout
         updateTimerAmount(timerAmount);
     }
     
-    private void StartTimers()
+    private void startTimers()
     {
         TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
         timerLayout.startTimer();
     }
     
-    private void StopTimers()
+    private void stopTimers()
     {
         TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
         timerLayout.stopTimer();
     }
     
-    private void SetTimerCountdownTime(int timeMillis)
+    private void setTimerCountdownTime(int timeMillis)
     {
         timerCountdownTimeMillis = timeMillis;
         if (mode == timerMode.Countdown)
@@ -194,21 +209,7 @@ public class TimerParentLayout extends BaseLayout
         }
     }
     
-    @Override
-    protected void onVisibilityChanged(@NonNull View changedView, int visibility)
-    {
-        super.onVisibilityChanged(changedView, visibility);
-        if (visibility == VISIBLE)
-        {
-            StartTimers();
-        }
-        else
-        {
-            StopTimers();
-        }
-    }
-    
-    private void ChangeTimerMode(boolean toggle)
+    private void changeTimerMode(boolean toggle)
     {
         if (!toggle)
         {
@@ -249,7 +250,7 @@ public class TimerParentLayout extends BaseLayout
         }
     }
     
-    public void ChangeTimerMode(timerMode tMode)
+    public void changeTimerMode(timerMode tMode)
     {
         if (tMode != mode)
         {
@@ -280,24 +281,24 @@ public class TimerParentLayout extends BaseLayout
     
     protected static class ScaleFromMiddle
     {
-        protected static int ScaleLeft(int scaleFromMiddlePx, int left)
+        protected static int scaleLeft(int scaleFromMiddlePx, int left)
         {
-            return left - 2 * scaleFromMiddlePx;
+            return left - scaleFromMiddlePx;
         }
         
-        protected static int ScaleTop(int scaleFromMiddlePx, int top)
+        protected static int scaleTop(int scaleFromMiddlePx, int top)
         {
-            return top - 2 * scaleFromMiddlePx;
+            return top - scaleFromMiddlePx;
         }
         
-        protected static int ScaleRight(int scaleFromMiddlePx, int right)
+        protected static int scaleRight(int scaleFromMiddlePx, int right)
         {
-            return right + 2 * scaleFromMiddlePx;
+            return right + scaleFromMiddlePx;
         }
         
-        protected static int ScaleBottom(int scaleFromMiddlePx, int bottom)
+        protected static int scaleBottom(int scaleFromMiddlePx, int bottom)
         {
-            return bottom + 2 * scaleFromMiddlePx;
+            return bottom + scaleFromMiddlePx;
         }
     }
 }
