@@ -1,4 +1,4 @@
-package com.turntimer.layouts;
+package com.turntimer.layouts.timers;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -10,9 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
-
 import com.turntimer.R;
-
+import com.turntimer.layouts.BaseLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends BaseLayout

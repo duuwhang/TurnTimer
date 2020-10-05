@@ -7,8 +7,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-
 import com.turntimer.R;
+import com.turntimer.layouts.settings.SettingsLayout;
+import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class MainLayout extends BaseLayout
 {
@@ -36,10 +37,10 @@ public class MainLayout extends BaseLayout
         super(context);
         settingsLayout = new SettingsLayout(context);
         this.addView(settingsLayout);
-
+        
         timerParentLayout = new TimerParentLayout(context);
         this.addView(timerParentLayout);
-
+        
         if (startingChild < 0 || startingChild >= getChildCount())
         {
             startingChild = 0;

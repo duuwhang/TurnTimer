@@ -1,20 +1,22 @@
-package com.turntimer.layouts;
+package com.turntimer.layouts.settings;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.turntimer.MainActivity;
+import com.turntimer.layouts.BaseLayout;
+import com.turntimer.layouts.MainLayout;
+import com.turntimer.layouts.timers.TimerParentLayout;
 
-public class TimerPauseLayout extends BaseLayout
+public class SettingsPauseLayout extends BaseLayout
 {
     private TextView timersPausedText;
     private Button resetButton;
     private Rect tempChildRect = new Rect();
     
-    public TimerPauseLayout(final Context context)
+    public SettingsPauseLayout(final Context context)
     {
         super(context);
         

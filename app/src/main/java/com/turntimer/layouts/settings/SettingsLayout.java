@@ -1,11 +1,12 @@
-package com.turntimer.layouts;
+package com.turntimer.layouts.settings;
 
 import android.content.Context;
 import android.graphics.Rect;
+import com.turntimer.layouts.BaseLayout;
 
 public class SettingsLayout extends BaseLayout
 {
-    private TimerPauseLayout timerPauseLayout;
+    private SettingsPauseLayout settingsPauseLayout;
     private SpecificSettingsLayout specificSettingsLayout;
     private Rect tempChildRect = new Rect();
     
@@ -14,8 +15,8 @@ public class SettingsLayout extends BaseLayout
         super(context);
         this.setClickable(true);
         
-        timerPauseLayout = new TimerPauseLayout(context);
-        this.addView(timerPauseLayout);
+        settingsPauseLayout = new SettingsPauseLayout(context);
+        this.addView(settingsPauseLayout);
         
         specificSettingsLayout = new SpecificSettingsLayout(context);
         this.addView(specificSettingsLayout);

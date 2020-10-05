@@ -1,11 +1,10 @@
-package com.turntimer.layouts;
+package com.turntimer.layouts.timers;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.view.View;
-
 import androidx.annotation.NonNull;
-
+import com.turntimer.layouts.BaseLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
@@ -19,7 +18,7 @@ public class TimerParentLayout extends BaseLayout
     private Rect tempChildRect = new Rect();
     private timerMode mode;
     
-    enum timerMode
+    public enum timerMode
     {
         Countdown,
         Stopwatch
@@ -51,13 +50,13 @@ public class TimerParentLayout extends BaseLayout
         right = ScaleFromMiddle.ScaleRight(scaleFromMiddlePx, right);
         bottom = ScaleFromMiddle.ScaleBottom(scaleFromMiddlePx, bottom);
         //offset.set(-1, -2, columns, rows);
-
+        
         int height = bottom - top;
         int width = right - left;
-
+        
         int rows = CalculateRows(timerAmount, displayMetricsController.GetScreenHeight(), displayMetricsController.GetScreenWidth());
         int columns = CalculateColumns(timerAmount, rows);
-
+        
         for (int i = 0; i < getChildCount(); i++)
         {
             int childHeight = height / rows;
@@ -194,9 +193,10 @@ public class TimerParentLayout extends BaseLayout
             ResetTimers();
         }
     }
-
+    
     @Override
-    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility)
+    {
         super.onVisibilityChanged(changedView, visibility);
         if (visibility == VISIBLE)
         {
@@ -207,7 +207,7 @@ public class TimerParentLayout extends BaseLayout
             StopTimers();
         }
     }
-
+    
     private void ChangeTimerMode(boolean toggle)
     {
         if (!toggle)
@@ -282,12 +282,12 @@ public class TimerParentLayout extends BaseLayout
     {
         protected static int ScaleLeft(int scaleFromMiddlePx, int left)
         {
-            return left -  2 *scaleFromMiddlePx;
+            return left - 2 * scaleFromMiddlePx;
         }
         
         protected static int ScaleTop(int scaleFromMiddlePx, int top)
         {
-            return top -  2 *scaleFromMiddlePx;
+            return top - 2 * scaleFromMiddlePx;
         }
         
         protected static int ScaleRight(int scaleFromMiddlePx, int right)
