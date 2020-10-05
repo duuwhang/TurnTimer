@@ -20,7 +20,7 @@ public class SettingsSubLayout extends BaseLayout
     private Setting timerAmountSetting;
     private Setting countdownSetting;
     private Setting stopwatchSetting;
-    List<CheckBox> checkBoxes = new ArrayList<>();
+    private List<CheckBox> checkBoxes = new ArrayList<>();
     private Rect tempChildRect = new Rect();
     
     public SettingsSubLayout(Context context)
