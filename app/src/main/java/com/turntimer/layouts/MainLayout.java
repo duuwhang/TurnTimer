@@ -52,15 +52,15 @@ public class MainLayout extends BaseLayout
             getChildAt(i).setVisibility(View.INVISIBLE);
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
-        SetGestureListener();
+        setGestureListener();
     }
     
-    public TimerParentLayout GetTimerParentLayout()
+    public TimerParentLayout getTimerParentLayout()
     {
         return timerParentLayout;
     }
     
-    private void SetGestureListener()
+    private void setGestureListener()
     {
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener()
         {

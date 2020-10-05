@@ -33,12 +33,12 @@ public class TimerParentLayout extends BaseLayout
             @Override
             public void onClick(View view)
             {
-                SwitchToNextTimer();
+                switchToNextTimer();
             }
         });
         
         mode = timerMode.Countdown;
-        UpdateTimerAmount(timerAmount);
+        updateTimerAmount(timerAmount);
         ChangeTimerMode(false);
     }
     
@@ -54,8 +54,8 @@ public class TimerParentLayout extends BaseLayout
         int height = bottom - top;
         int width = right - left;
         
-        int rows = CalculateRows(timerAmount, displayMetricsController.GetScreenHeight(), displayMetricsController.GetScreenWidth());
-        int columns = CalculateColumns(timerAmount, rows);
+        int rows = calculateRows(timerAmount, displayMetricsController.getScreenHeight(), displayMetricsController.getScreenWidth());
+        int columns = calculateColumns(timerAmount, rows);
         
         for (int i = 0; i < getChildCount(); i++)
         {
@@ -89,7 +89,7 @@ public class TimerParentLayout extends BaseLayout
         } // flawed system -> hard 13, 16 exception & max amount is 30
     }
     
-    private int CalculateRows(int timerAmount, int screenHeight, int screenWidth)
+    private int calculateRows(int timerAmount, int screenHeight, int screenWidth)
     {
         int rows = timerAmount;
         double minRatio = Double.MAX_VALUE;
@@ -102,7 +102,7 @@ public class TimerParentLayout extends BaseLayout
             {
                 //i + 1 = rows
                 //j + 1 = timerNumber
-                int columns = CalculateColumns(timerAmount, i + 1);
+                int columns = calculateColumns(timerAmount, i + 1);
                 double height = (double) screenHeight / (i + 1);
                 double width = (double) screenWidth / columns;
                 
@@ -124,18 +124,18 @@ public class TimerParentLayout extends BaseLayout
         return rows;
     }
     
-    private int CalculateColumns(int timerAmount, int rows)
+    private int calculateColumns(int timerAmount, int rows)
     {
         return (int) Math.ceil((double) timerAmount / rows);
     }
     
-    protected void SwitchToNextTimer()
+    protected void switchToNextTimer()
     {
         boolean allTimersEnded = true;
         
         for (int i = 0; i < timerAmount; i++)
         {
-            if (!((TimerLayout) getChildAt(i)).HasEnded())
+            if (!((TimerLayout) getChildAt(i)).hasEnded())
             {
                 allTimersEnded = false;
                 break;
@@ -148,12 +148,12 @@ public class TimerParentLayout extends BaseLayout
             do
             {
                 activeTimerId += 1 - (activeTimerId + 1) / timerAmount * timerAmount;
-            } while (((TimerLayout) getChildAt(activeTimerId)).HasEnded());
+            } while (((TimerLayout) getChildAt(activeTimerId)).hasEnded());
             StartTimers();
         }
     }
     
-    public void UpdateTimerAmount(int timerCount)
+    public void updateTimerAmount(int timerCount)
     {
         this.timerAmount = timerCount;
         activeTimerId = 0;
@@ -162,27 +162,27 @@ public class TimerParentLayout extends BaseLayout
         for (int i = 0; i < timerAmount; i++)
         {
             TimerLayout timerLayout = new TimerLayout(context);
-            timerLayout.SetTimerId(i);
-            timerLayout.SetTime(timerCountdownTimeMillis);
+            timerLayout.setTimerId(i);
+            timerLayout.setTime(timerCountdownTimeMillis);
             this.addView(timerLayout);
         }
     }
     
-    public void ResetTimers()
+    public void resetTimers()
     {
-        UpdateTimerAmount(timerAmount);
+        updateTimerAmount(timerAmount);
     }
     
     private void StartTimers()
     {
         TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
-        timerLayout.StartTimer();
+        timerLayout.startTimer();
     }
     
     private void StopTimers()
     {
         TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
-        timerLayout.StopTimer();
+        timerLayout.stopTimer();
     }
     
     private void SetTimerCountdownTime(int timeMillis)
@@ -190,7 +190,7 @@ public class TimerParentLayout extends BaseLayout
         timerCountdownTimeMillis = timeMillis;
         if (mode == timerMode.Countdown)
         {
-            ResetTimers();
+            resetTimers();
         }
     }
     
@@ -224,7 +224,7 @@ public class TimerParentLayout extends BaseLayout
             }
         }
         
-        ResetTimers();
+        resetTimers();
         switch (mode)
         {
             case Countdown:
@@ -233,7 +233,7 @@ public class TimerParentLayout extends BaseLayout
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
                     timer.mode = timerMode.Stopwatch;
-                    timer.SetTime(Integer.MAX_VALUE);
+                    timer.setTime(Integer.MAX_VALUE);
                 }
                 break;
             default:
@@ -243,7 +243,7 @@ public class TimerParentLayout extends BaseLayout
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
                     timer.mode = timerMode.Countdown;
-                    timer.SetTime(timerCountdownTimeMillis);
+                    timer.setTime(timerCountdownTimeMillis);
                 }
                 break;
         }
@@ -254,7 +254,7 @@ public class TimerParentLayout extends BaseLayout
         if (tMode != mode)
         {
             mode = tMode;
-            ResetTimers();
+            resetTimers();
             switch (mode)
             {
                 case Countdown:
@@ -262,7 +262,7 @@ public class TimerParentLayout extends BaseLayout
                     {
                         TimerLayout timer = (TimerLayout) getChildAt(i);
                         timer.mode = timerMode.Countdown;
-                        timer.SetTime(timerCountdownTimeMillis);
+                        timer.setTime(timerCountdownTimeMillis);
                     }
                     break;
                 default:
@@ -271,7 +271,7 @@ public class TimerParentLayout extends BaseLayout
                     {
                         TimerLayout timer = (TimerLayout) getChildAt(i);
                         timer.mode = timerMode.Stopwatch;
-                        timer.SetTime(Integer.MAX_VALUE);
+                        timer.setTime(Integer.MAX_VALUE);
                     }
                     break;
             }

@@ -32,9 +32,9 @@ public class SettingsPauseLayout extends BaseLayout
             @Override
             public void onClick(View view)
             {
-                MainLayout mainLayout = (MainActivity.getInstance()).GetLayout();
-                TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
-                timerParentLayout.ResetTimers();
+                MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
+                TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
+                timerParentLayout.resetTimers();
             }
         });
         this.addView(resetButton);

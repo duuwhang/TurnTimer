@@ -29,7 +29,7 @@ public class TimerLayout extends BaseLayout
         super(context);
         
         GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(displayMetricsController.DpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
+        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
         
         editText = new EditText(context);
@@ -38,7 +38,7 @@ public class TimerLayout extends BaseLayout
         textView = new TextView(context);
         this.addView(textView);
         
-        SetTime(timeMillis);
+        setTime(timeMillis);
     }
     
     @Override
@@ -61,7 +61,7 @@ public class TimerLayout extends BaseLayout
         }
     }
     
-    public void StartTimer()
+    public void startTimer()
     {
         if (countDownTimer != null)
         {
@@ -72,26 +72,26 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onTick(long millisUntilFinished)
             {
-                FormatTime((int) millisUntilFinished);
+                formatTime((int) millisUntilFinished);
             }
             
             @Override
             public void onFinish()
             {
                 timeMillis = 0;
-                EndTimer();
-                ((TimerParentLayout) getParent()).SwitchToNextTimer();
+                endTimer();
+                ((TimerParentLayout) getParent()).switchToNextTimer();
             }
         };
         countDownTimer.start();
     }
     
-    public void StopTimer()
+    public void stopTimer()
     {
         countDownTimer.cancel();
     }
     
-    private void EndTimer()
+    private void endTimer()
     {
         AnimationSet animationSet = new AnimationSet(false);
         animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.timerend));
@@ -119,23 +119,23 @@ public class TimerLayout extends BaseLayout
         this.startAnimation(animationSet);
     }
     
-    public boolean HasEnded()
+    public boolean hasEnded()
     {
         return timeMillis == 0;
     }
     
-    public void SetTimerId(int id)
+    public void setTimerId(int id)
     {
         editText.setText("Timer " + (id + 1));
     }
     
-    public void SetTime(int millis)
+    public void setTime(int millis)
     {
         timeMillis = millis;
-        FormatTime(timeMillis);
+        formatTime(timeMillis);
     }
     
-    private void FormatTime(int millis)
+    private void formatTime(int millis)
     {
         timeMillis = millis;
         if (mode == TimerParentLayout.timerMode.Stopwatch)

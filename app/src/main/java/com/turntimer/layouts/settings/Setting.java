@@ -15,16 +15,16 @@ public class Setting extends BaseLayout
     public Setting(Context context)
     {
         super(context);
-        Init("Setting");
+        init("Setting");
     }
     
     public Setting(Context context, String textToDisplay, View... controlElements)
     {
         super(context);
-        Init(textToDisplay, controlElements);
+        init(textToDisplay, controlElements);
     }
     
-    private void Init(String textToDisplay, View... controlElements)
+    private void init(String textToDisplay, View... controlElements)
     {
         this.settingText = new TextView(context);
         this.settingText.setText(textToDisplay);

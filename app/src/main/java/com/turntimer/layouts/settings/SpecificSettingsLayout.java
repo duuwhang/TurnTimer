@@ -46,9 +46,9 @@ public class SpecificSettingsLayout extends BaseLayout
                         timerAmount = 1;
                     }
                     
-                    MainLayout mainLayout = (MainActivity.getInstance()).GetLayout();
-                    TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
-                    timerParentLayout.UpdateTimerAmount(timerAmount);
+                    MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
+                    TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
+                    timerParentLayout.updateTimerAmount(timerAmount);
                 }
             }
         });
@@ -65,7 +65,7 @@ public class SpecificSettingsLayout extends BaseLayout
             public void onClick(View view)
             {
                 view.setEnabled(false);
-                ToggleMode();
+                toggleMode();
                 view.setEnabled(true);
             }
         });
@@ -76,7 +76,7 @@ public class SpecificSettingsLayout extends BaseLayout
             {
                 if (b)
                 {
-                    ChangeTimerMode(TimerParentLayout.timerMode.Countdown);
+                    changeTimerMode(TimerParentLayout.timerMode.Countdown);
                 }
             }
         });
@@ -102,7 +102,7 @@ public class SpecificSettingsLayout extends BaseLayout
             public void onClick(View view)
             {
                 view.setEnabled(false);
-                ToggleMode();
+                toggleMode();
                 view.setEnabled(true);
             }
         });
@@ -113,7 +113,7 @@ public class SpecificSettingsLayout extends BaseLayout
             {
                 if (b)
                 {
-                    ChangeTimerMode(TimerParentLayout.timerMode.Stopwatch);
+                    changeTimerMode(TimerParentLayout.timerMode.Stopwatch);
                 }
             }
         });
@@ -139,7 +139,7 @@ public class SpecificSettingsLayout extends BaseLayout
         }
     }
     
-    private void ToggleMode()
+    private void toggleMode()
     {
         for (CheckBox checkbox : checkBoxes)
         {
@@ -150,10 +150,10 @@ public class SpecificSettingsLayout extends BaseLayout
         }
     }
     
-    private void ChangeTimerMode(TimerParentLayout.timerMode mode)
+    private void changeTimerMode(TimerParentLayout.timerMode mode)
     {
-        MainLayout mainLayout = (MainActivity.getInstance()).GetLayout();
-        TimerParentLayout timerParentLayout = mainLayout.GetTimerParentLayout();
+        MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
+        TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
         timerParentLayout.ChangeTimerMode(mode);
     }
 }

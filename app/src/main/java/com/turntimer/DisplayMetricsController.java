@@ -15,19 +15,19 @@ public class DisplayMetricsController
         this.display = display;
     }
     
-    public int DpToPx(float dp)
+    public int dpToPx(float dp)
     {
         return (int) (dp * pixelDensity);
     }
     
-    public int GetScreenHeight()
+    public int getScreenHeight()
     {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         display.getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
     }
     
-    public int GetScreenWidth()
+    public int getScreenWidth()
     {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         display.getMetrics(displayMetrics);
