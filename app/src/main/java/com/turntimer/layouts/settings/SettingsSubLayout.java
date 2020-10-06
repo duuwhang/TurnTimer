@@ -40,15 +40,29 @@ public class SettingsSubLayout extends BaseLayout
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        int height = bottom - top;
         int width = right - left;
+        int currentTop = 0;
+        int heightPadding = getChildAt(0).getMeasuredHeight();
+        
+        int childrenMaxWidth = 0;
+        for (int i = 0; i < getChildCount(); i++)
+        {
+            if (getChildAt(i).getMeasuredWidth() > childrenMaxWidth)
+            {
+                childrenMaxWidth = getChildAt(i).getMeasuredWidth();
+            }
+        }
         
         for (int i = 0; i < getChildCount(); i++)
         {
-            tempChildRect.left = left;
-            tempChildRect.top = top + i * height / getChildCount() - height / getChildCount();
-            tempChildRect.right = tempChildRect.left + width;
-            tempChildRect.bottom = tempChildRect.top + height / getChildCount();
+            int childHeight = getChildAt(i).getMeasuredHeight();
+            int childWidth = getChildAt(i).getMeasuredWidth();
+            
+            tempChildRect.left = left + width / 2 - childrenMaxWidth / 2;
+            tempChildRect.top = currentTop;
+            tempChildRect.right = tempChildRect.left + childWidth;
+            tempChildRect.bottom = tempChildRect.top + childHeight;
+            currentTop = tempChildRect.bottom + heightPadding;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
