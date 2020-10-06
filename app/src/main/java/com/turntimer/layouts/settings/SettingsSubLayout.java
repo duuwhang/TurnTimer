@@ -2,6 +2,8 @@ package com.turntimer.layouts.settings;
 
 import android.content.Context;
 import android.graphics.Rect;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -55,27 +57,36 @@ public class SettingsSubLayout extends BaseLayout
     {
         final EditText editText = new EditText(context);
         editText.setText("" + 4);
-        editText.setOnFocusChangeListener(new OnFocusChangeListener()
+        editText.addTextChangedListener(new TextWatcher()
         {
             @Override
-            public void onFocusChange(View view, boolean b)
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-                if (!b)
+            
+            }
+            
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+            
+            }
+            
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                int timerAmount;
+                try
                 {
-                    int timerAmount;
-                    try
-                    {
-                        timerAmount = Integer.parseInt(editText.getText().toString());
-                    }
-                    catch (NumberFormatException e)
-                    {
-                        timerAmount = 1;
-                    }
-                    
-                    MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
-                    TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
-                    timerParentLayout.updateTimerAmount(timerAmount);
+                    timerAmount = Integer.parseInt(editText.getText().toString());
                 }
+                catch (NumberFormatException e)
+                {
+                    timerAmount = 1;
+                }
+                
+                MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
+                TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
+                timerParentLayout.updateTimerAmount(timerAmount);
             }
         });
         
@@ -130,7 +141,7 @@ public class SettingsSubLayout extends BaseLayout
     {
         CheckBox checkBox = new CheckBox(context);
         checkBoxes.add(checkBox);
-    
+        
         checkBox.setChecked(false);
         checkBox.setOnClickListener(new OnClickListener()
         {
