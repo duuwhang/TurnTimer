@@ -17,7 +17,7 @@ public class SettingsLayout extends BaseLayout
         
         settingsPauseLayout = new SettingsPauseLayout(context);
         this.addView(settingsPauseLayout);
-    
+        
         settingsSubLayout = new SettingsSubLayout(context);
         this.addView(settingsSubLayout);
     }
@@ -30,9 +30,9 @@ public class SettingsLayout extends BaseLayout
         for (int i = 0; i < getChildCount(); i++)
         {
             tempChildRect.left = left;
-            tempChildRect.top = top + (int) (height * (0.25f * i));// + (int) ((float) height * i / 4);
+            tempChildRect.top = top + i * height / 4;
             tempChildRect.right = right;
-            tempChildRect.bottom = top + (int) (height * (0.25f + 0.75f * i));
+            tempChildRect.bottom = top + (1 + 3 * i) * height / 4;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
