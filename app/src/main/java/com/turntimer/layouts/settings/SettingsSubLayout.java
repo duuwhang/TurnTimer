@@ -92,7 +92,7 @@ public class SettingsSubLayout extends BaseLayout
                 int timerAmount;
                 try
                 {
-                    timerAmount = Integer.parseInt(editText.getText().toString());
+                    timerAmount = Math.max(1, Math.min(30, Integer.parseInt(editText.getText().toString())));
                 }
                 catch (NumberFormatException e)
                 {
