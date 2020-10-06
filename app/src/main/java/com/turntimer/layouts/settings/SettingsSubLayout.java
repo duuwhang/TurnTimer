@@ -5,6 +5,7 @@ import android.graphics.Rect;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -122,17 +123,52 @@ public class SettingsSubLayout extends BaseLayout
             }
         });
         
-        EditText editTime = new EditText(context);
-        editTime.setText("" + 5.0f);
+        final EditText editText = new EditText(context);
+        final Spinner dropDown = new Spinner(context);
         
-        Spinner dropDown = new Spinner(context);
+        editText.setText("" + 5.0);
+        editText.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+            
+            }
+            
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+            
+            }
+            
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                updateTimerTimes(editText, dropDown);
+            }
+        });
+        
         String[] items = new String[]{"min", "sec"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, items);
         dropDown.setAdapter(arrayAdapter);
+        dropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                updateTimerTimes(editText, dropDown);
+            }
+            
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView)
+            {
+            
+            }
+        });
         
         countdownSetting = new Setting(context, "Countdown Mode ",
             checkBox,
-            editTime,
+            editText,
             dropDown);
         this.addView(countdownSetting);
     }
@@ -167,6 +203,29 @@ public class SettingsSubLayout extends BaseLayout
         
         stopwatchSetting = new Setting(context, "Stopwatch Mode ", checkBoxes.get(checkBoxes.size() - 1));
         this.addView(stopwatchSetting);
+    }
+    
+    private void updateTimerTimes(EditText editText, Spinner spinner)
+    {
+        
+        float time;
+        try
+        {
+            time = Float.parseFloat(editText.getText().toString());
+        }
+        catch (NumberFormatException e)
+        {
+            time = 1;
+        }
+        
+        if (spinner.getSelectedItem().toString().equals("min"))
+        {
+            time *= 60;
+        }
+        
+        MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
+        TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
+        timerParentLayout.setTimerCountdownTime((int) time * 1000);
     }
     
     private void toggleMode()

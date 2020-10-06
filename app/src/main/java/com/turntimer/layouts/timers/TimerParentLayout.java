@@ -203,12 +203,16 @@ public class TimerParentLayout extends BaseLayout
         timerLayout.stopTimer();
     }
     
-    private void setTimerCountdownTime(int timeMillis)
+    public void setTimerCountdownTime(int timeMillis)
     {
         timerCountdownTimeMillis = timeMillis;
         if (mode == timerMode.Countdown)
         {
             resetTimers();
+            if (getVisibility() == VISIBLE)
+            {
+                startTimers();
+            }
         }
     }
     
