@@ -35,6 +35,8 @@ public class SettingsSubLayout extends BaseLayout
         addCountdownSetting();
         
         addStopwatchSetting();
+        
+        addSaveSetting();
     }
     
     @Override
@@ -210,12 +212,32 @@ public class SettingsSubLayout extends BaseLayout
             {
                 if (b)
                 {
-                    changeTimerMode(TimerParentLayout.timerMode.Stopwatch);
+                    changeTimerMode(TimerParentLayout.TimerMode.Stopwatch);
                 }
             }
         });
         
         stopwatchSetting = new Setting(context, "Stopwatch Mode ", checkBoxes.get(checkBoxes.size() - 1));
+        this.addView(stopwatchSetting);
+    }
+    
+    private void addSaveSetting()
+    {
+        CheckBox checkBox = new CheckBox(context);
+        checkBox.setChecked(false);
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+            {
+                if (b)
+                {
+                
+                }
+            }
+        });
+        
+        stopwatchSetting = new Setting(context, "Save Timer State ", checkBox);
         this.addView(stopwatchSetting);
     }
     
@@ -253,7 +275,7 @@ public class SettingsSubLayout extends BaseLayout
         }
     }
     
-    private void changeTimerMode(TimerParentLayout.timerMode mode)
+    private void changeTimerMode(TimerParentLayout.TimerMode mode)
     {
         MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
         TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
