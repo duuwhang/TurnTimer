@@ -134,7 +134,7 @@ public class SettingsSubLayout extends BaseLayout
             {
                 if (b)
                 {
-                    changeTimerMode(TimerParentLayout.timerMode.Countdown);
+                    changeTimerMode(TimerParentLayout.TimerMode.Countdown);
                 }
             }
         });

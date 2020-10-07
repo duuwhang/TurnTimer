@@ -16,9 +16,9 @@ public class TimerParentLayout extends BaseLayout
     private int scaleFromMiddlePx = 1;
     private Rect offset = new Rect();
     private Rect tempChildRect = new Rect();
-    private timerMode mode;
+    private TimerMode timerMode;
     
-    public enum timerMode
+    public enum TimerMode
     {
         Countdown,
         Stopwatch
@@ -37,7 +37,7 @@ public class TimerParentLayout extends BaseLayout
             }
         });
         
-        mode = timerMode.Countdown;
+        timerMode = TimerMode.Countdown;
         updateTimerAmount(timerAmount);
         changeTimerMode(false);
     }
@@ -208,7 +208,7 @@ public class TimerParentLayout extends BaseLayout
     public void setTimerCountdownTime(int timeMillis)
     {
         timerCountdownTimeMillis = timeMillis;
-        if (mode == timerMode.Countdown)
+        if (timerMode == TimerMode.Countdown)
         {
             resetTimers();
             if (getVisibility() == VISIBLE)
@@ -222,56 +222,56 @@ public class TimerParentLayout extends BaseLayout
     {
         if (!toggle)
         {
-            switch (mode)
+            switch (timerMode)
             {
                 case Countdown:
-                    mode = timerMode.Stopwatch;
+                    timerMode = TimerMode.Stopwatch;
                     break;
                 default:
                 case Stopwatch:
-                    mode = timerMode.Countdown;
+                    timerMode = TimerMode.Countdown;
                     break;
             }
         }
         
         resetTimers();
-        switch (mode)
+        switch (timerMode)
         {
             case Countdown:
-                mode = timerMode.Stopwatch;
+                timerMode = TimerMode.Stopwatch;
                 for (int i = 0; i < timerAmount; i++)
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.mode = timerMode.Stopwatch;
+                    timer.mode = TimerMode.Stopwatch;
                     timer.setTime(Integer.MAX_VALUE);
                 }
                 break;
             default:
             case Stopwatch:
-                mode = timerMode.Countdown;
+                timerMode = TimerMode.Countdown;
                 for (int i = 0; i < timerAmount; i++)
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.mode = timerMode.Countdown;
+                    timer.mode = TimerMode.Countdown;
                     timer.setTime(timerCountdownTimeMillis);
                 }
                 break;
         }
     }
     
-    public void changeTimerMode(timerMode tMode)
+    public void changeTimerMode(TimerMode tMode)
     {
-        if (tMode != mode)
+        if (tMode != timerMode)
         {
-            mode = tMode;
+            timerMode = tMode;
             resetTimers();
-            switch (mode)
+            switch (timerMode)
             {
                 case Countdown:
                     for (int i = 0; i < timerAmount; i++)
                     {
                         TimerLayout timer = (TimerLayout) getChildAt(i);
-                        timer.mode = timerMode.Countdown;
+                        timer.mode = TimerMode.Countdown;
                         timer.setTime(timerCountdownTimeMillis);
                     }
                     break;
@@ -280,12 +280,17 @@ public class TimerParentLayout extends BaseLayout
                     for (int i = 0; i < timerAmount; i++)
                     {
                         TimerLayout timer = (TimerLayout) getChildAt(i);
-                        timer.mode = timerMode.Stopwatch;
+                        timer.mode = TimerMode.Stopwatch;
                         timer.setTime(Integer.MAX_VALUE);
                     }
                     break;
             }
         }
+    }
+    
+    public TimerMode getTimerMode()
+    {
+        return timerMode;
     }
     
     protected static class ScaleFromMiddle
