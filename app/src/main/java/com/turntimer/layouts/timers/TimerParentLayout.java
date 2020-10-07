@@ -170,6 +170,11 @@ public class TimerParentLayout extends BaseLayout
     
     public void updateTimerAmount(int timerCount)
     {
+        for (int i = 0; i < getChildCount(); i++)
+        {
+            ((TimerLayout) getChildAt(i)).stopTimer();
+        }
+        
         this.timerAmount = timerCount;
         activeTimerId = 0;
         this.removeAllViewsInLayout();
