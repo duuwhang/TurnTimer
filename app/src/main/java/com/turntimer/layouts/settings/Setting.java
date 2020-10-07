@@ -36,9 +36,9 @@ public class Setting extends LinearLayout
         this.addView(settingText);
         
         this.controlElements = controlElements;
-        for (View v : this.controlElements)
+        for (View view : this.controlElements)
         {
-            this.addView(v);
+            this.addView(view);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.turntimer.layouts.settings;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.text.Editable;
 import android.text.TextWatcher;

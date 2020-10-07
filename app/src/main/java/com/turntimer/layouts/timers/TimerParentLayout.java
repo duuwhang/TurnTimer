@@ -1,7 +1,6 @@
 package com.turntimer.layouts.timers;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.view.View;
 import androidx.annotation.NonNull;

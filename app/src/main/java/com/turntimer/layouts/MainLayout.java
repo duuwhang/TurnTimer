@@ -38,7 +38,7 @@ public class MainLayout extends BaseLayout
         
         settingsLayout = new SettingsLayout(context);
         this.addView(settingsLayout);
-        
+    
         timerParentLayout = new TimerParentLayout(context);
         this.addView(timerParentLayout);
         
