@@ -250,9 +250,6 @@ public class TimerParentLayout extends BaseLayout
                     }
                     break;
             }
-            
-            MainActivity.getInstance().setPreference("countdownMode", timerMode == TimerMode.Countdown);
-            MainActivity.getInstance().setPreference("stopwatchMode", timerMode == TimerMode.Stopwatch);
         }
     }
     

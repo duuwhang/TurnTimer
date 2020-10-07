@@ -42,4 +42,9 @@ public class SettingsLayout extends BaseLayout
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
     }
+    
+    public SettingsSubLayout getSettingsSubLayout()
+    {
+        return settingsSubLayout;
+    }
 }

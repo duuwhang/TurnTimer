@@ -60,6 +60,11 @@ public class MainLayout extends BaseLayout
         setGestureListener();
     }
     
+    public SettingsLayout getSettingsLayout()
+    {
+        return settingsLayout;
+    }
+    
     public TimerParentLayout getTimerParentLayout()
     {
         return timerParentLayout;

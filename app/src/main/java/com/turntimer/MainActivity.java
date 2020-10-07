@@ -79,14 +79,22 @@ public class MainActivity extends AppCompatActivity
         if (saveState)
         {
             //load
+            getLayout().getSettingsLayout().getSettingsSubLayout().setSaveState(saveState);
+            if (preferences.getInt("timerMode", 4) == 1)
+            {
+                getLayout().getTimerParentLayout().changeTimerMode(TimerParentLayout.TimerMode.Stopwatch);
+            }
+            else
+            {
+                getLayout().getTimerParentLayout().changeTimerMode(TimerParentLayout.TimerMode.Countdown);
+            }
         }
         else //default
         {
             SharedPreferences.Editor editor = preferences.edit();
             
             editor.putBoolean("saveState", false);
-            editor.putBoolean("countdownMode", true);
-            editor.putBoolean("stopwatchMode", false);
+            editor.putInt("timerMode", 0);
             editor.putFloat("countdownTime", 5.0f);
             editor.putString("countdownUnit", "min");
             editor.putInt("timerAmount", 4);

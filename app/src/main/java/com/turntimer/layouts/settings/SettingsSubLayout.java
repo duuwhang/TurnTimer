@@ -19,6 +19,7 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class SettingsSubLayout extends BaseLayout
 {
+    private boolean saveState;
     private Setting timerAmountSetting;
     private Setting countdownSetting;
     private Setting stopwatchSetting;
@@ -262,7 +263,8 @@ public class SettingsSubLayout extends BaseLayout
     private void initSaveSetting()
     {
         CheckBox checkBox = (CheckBox) saveSetting.getElement(1);
-        checkBox.setChecked(false);
+        checkBox.setChecked(saveState);
+        MainActivity.getInstance().setSaveStateOption(saveState);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
@@ -310,5 +312,10 @@ public class SettingsSubLayout extends BaseLayout
     {
         TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
         timerParentLayout.changeTimerMode(mode);
+    }
+    
+    public void setSaveState(boolean saveState)
+    {
+        this.saveState = saveState;
     }
 }
