@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
     protected void onPause()
     {
         super.onPause();
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         
         editor.putBoolean("saveState", saveState);
@@ -53,12 +53,15 @@ public class MainActivity extends AppCompatActivity
             
             if (timerParentLayout.getTimerMode() == TimerParentLayout.TimerMode.Countdown)
             {
-                editor.putBoolean("countDownMode", true);
+                editor.putBoolean("countdownMode", true);
+                editor.putBoolean("stopwatchMode", false);
             }
             else
             {
-                editor.putBoolean("countDownMode", false);
+                editor.putBoolean("countdownMode", false);
+                editor.putBoolean("stopwatchMode", true);
             }
+            editor.putInt("timerAmount", 5);
         }
         
         editor.apply();
@@ -73,10 +76,9 @@ public class MainActivity extends AppCompatActivity
         saveState = preferences.getBoolean("saveState", false);
         if (saveState)
         {
-            initialiseLayout();
             TimerParentLayout timerParentLayout = getLayout().getTimerParentLayout();
             
-            if (preferences.getBoolean("countDownMode", false))
+            if (preferences.getBoolean("countdownMode", false))
             {
                 timerParentLayout.changeTimerMode(TimerParentLayout.TimerMode.Countdown);
             }
@@ -85,6 +87,25 @@ public class MainActivity extends AppCompatActivity
                 timerParentLayout.changeTimerMode(TimerParentLayout.TimerMode.Stopwatch);
             }
         }
+        else //default
+        {
+            SharedPreferences.Editor editor = preferences.edit();
+            
+            editor.putBoolean("saveState", false);
+            editor.putBoolean("countdownMode", true);
+            editor.putBoolean("stopwatchMode", false);
+            editor.putFloat("countdownTime", 5.0f);
+            editor.putString("countdownUnit", "min");
+            editor.putInt("timerAmount", 4);
+            for (int i = 0; i < 4; i++)
+            {
+                editor.putString("timerName" + i, "Timer " + (i + 1));
+                editor.putInt("timerTime" + i, 5 * 60 * 100);
+            }
+            
+            editor.apply();
+        }
+        getLayout().getTimerParentLayout().Init();
     }
     
     private void initialiseLayout()
@@ -103,8 +124,62 @@ public class MainActivity extends AppCompatActivity
         this.saveState = saveState;
     }
     
-    public boolean getSaveStateOption()
+    public void setPreference(String key, boolean value)
     {
-        return saveState;
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        
+        editor.putBoolean(key, value);
+        
+        editor.apply();
+    }
+    
+    public void setPreference(String key, int value)
+    {
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        
+        editor.putInt(key, value);
+        
+        editor.apply();
+    }
+    
+    public void setPreference(String key, String value)
+    {
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        
+        editor.putString(key, value);
+        
+        editor.apply();
+    }
+    
+    public boolean getPreference(String key, boolean defaultValue)
+    {
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        
+        return preferences.getBoolean(key, defaultValue);
+    }
+    
+    public int getPreference(String key, int defaultValue)
+    {
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        
+        if (key.equals("timerAmount"))
+        {
+            if (preferences.getInt(key, defaultValue) == 0)
+            {
+                return 1;
+            }
+        }
+        
+        return preferences.getInt(key, defaultValue);
+    }
+    
+    public String getPreference(String key, String defaultValue)
+    {
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        
+        return preferences.getString(key, defaultValue);
     }
 }

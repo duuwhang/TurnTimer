@@ -13,7 +13,7 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class MainLayout extends BaseLayout
 {
-    private int startingChild = 1;
+    private int startingChild = 0;
     private int currentChild = startingChild;
     private boolean interruptClick = true;
     private SettingsLayout settingsLayout;
@@ -35,6 +35,7 @@ public class MainLayout extends BaseLayout
     public MainLayout(Context context)
     {
         super(context);
+        
         settingsLayout = new SettingsLayout(context);
         this.addView(settingsLayout);
         

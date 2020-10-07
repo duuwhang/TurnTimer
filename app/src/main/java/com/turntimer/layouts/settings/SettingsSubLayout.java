@@ -1,6 +1,7 @@
 package com.turntimer.layouts.settings;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -116,7 +117,8 @@ public class SettingsSubLayout extends BaseLayout
         CheckBox checkBox = new CheckBox(context);
         checkBoxes.add(checkBox);
         
-        checkBox.setChecked(true);
+        MainActivity.getInstance().getLayout().getTimerParentLayout();
+        checkBox.setChecked(MainActivity.getInstance().getPreference("countdownMode", false));
         checkBox.setOnClickListener(new OnClickListener()
         {
             @Override
@@ -224,7 +226,7 @@ public class SettingsSubLayout extends BaseLayout
     private void addSaveSetting()
     {
         CheckBox checkBox = new CheckBox(context);
-        checkBox.setChecked(MainActivity.getInstance().getSaveStateOption());
+        checkBox.setChecked(MainActivity.getInstance().getPreference("saveState", false));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
@@ -234,7 +236,7 @@ public class SettingsSubLayout extends BaseLayout
             }
         });
         
-        stopwatchSetting = new Setting(context, "Save Timer State ", checkBox);
+        stopwatchSetting = new Setting(context, "Save State ", checkBox);
         this.addView(stopwatchSetting);
     }
     

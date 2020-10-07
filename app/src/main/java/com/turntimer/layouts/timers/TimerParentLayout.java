@@ -1,16 +1,17 @@
 package com.turntimer.layouts.timers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.view.View;
 import androidx.annotation.NonNull;
+import com.turntimer.MainActivity;
 import com.turntimer.layouts.BaseLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
 {
-    private int timerAmount = 4;
-    private int maxTimerAmount = 30;
+    private int timerAmount;
     private int activeTimerId = 0;
     private int timerCountdownTimeMillis = 5 * 60 * 1000;
     private int scaleFromMiddlePx = 1;
@@ -36,10 +37,12 @@ public class TimerParentLayout extends BaseLayout
                 switchToNextTimer();
             }
         });
-        
-        timerMode = TimerMode.Countdown;
+    }
+    
+    public void Init()
+    {
+        changeTimerMode(timerMode);
         updateTimerAmount(timerAmount);
-        changeTimerMode(false);
     }
     
     @Override
@@ -186,6 +189,8 @@ public class TimerParentLayout extends BaseLayout
             timerLayout.setTime(timerCountdownTimeMillis);
             this.addView(timerLayout);
         }
+        
+        MainActivity.getInstance().setPreference("timerAmount", timerAmount);
     }
     
     public void resetTimers()
@@ -218,47 +223,6 @@ public class TimerParentLayout extends BaseLayout
         }
     }
     
-    private void changeTimerMode(boolean toggle)
-    {
-        if (!toggle)
-        {
-            switch (timerMode)
-            {
-                case Countdown:
-                    timerMode = TimerMode.Stopwatch;
-                    break;
-                default:
-                case Stopwatch:
-                    timerMode = TimerMode.Countdown;
-                    break;
-            }
-        }
-        
-        resetTimers();
-        switch (timerMode)
-        {
-            case Countdown:
-                timerMode = TimerMode.Stopwatch;
-                for (int i = 0; i < timerAmount; i++)
-                {
-                    TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.mode = TimerMode.Stopwatch;
-                    timer.setTime(Integer.MAX_VALUE);
-                }
-                break;
-            default:
-            case Stopwatch:
-                timerMode = TimerMode.Countdown;
-                for (int i = 0; i < timerAmount; i++)
-                {
-                    TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.mode = TimerMode.Countdown;
-                    timer.setTime(timerCountdownTimeMillis);
-                }
-                break;
-        }
-    }
-    
     public void changeTimerMode(TimerMode tMode)
     {
         if (tMode != timerMode)
@@ -285,6 +249,9 @@ public class TimerParentLayout extends BaseLayout
                     }
                     break;
             }
+            
+            MainActivity.getInstance().setPreference("countdownMode", timerMode == TimerMode.Countdown);
+            MainActivity.getInstance().setPreference("stopwatchMode", timerMode == TimerMode.Stopwatch);
         }
     }
     
