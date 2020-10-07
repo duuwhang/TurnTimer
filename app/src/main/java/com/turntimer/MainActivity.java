@@ -12,17 +12,17 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 public class MainActivity extends AppCompatActivity
 {
     private MainLayout mainLayout;
-    private static MainActivity m;
+    private static MainActivity activity;
     public static DisplayMetricsController displayMetricsController;
     
     public MainActivity()
     {
-        m = this;
+        activity = this;
     }
     
     public static MainActivity getInstance()
     {
-        return m;
+        return activity;
     }
     
     @Override
