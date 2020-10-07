@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Objects;
+import com.turntimer.layouts.BaseLayout;
 import com.turntimer.layouts.MainLayout;
 import com.turntimer.layouts.timers.TimerParentLayout;
 
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity
         WindowManager windowManager = getWindowManager();
         displayMetricsController = new DisplayMetricsController(windowManager.getDefaultDisplay(), resources.getDisplayMetrics().density);
         
-        initialiseLayout();
+        mainLayout = new MainLayout(this);
+        setContentView(mainLayout);
     }
     
     @Override
@@ -76,16 +78,7 @@ public class MainActivity extends AppCompatActivity
         saveState = preferences.getBoolean("saveState", false);
         if (saveState)
         {
-            TimerParentLayout timerParentLayout = getLayout().getTimerParentLayout();
-            
-            if (preferences.getBoolean("countdownMode", false))
-            {
-                timerParentLayout.changeTimerMode(TimerParentLayout.TimerMode.Countdown);
-            }
-            else
-            {
-                timerParentLayout.changeTimerMode(TimerParentLayout.TimerMode.Stopwatch);
-            }
+            //load
         }
         else //default
         {
@@ -105,13 +98,24 @@ public class MainActivity extends AppCompatActivity
             
             editor.apply();
         }
-        getLayout().getTimerParentLayout().Init();
+        
+        callInits(getLayout());
     }
     
-    private void initialiseLayout()
+    private void callInits(BaseLayout layout)
     {
-        mainLayout = new MainLayout(this);
-        setContentView(mainLayout);
+        layout.init();
+        for (int i = 0; i < layout.getChildCount(); i++)
+        {
+            try
+            {
+                BaseLayout baseLayout = (BaseLayout) layout.getChildAt(i);
+                callInits(baseLayout);
+            }
+            catch (ClassCastException ignored)
+            {
+            }
+        }
     }
     
     public MainLayout getLayout()

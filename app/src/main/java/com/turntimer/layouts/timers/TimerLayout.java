@@ -28,16 +28,16 @@ public class TimerLayout extends BaseLayout
     {
         super(context);
         
-        GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
-        this.setBackground(gradientDrawable);
-        
         editText = new EditText(context);
         this.addView(editText);
         
         textView = new TextView(context);
         this.addView(textView);
-        
+    
+        GradientDrawable gradientDrawable = new GradientDrawable();
+        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(this.context, R.color.colorSeparation));
+        this.setBackground(gradientDrawable);
+    
         setTime(timeMillis);
     }
     

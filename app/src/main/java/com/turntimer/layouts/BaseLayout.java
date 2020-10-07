@@ -39,4 +39,8 @@ public class BaseLayout extends ViewGroup
             getChildAt(i).layout(left, top, right, bottom);
         }
     }
+    
+    public void init()
+    {
+    }
 }

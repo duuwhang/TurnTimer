@@ -10,7 +10,7 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
 {
-    private int timerAmount;
+    private int timerAmount = 4;
     private int activeTimerId = 0;
     private int timerCountdownTimeMillis = 5 * 60 * 1000;
     private int scaleFromMiddlePx = 1;
@@ -27,6 +27,11 @@ public class TimerParentLayout extends BaseLayout
     public TimerParentLayout(Context context)
     {
         super(context);
+    }
+    
+    @Override
+    public void init()
+    {
         this.setClickable(true);
         this.setOnClickListener(new OnClickListener()
         {
@@ -36,10 +41,7 @@ public class TimerParentLayout extends BaseLayout
                 switchToNextTimer();
             }
         });
-    }
-    
-    public void Init()
-    {
+        
         changeTimerMode(timerMode);
         updateTimerAmount(timerAmount);
     }

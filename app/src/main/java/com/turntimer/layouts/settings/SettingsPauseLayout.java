@@ -21,11 +21,18 @@ public class SettingsPauseLayout extends BaseLayout
         super(context);
         
         timersPausedText = new TextView(context);
-        timersPausedText.setText("Timers Paused");
-        timersPausedText.setTextSize(50);
         this.addView(timersPausedText);
         
         resetButton = new Button(context);
+        this.addView(resetButton);
+    }
+    
+    @Override
+    public void init()
+    {
+        timersPausedText.setText("Timers Paused");
+        timersPausedText.setTextSize(50);
+        
         resetButton.setText("Reset Timers");
         resetButton.setOnClickListener(new OnClickListener()
         {
@@ -37,7 +44,6 @@ public class SettingsPauseLayout extends BaseLayout
                 timerParentLayout.resetTimers();
             }
         });
-        this.addView(resetButton);
     }
     
     @Override

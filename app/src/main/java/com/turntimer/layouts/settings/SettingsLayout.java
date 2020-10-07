@@ -13,13 +13,18 @@ public class SettingsLayout extends BaseLayout
     public SettingsLayout(Context context)
     {
         super(context);
-        this.setClickable(true);
         
         settingsPauseLayout = new SettingsPauseLayout(context);
         this.addView(settingsPauseLayout);
         
         settingsSubLayout = new SettingsSubLayout(context);
         this.addView(settingsSubLayout);
+    }
+    
+    @Override
+    public void init()
+    {
+        this.setClickable(true);
     }
     
     @Override

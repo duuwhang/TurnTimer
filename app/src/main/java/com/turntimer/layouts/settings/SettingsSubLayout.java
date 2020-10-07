@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.turntimer.MainActivity;
 import com.turntimer.layouts.BaseLayout;
-import com.turntimer.layouts.MainLayout;
 import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class SettingsSubLayout extends BaseLayout
@@ -23,6 +22,7 @@ public class SettingsSubLayout extends BaseLayout
     private Setting timerAmountSetting;
     private Setting countdownSetting;
     private Setting stopwatchSetting;
+    private Setting saveSetting;
     private List<CheckBox> checkBoxes = new ArrayList<>();
     private Rect tempChildRect = new Rect();
     
@@ -30,13 +30,25 @@ public class SettingsSubLayout extends BaseLayout
     {
         super(context);
         
-        addTimerAmountSetting();
+        constructTimerAmountSetting();
         
-        addCountdownSetting();
+        constructCountdownSetting();
         
-        addStopwatchSetting();
+        constructStopwatchSetting();
         
-        addSaveSetting();
+        constructSaveSetting();
+    }
+    
+    @Override
+    public void init()
+    {
+        initTimerAmountSetting();
+        
+        initCountdownSetting();
+        
+        initStopwatchSetting();
+        
+        initSaveSetting();
     }
     
     @Override
@@ -70,9 +82,17 @@ public class SettingsSubLayout extends BaseLayout
         }
     }
     
-    private void addTimerAmountSetting()
+    private void constructTimerAmountSetting()
     {
-        final EditText editText = new EditText(context);
+        EditText editText = new EditText(context);
+        
+        timerAmountSetting = new Setting(context, "Timer Amount (1-30): ", editText);
+        this.addView(timerAmountSetting);
+    }
+    
+    private void initTimerAmountSetting()
+    {
+        EditText editText = (EditText) timerAmountSetting.getElement(1);
         editText.setText("" + 4);
         editText.addTextChangedListener(new TextWatcher()
         {
@@ -94,6 +114,7 @@ public class SettingsSubLayout extends BaseLayout
                 int timerAmount;
                 try
                 {
+                    EditText editText = (EditText) timerAmountSetting.getElement(1);
                     timerAmount = Math.max(1, Math.min(30, Integer.parseInt(editText.getText().toString())));
                 }
                 catch (NumberFormatException e)
@@ -101,23 +122,30 @@ public class SettingsSubLayout extends BaseLayout
                     timerAmount = 1;
                 }
                 
-                MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
-                TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
+                TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
                 timerParentLayout.updateTimerAmount(timerAmount);
             }
         });
-        
-        timerAmountSetting = new Setting(context, "Timer Amount (1-30): ", editText);
-        this.addView(timerAmountSetting);
     }
     
-    private void addCountdownSetting()
+    private void constructCountdownSetting()
     {
         CheckBox checkBox = new CheckBox(context);
-        checkBoxes.add(checkBox);
+        EditText editText = new EditText(context);
+        Spinner dropDown = new Spinner(context);
         
-        MainActivity.getInstance().getLayout().getTimerParentLayout();
-        checkBox.setChecked(MainActivity.getInstance().getPreference("countdownMode", false));
+        countdownSetting = new Setting(context, "Countdown Mode ",
+            checkBox,
+            editText,
+            dropDown);
+        this.addView(countdownSetting);
+    }
+    
+    private void initCountdownSetting()
+    {
+        CheckBox checkBox = (CheckBox) countdownSetting.getElement(1);
+        checkBoxes.add(checkBox);
+        checkBox.setChecked(true);
         checkBox.setOnClickListener(new OnClickListener()
         {
             @Override
@@ -140,9 +168,7 @@ public class SettingsSubLayout extends BaseLayout
             }
         });
         
-        final EditText editText = new EditText(context);
-        final Spinner dropDown = new Spinner(context);
-        
+        EditText editText = (EditText) countdownSetting.getElement(2);
         editText.setText("" + 5.0);
         editText.addTextChangedListener(new TextWatcher()
         {
@@ -161,10 +187,13 @@ public class SettingsSubLayout extends BaseLayout
             @Override
             public void afterTextChanged(Editable editable)
             {
+                EditText editText = (EditText) countdownSetting.getElement(2);
+                Spinner dropDown = (Spinner) countdownSetting.getElement(3);
                 updateTimerTimes(editText, dropDown);
             }
         });
         
+        Spinner dropDown = (Spinner) countdownSetting.getElement(3);
         String[] items = new String[]{"min", "sec"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, items);
         dropDown.setAdapter(arrayAdapter);
@@ -173,6 +202,8 @@ public class SettingsSubLayout extends BaseLayout
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
+                EditText editText = (EditText) countdownSetting.getElement(2);
+                Spinner dropDown = (Spinner) countdownSetting.getElement(3);
                 updateTimerTimes(editText, dropDown);
             }
             
@@ -182,19 +213,20 @@ public class SettingsSubLayout extends BaseLayout
             
             }
         });
-        
-        countdownSetting = new Setting(context, "Countdown Mode ",
-            checkBox,
-            editText,
-            dropDown);
-        this.addView(countdownSetting);
     }
     
-    private void addStopwatchSetting()
+    private void constructStopwatchSetting()
     {
         CheckBox checkBox = new CheckBox(context);
-        checkBoxes.add(checkBox);
         
+        stopwatchSetting = new Setting(context, "Stopwatch Mode ", checkBox);
+        this.addView(stopwatchSetting);
+    }
+    
+    private void initStopwatchSetting()
+    {
+        CheckBox checkBox = (CheckBox) stopwatchSetting.getElement(1);
+        checkBoxes.add(checkBox);
         checkBox.setChecked(false);
         checkBox.setOnClickListener(new OnClickListener()
         {
@@ -217,15 +249,20 @@ public class SettingsSubLayout extends BaseLayout
                 }
             }
         });
-        
-        stopwatchSetting = new Setting(context, "Stopwatch Mode ", checkBoxes.get(checkBoxes.size() - 1));
-        this.addView(stopwatchSetting);
     }
     
-    private void addSaveSetting()
+    private void constructSaveSetting()
     {
         CheckBox checkBox = new CheckBox(context);
-        checkBox.setChecked(MainActivity.getInstance().getPreference("saveState", false));
+        
+        saveSetting = new Setting(context, "Save State ", checkBox);
+        this.addView(saveSetting);
+    }
+    
+    private void initSaveSetting()
+    {
+        CheckBox checkBox = (CheckBox) saveSetting.getElement(1);
+        checkBox.setChecked(false);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
@@ -234,9 +271,6 @@ public class SettingsSubLayout extends BaseLayout
                 MainActivity.getInstance().setSaveStateOption(checked);
             }
         });
-        
-        stopwatchSetting = new Setting(context, "Save State ", checkBox);
-        this.addView(stopwatchSetting);
     }
     
     private void updateTimerTimes(EditText editText, Spinner spinner)
@@ -257,8 +291,7 @@ public class SettingsSubLayout extends BaseLayout
             time *= 60;
         }
         
-        MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
-        TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
+        TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
         timerParentLayout.setTimerCountdownTime((int) time * 1000);
     }
     
@@ -275,8 +308,7 @@ public class SettingsSubLayout extends BaseLayout
     
     private void changeTimerMode(TimerParentLayout.TimerMode mode)
     {
-        MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
-        TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
+        TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
         timerParentLayout.changeTimerMode(mode);
     }
 }
