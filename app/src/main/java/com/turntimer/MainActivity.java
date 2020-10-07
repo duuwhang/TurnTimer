@@ -11,6 +11,7 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class MainActivity extends AppCompatActivity
 {
+    private boolean saveState;
     private MainLayout mainLayout;
     private static MainActivity activity;
     public static DisplayMetricsController displayMetricsController;
@@ -35,8 +36,7 @@ public class MainActivity extends AppCompatActivity
         WindowManager windowManager = getWindowManager();
         displayMetricsController = new DisplayMetricsController(windowManager.getDefaultDisplay(), resources.getDisplayMetrics().density);
         
-        mainLayout = new MainLayout(this);
-        setContentView(mainLayout);
+        initialiseLayout();
     }
     
     @Override
@@ -46,14 +46,19 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         
-        TimerParentLayout timerParentLayout = getLayout().getTimerParentLayout();
-        if (timerParentLayout.getTimerMode() == TimerParentLayout.TimerMode.Countdown)
+        editor.putBoolean("saveState", saveState);
+        if (saveState)
         {
-            editor.putBoolean("countDownMode", true);
-        }
-        else
-        {
-            editor.putBoolean("countDownMode", false);
+            TimerParentLayout timerParentLayout = getLayout().getTimerParentLayout();
+            
+            if (timerParentLayout.getTimerMode() == TimerParentLayout.TimerMode.Countdown)
+            {
+                editor.putBoolean("countDownMode", true);
+            }
+            else
+            {
+                editor.putBoolean("countDownMode", false);
+            }
         }
         
         editor.apply();
@@ -63,22 +68,43 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         
-        TimerParentLayout timerParentLayout = getLayout().getTimerParentLayout();
-        if (preferences.getBoolean("countDownMode", false))
+        saveState = preferences.getBoolean("saveState", false);
+        if (saveState)
         {
-            timerParentLayout.changeTimerMode(TimerParentLayout.TimerMode.Countdown);
+            initialiseLayout();
+            TimerParentLayout timerParentLayout = getLayout().getTimerParentLayout();
+            
+            if (preferences.getBoolean("countDownMode", false))
+            {
+                timerParentLayout.changeTimerMode(TimerParentLayout.TimerMode.Countdown);
+            }
+            else
+            {
+                timerParentLayout.changeTimerMode(TimerParentLayout.TimerMode.Stopwatch);
+            }
         }
-        else
-        {
-            timerParentLayout.changeTimerMode(TimerParentLayout.TimerMode.Stopwatch);
-        }
+    }
+    
+    private void initialiseLayout()
+    {
+        mainLayout = new MainLayout(this);
+        setContentView(mainLayout);
     }
     
     public MainLayout getLayout()
     {
         return mainLayout;
+    }
+    
+    public void setSaveStateOption(boolean saveState)
+    {
+        this.saveState = saveState;
+    }
+    
+    public boolean getSaveStateOption()
+    {
+        return saveState;
     }
 }

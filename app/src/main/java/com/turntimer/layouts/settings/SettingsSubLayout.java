@@ -130,9 +130,9 @@ public class SettingsSubLayout extends BaseLayout
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
             {
-                if (b)
+                if (checked)
                 {
                     changeTimerMode(TimerParentLayout.TimerMode.Countdown);
                 }
@@ -208,9 +208,9 @@ public class SettingsSubLayout extends BaseLayout
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
             {
-                if (b)
+                if (checked)
                 {
                     changeTimerMode(TimerParentLayout.TimerMode.Stopwatch);
                 }
@@ -224,16 +224,13 @@ public class SettingsSubLayout extends BaseLayout
     private void addSaveSetting()
     {
         CheckBox checkBox = new CheckBox(context);
-        checkBox.setChecked(false);
+        checkBox.setChecked(MainActivity.getInstance().getSaveStateOption());
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b)
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
             {
-                if (b)
-                {
-                
-                }
+                MainActivity.getInstance().setSaveStateOption(checked);
             }
         });
         
