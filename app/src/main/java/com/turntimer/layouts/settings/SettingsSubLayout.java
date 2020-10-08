@@ -190,7 +190,7 @@ public class SettingsSubLayout extends BaseLayout
             {
                 EditText editText = (EditText) countdownSetting.getElement(2);
                 Spinner dropDown = (Spinner) countdownSetting.getElement(3);
-                updateTimerTimes(editText, dropDown);
+                changeTimerTimes(editText, dropDown);
             }
         });
         
@@ -205,7 +205,7 @@ public class SettingsSubLayout extends BaseLayout
             {
                 EditText editText = (EditText) countdownSetting.getElement(2);
                 Spinner dropDown = (Spinner) countdownSetting.getElement(3);
-                updateTimerTimes(editText, dropDown);
+                changeTimerTimes(editText, dropDown);
             }
             
             @Override
@@ -263,8 +263,6 @@ public class SettingsSubLayout extends BaseLayout
     private void initSaveSetting()
     {
         CheckBox checkBox = (CheckBox) saveSetting.getElement(1);
-        checkBox.setChecked(saveState);
-        MainActivity.getInstance().setSaveStateOption(saveState);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
@@ -275,9 +273,8 @@ public class SettingsSubLayout extends BaseLayout
         });
     }
     
-    private void updateTimerTimes(EditText editText, Spinner spinner)
+    private void changeTimerTimes(EditText editText, Spinner spinner)
     {
-        
         float time;
         try
         {
