@@ -23,6 +23,7 @@ public class SettingsSubLayout extends BaseLayout
     private float timerTime;
     private boolean saveState;
     private String timeUnit;
+    private TimerParentLayout.TimerMode timerMode;
     private Setting timerAmountSetting;
     private Setting countdownSetting;
     private Setting stopwatchSetting;
@@ -150,7 +151,14 @@ public class SettingsSubLayout extends BaseLayout
     {
         CheckBox checkBox = (CheckBox) countdownSetting.getElement(1);
         checkBoxes.add(checkBox);
-        checkBox.setChecked(true);
+        if (timerMode == TimerParentLayout.TimerMode.Stopwatch)
+        {
+            checkBox.setChecked(false);
+        }
+        else
+        {
+            checkBox.setChecked(true);
+        }
         checkBox.setOnClickListener(new OnClickListener()
         {
             @Override
@@ -218,6 +226,14 @@ public class SettingsSubLayout extends BaseLayout
             
             }
         });
+        if (timeUnit.equals("sec"))
+        {
+            dropDown.setSelection(1);
+        }
+        else
+        {
+            dropDown.setSelection(0);
+        }
     }
     
     private void constructStopwatchSetting()
@@ -232,7 +248,14 @@ public class SettingsSubLayout extends BaseLayout
     {
         CheckBox checkBox = (CheckBox) stopwatchSetting.getElement(1);
         checkBoxes.add(checkBox);
-        checkBox.setChecked(false);
+        if (timerMode == TimerParentLayout.TimerMode.Stopwatch)
+        {
+            checkBox.setChecked(true);
+        }
+        else
+        {
+            checkBox.setChecked(false);
+        }
         checkBox.setOnClickListener(new OnClickListener()
         {
             @Override
@@ -273,6 +296,7 @@ public class SettingsSubLayout extends BaseLayout
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
             {
                 MainActivity.getInstance().setSaveStateOption(checked);
+                saveState = checked;
             }
         });
         checkBox.setChecked(saveState);
@@ -321,7 +345,7 @@ public class SettingsSubLayout extends BaseLayout
         this.timerAmount = timerAmount;
     }
     
-    public void setTimerTime(float timerTime)
+    public void setCountdownTime(float timerTime)
     {
         this.timerTime = timerTime;
     }
@@ -334,5 +358,10 @@ public class SettingsSubLayout extends BaseLayout
     public void setTimeUnit(String timeUnit)
     {
         this.timeUnit = timeUnit;
+    }
+    
+    public void setTimerMode(TimerParentLayout.TimerMode timerMode)
+    {
+        this.timerMode = timerMode;
     }
 }

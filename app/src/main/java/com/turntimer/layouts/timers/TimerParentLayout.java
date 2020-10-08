@@ -44,8 +44,8 @@ public class TimerParentLayout extends BaseLayout
             }
         });
         
-        updateTimerMode();
         updateTimerAmount();
+        updateTimerMode();
     }
     
     @Override
@@ -191,8 +191,6 @@ public class TimerParentLayout extends BaseLayout
             timerLayout.setTime(countdownTimeMillis);
             this.addView(timerLayout);
         }
-        
-        MainActivity.getInstance().setPreference("timerAmount", timerAmount);
     }
     
     public void resetTimers()
@@ -261,6 +259,11 @@ public class TimerParentLayout extends BaseLayout
         this.timerAmount = timerAmount;
     }
     
+    public int getTimerAmount()
+    {
+        return timerAmount;
+    }
+    
     public void setTimerMode(TimerMode timerMode)
     {
         this.timerMode = timerMode;
@@ -276,9 +279,19 @@ public class TimerParentLayout extends BaseLayout
         this.countdownTime = time;
     }
     
+    public float getCountdownTime()
+    {
+        return countdownTime;
+    }
+    
     public void setTimeUnit(String timeUnit)
     {
         this.timeUnit = timeUnit;
+    }
+    
+    public String getTimeUnit()
+    {
+        return timeUnit;
     }
     
     protected static class ScaleFromMiddle
