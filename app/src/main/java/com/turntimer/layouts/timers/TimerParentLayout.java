@@ -1,6 +1,7 @@
 package com.turntimer.layouts.timers;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.view.View;
 import androidx.annotation.NonNull;
@@ -186,9 +187,22 @@ public class TimerParentLayout extends BaseLayout
         
         for (int i = 0; i < timerAmount; i++)
         {
+            SharedPreferences preferences = MainActivity.getInstance().getPreferences(Context.MODE_PRIVATE);
             TimerLayout timerLayout = new TimerLayout(context);
-            timerLayout.setTimerId(i);
-            timerLayout.setTime(countdownTimeMillis);
+            
+            if (MainActivity.getInstance().getSaveStateOption())
+            {
+                String timerName = preferences.getString("timerName" + i, "Timer " + (i + 1));
+                timerLayout.setName(timerName);
+                timerLayout.setTimeMillis(preferences.getInt("timerTime" + i, countdownTimeMillis));
+            }
+            if (timerLayout.getName().equals(""))
+            {
+                timerLayout.setName("Timer " + (i + 1));
+            }
+            
+            timerLayout.setTimerMode(timerMode);
+            timerLayout.init();
             this.addView(timerLayout);
         }
     }
@@ -239,7 +253,7 @@ public class TimerParentLayout extends BaseLayout
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
                     timer.setTimerMode(TimerMode.Countdown);
-                    timer.setTime(countdownTimeMillis);
+                    timer.setTimeMillis(countdownTimeMillis);
                 }
                 break;
             default:
@@ -248,7 +262,7 @@ public class TimerParentLayout extends BaseLayout
                 {
                     TimerLayout timer = (TimerLayout) getChildAt(i);
                     timer.setTimerMode(TimerMode.Stopwatch);
-                    timer.setTime(Integer.MAX_VALUE);
+                    timer.setTimeMillis(Integer.MAX_VALUE);
                 }
                 break;
         }

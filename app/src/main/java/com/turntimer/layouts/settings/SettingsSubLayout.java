@@ -19,15 +19,15 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class SettingsSubLayout extends BaseLayout
 {
+    private Setting timerAmountSetting;
+    private Setting countdownSetting;
+    private Setting stopwatchSetting;
+    private Setting saveSetting;
     private int timerAmount;
     private float timerTime;
     private boolean saveState;
     private String timeUnit;
     private TimerParentLayout.TimerMode timerMode;
-    private Setting timerAmountSetting;
-    private Setting countdownSetting;
-    private Setting stopwatchSetting;
-    private Setting saveSetting;
     private List<CheckBox> checkBoxes = new ArrayList<>();
     private Rect tempChildRect = new Rect();
     

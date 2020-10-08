@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -21,8 +23,9 @@ public class TimerLayout extends BaseLayout
     private CountDownTimer countDownTimer;
     private int timeMillis = 0;
     private float outlineWidthDp = 0.8f;
-    private Rect tempChildRect = new Rect();
+    private String name = "";
     private TimerParentLayout.TimerMode timerMode;
+    private Rect tempChildRect = new Rect();
     
     public TimerLayout(Context context)
     {
@@ -33,12 +36,39 @@ public class TimerLayout extends BaseLayout
         
         textView = new TextView(context);
         this.addView(textView);
+    }
     
+    @Override
+    public void init()
+    {
+        editText.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+            
+            }
+            
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+            
+            }
+            
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                name = editText.getText().toString();
+            }
+        });
+        
+        editText.setText(name);
+        
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(this.context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
-    
-        setTime(timeMillis);
+        
+        setTimeMillis(timeMillis);
     }
     
     @Override
@@ -96,6 +126,11 @@ public class TimerLayout extends BaseLayout
         return countDownTimer != null;
     }
     
+    public boolean hasEnded()
+    {
+        return timeMillis == 0;
+    }
+    
     private void endTimer()
     {
         AnimationSet animationSet = new AnimationSet(false);
@@ -124,26 +159,6 @@ public class TimerLayout extends BaseLayout
         this.startAnimation(animationSet);
     }
     
-    public boolean hasEnded()
-    {
-        return timeMillis == 0;
-    }
-    
-    public void setTimerMode(TimerParentLayout.TimerMode timerMode){
-        this.timerMode = timerMode;
-    }
-    
-    public void setTimerId(int id)
-    {
-        editText.setText("Timer " + (id + 1));
-    }
-    
-    public void setTime(int millis)
-    {
-        timeMillis = millis;
-        formatTime(timeMillis);
-    }
-    
     private void formatTime(int millis)
     {
         timeMillis = millis;
@@ -152,5 +167,31 @@ public class TimerLayout extends BaseLayout
             millis = (Integer.MAX_VALUE - millis);
         }
         textView.setText(String.format("%d:%02d", millis / 60000, (millis / 1000) % 60));
+    }
+    
+    public void setTimerMode(TimerParentLayout.TimerMode timerMode)
+    {
+        this.timerMode = timerMode;
+    }
+    
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    
+    public String getName()
+    {
+        return name;
+    }
+    
+    public void setTimeMillis(int millis)
+    {
+        timeMillis = millis;
+        formatTime(timeMillis);
+    }
+    
+    public int getTimeMillis()
+    {
+        return timeMillis;
     }
 }

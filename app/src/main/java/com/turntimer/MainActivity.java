@@ -9,6 +9,7 @@ import java.util.Objects;
 import com.turntimer.layouts.BaseLayout;
 import com.turntimer.layouts.MainLayout;
 import com.turntimer.layouts.settings.SettingsSubLayout;
+import com.turntimer.layouts.timers.TimerLayout;
 import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class MainActivity extends AppCompatActivity
@@ -64,7 +65,14 @@ public class MainActivity extends AppCompatActivity
             }
             editor.putFloat("countdownTime", timerParentLayout.getCountdownTime());
             editor.putString("countdownUnit", timerParentLayout.getTimeUnit());
-            editor.putInt("timerAmount", timerParentLayout.getTimerAmount());
+            int timerAmount = timerParentLayout.getTimerAmount();
+            editor.putInt("timerAmount", timerAmount);
+            for (int i = 0; i < timerAmount; i++)
+            {
+                TimerLayout timerLayout = (TimerLayout) timerParentLayout.getChildAt(i);
+                editor.putString("timerName" + i, timerLayout.getName());
+                editor.putInt("timerTime" + i, timerLayout.getTimeMillis());
+            }
         }
         
         editor.apply();
@@ -94,8 +102,7 @@ public class MainActivity extends AppCompatActivity
         SettingsSubLayout settingsSubLayout = getLayout().getSettingsLayout().getSettingsSubLayout();
         
         settingsSubLayout.setSaveState(saveState);
-        int b = preferences.getInt("timerMode", 0);
-        if (b == 1)
+        if (preferences.getInt("timerMode", 0) == 1)
         {
             timerParentLayout.setTimerMode(TimerParentLayout.TimerMode.Stopwatch);
             settingsSubLayout.setTimerMode(TimerParentLayout.TimerMode.Stopwatch);
@@ -105,8 +112,8 @@ public class MainActivity extends AppCompatActivity
             timerParentLayout.setTimerMode(TimerParentLayout.TimerMode.Countdown);
             settingsSubLayout.setTimerMode(TimerParentLayout.TimerMode.Countdown);
         }
-        float f = preferences.getFloat("countdownTime", 0.0f);
-        timerParentLayout.setCountdownTime(f);
+        
+        timerParentLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
         settingsSubLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
         
         timerParentLayout.setTimeUnit(preferences.getString("countdownUnit", ""));
@@ -142,5 +149,10 @@ public class MainActivity extends AppCompatActivity
     public void setSaveStateOption(boolean saveState)
     {
         this.saveState = saveState;
+    }
+    
+    public boolean getSaveStateOption()
+    {
+        return saveState;
     }
 }
