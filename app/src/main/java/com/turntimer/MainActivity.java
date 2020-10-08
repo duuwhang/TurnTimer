@@ -76,21 +76,9 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         
         saveState = preferences.getBoolean("saveState", false);
-        if (saveState)
+        if (!saveState)
         {
-            //load
-            getLayout().getSettingsLayout().getSettingsSubLayout().setSaveState(saveState);
-            if (preferences.getInt("timerMode", 4) == 1)
-            {
-                getLayout().getTimerParentLayout().changeTimerMode(TimerParentLayout.TimerMode.Stopwatch);
-            }
-            else
-            {
-                getLayout().getTimerParentLayout().changeTimerMode(TimerParentLayout.TimerMode.Countdown);
-            }
-        }
-        else //default
-        {
+            //default
             SharedPreferences.Editor editor = preferences.edit();
             
             editor.putBoolean("saveState", false);
@@ -106,6 +94,27 @@ public class MainActivity extends AppCompatActivity
             
             editor.apply();
         }
+        
+        //load
+        getLayout().getSettingsLayout().getSettingsSubLayout().setSaveState(saveState);
+        
+        if (preferences.getInt("timerMode", 0) == 1)
+        {
+            getLayout().getTimerParentLayout().setTimerMode(TimerParentLayout.TimerMode.Stopwatch);
+        }
+        else
+        {
+            getLayout().getTimerParentLayout().setTimerMode(TimerParentLayout.TimerMode.Countdown);
+        }
+        
+        getLayout().getTimerParentLayout().setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
+        getLayout().getSettingsLayout().getSettingsSubLayout().setTimerTime(preferences.getFloat("countdownTime", 0.0f));
+        
+        getLayout().getTimerParentLayout().setTimeUnit(preferences.getString("countdownUnit", ""));
+        getLayout().getSettingsLayout().getSettingsSubLayout().setTimeUnit(preferences.getString("countdownUnit", ""));
+        
+        getLayout().getTimerParentLayout().setTimerAmount(preferences.getInt("timerAmount", 0));
+        getLayout().getSettingsLayout().getSettingsSubLayout().setTimerAmount(preferences.getInt("timerAmount", 0));
         
         callInits(getLayout());
     }

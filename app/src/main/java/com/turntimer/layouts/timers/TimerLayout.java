@@ -22,7 +22,7 @@ public class TimerLayout extends BaseLayout
     private int timeMillis = 0;
     private float outlineWidthDp = 0.8f;
     private Rect tempChildRect = new Rect();
-    TimerParentLayout.TimerMode mode;
+    private TimerParentLayout.TimerMode timerMode;
     
     public TimerLayout(Context context)
     {
@@ -129,6 +129,10 @@ public class TimerLayout extends BaseLayout
         return timeMillis == 0;
     }
     
+    public void setTimerMode(TimerParentLayout.TimerMode timerMode){
+        this.timerMode = timerMode;
+    }
+    
     public void setTimerId(int id)
     {
         editText.setText("Timer " + (id + 1));
@@ -143,7 +147,7 @@ public class TimerLayout extends BaseLayout
     private void formatTime(int millis)
     {
         timeMillis = millis;
-        if (mode == TimerParentLayout.TimerMode.Stopwatch)
+        if (timerMode == TimerParentLayout.TimerMode.Stopwatch)
         {
             millis = (Integer.MAX_VALUE - millis);
         }

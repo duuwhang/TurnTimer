@@ -10,10 +10,12 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
 {
-    private int timerAmount = 4;
-    private int activeTimerId = 0;
-    private int timerCountdownTimeMillis = 5 * 60 * 1000;
     private int scaleFromMiddlePx = 1;
+    private int timerAmount;
+    private int activeTimerId = 0;
+    private int countdownTimeMillis;
+    private float countdownTime;
+    private String timeUnit;
     private Rect offset = new Rect();
     private Rect tempChildRect = new Rect();
     private TimerMode timerMode;
@@ -42,8 +44,8 @@ public class TimerParentLayout extends BaseLayout
             }
         });
         
-        changeTimerMode(timerMode);
-        updateTimerAmount(timerAmount);
+        updateTimerMode();
+        updateTimerAmount();
     }
     
     @Override
@@ -172,14 +174,13 @@ public class TimerParentLayout extends BaseLayout
         }
     }
     
-    public void updateTimerAmount(int timerCount)
+    public void updateTimerAmount()
     {
         for (int i = 0; i < getChildCount(); i++)
         {
             ((TimerLayout) getChildAt(i)).stopTimer();
         }
         
-        this.timerAmount = timerCount;
         activeTimerId = 0;
         this.removeAllViewsInLayout();
         
@@ -187,7 +188,7 @@ public class TimerParentLayout extends BaseLayout
         {
             TimerLayout timerLayout = new TimerLayout(context);
             timerLayout.setTimerId(i);
-            timerLayout.setTime(timerCountdownTimeMillis);
+            timerLayout.setTime(countdownTimeMillis);
             this.addView(timerLayout);
         }
         
@@ -196,7 +197,7 @@ public class TimerParentLayout extends BaseLayout
     
     public void resetTimers()
     {
-        updateTimerAmount(timerAmount);
+        updateTimerAmount();
     }
     
     private void startTimers()
@@ -211,9 +212,15 @@ public class TimerParentLayout extends BaseLayout
         timerLayout.stopTimer();
     }
     
-    public void setTimerCountdownTime(int timeMillis)
+    public void updateCountdownTime()
     {
-        timerCountdownTimeMillis = timeMillis;
+        float time = countdownTime;
+        if (timeUnit.equals("min"))
+        {
+            time *= 60;
+        }
+        countdownTimeMillis = (int) time * 1000;
+        
         if (timerMode == TimerMode.Countdown)
         {
             resetTimers();
@@ -224,38 +231,54 @@ public class TimerParentLayout extends BaseLayout
         }
     }
     
-    public void changeTimerMode(TimerMode tMode)
+    public void updateTimerMode()
     {
-        if (tMode != timerMode)
+        resetTimers();
+        switch (timerMode)
         {
-            timerMode = tMode;
-            resetTimers();
-            switch (timerMode)
-            {
-                case Countdown:
-                    for (int i = 0; i < timerAmount; i++)
-                    {
-                        TimerLayout timer = (TimerLayout) getChildAt(i);
-                        timer.mode = TimerMode.Countdown;
-                        timer.setTime(timerCountdownTimeMillis);
-                    }
-                    break;
-                default:
-                case Stopwatch:
-                    for (int i = 0; i < timerAmount; i++)
-                    {
-                        TimerLayout timer = (TimerLayout) getChildAt(i);
-                        timer.mode = TimerMode.Stopwatch;
-                        timer.setTime(Integer.MAX_VALUE);
-                    }
-                    break;
-            }
+            case Countdown:
+                for (int i = 0; i < timerAmount; i++)
+                {
+                    TimerLayout timer = (TimerLayout) getChildAt(i);
+                    timer.setTimerMode(TimerMode.Countdown);
+                    timer.setTime(countdownTimeMillis);
+                }
+                break;
+            default:
+            case Stopwatch:
+                for (int i = 0; i < timerAmount; i++)
+                {
+                    TimerLayout timer = (TimerLayout) getChildAt(i);
+                    timer.setTimerMode(TimerMode.Stopwatch);
+                    timer.setTime(Integer.MAX_VALUE);
+                }
+                break;
         }
+    }
+    
+    public void setTimerAmount(int timerAmount)
+    {
+        this.timerAmount = timerAmount;
+    }
+    
+    public void setTimerMode(TimerMode timerMode)
+    {
+        this.timerMode = timerMode;
     }
     
     public TimerMode getTimerMode()
     {
         return timerMode;
+    }
+    
+    public void setCountdownTime(float time)
+    {
+        this.countdownTime = time;
+    }
+    
+    public void setTimeUnit(String timeUnit)
+    {
+        this.timeUnit = timeUnit;
     }
     
     protected static class ScaleFromMiddle

@@ -19,7 +19,10 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class SettingsSubLayout extends BaseLayout
 {
+    private int timerAmount;
+    private float timerTime;
     private boolean saveState;
+    private String timeUnit;
     private Setting timerAmountSetting;
     private Setting countdownSetting;
     private Setting stopwatchSetting;
@@ -94,7 +97,7 @@ public class SettingsSubLayout extends BaseLayout
     private void initTimerAmountSetting()
     {
         EditText editText = (EditText) timerAmountSetting.getElement(1);
-        editText.setText("" + 4);
+        editText.setText("" + timerAmount);
         editText.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -124,7 +127,8 @@ public class SettingsSubLayout extends BaseLayout
                 }
                 
                 TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
-                timerParentLayout.updateTimerAmount(timerAmount);
+                timerParentLayout.setTimerAmount(timerAmount);
+                timerParentLayout.updateTimerAmount();
             }
         });
     }
@@ -170,7 +174,7 @@ public class SettingsSubLayout extends BaseLayout
         });
         
         EditText editText = (EditText) countdownSetting.getElement(2);
-        editText.setText("" + 5.0);
+        editText.setText("" + timerTime);
         editText.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -271,6 +275,7 @@ public class SettingsSubLayout extends BaseLayout
                 MainActivity.getInstance().setSaveStateOption(checked);
             }
         });
+        checkBox.setChecked(saveState);
     }
     
     private void changeTimerTimes(EditText editText, Spinner spinner)
@@ -284,14 +289,13 @@ public class SettingsSubLayout extends BaseLayout
         {
             time = 1;
         }
-        
-        if (spinner.getSelectedItem().toString().equals("min"))
-        {
-            time *= 60;
-        }
+        timerTime = time;
+        timeUnit = spinner.getSelectedItem().toString();
         
         TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
-        timerParentLayout.setTimerCountdownTime((int) time * 1000);
+        timerParentLayout.setCountdownTime(timerTime);
+        timerParentLayout.setTimeUnit(timeUnit);
+        timerParentLayout.updateCountdownTime();
     }
     
     private void toggleMode()
@@ -308,11 +312,27 @@ public class SettingsSubLayout extends BaseLayout
     private void changeTimerMode(TimerParentLayout.TimerMode mode)
     {
         TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
-        timerParentLayout.changeTimerMode(mode);
+        timerParentLayout.setTimerMode(mode);
+        timerParentLayout.updateTimerMode();
+    }
+    
+    public void setTimerAmount(int timerAmount)
+    {
+        this.timerAmount = timerAmount;
+    }
+    
+    public void setTimerTime(float timerTime)
+    {
+        this.timerTime = timerTime;
     }
     
     public void setSaveState(boolean saveState)
     {
         this.saveState = saveState;
+    }
+    
+    public void setTimeUnit(String timeUnit)
+    {
+        this.timeUnit = timeUnit;
     }
 }
