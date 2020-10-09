@@ -68,7 +68,7 @@ public class TimerLayout extends BaseLayout
         gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(this.context, R.color.colorSeparation));
         this.setBackground(gradientDrawable);
         
-        setTimeMillis(timeMillis);
+        formatTime(timeMillis);
     }
     
     @Override
@@ -161,7 +161,6 @@ public class TimerLayout extends BaseLayout
     
     private void formatTime(int millis)
     {
-        timeMillis = millis;
         if (timerMode == TimerParentLayout.TimerMode.Stopwatch)
         {
             millis = (Integer.MAX_VALUE - millis);

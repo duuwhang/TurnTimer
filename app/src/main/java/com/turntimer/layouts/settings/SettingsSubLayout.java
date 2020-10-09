@@ -24,6 +24,7 @@ public class SettingsSubLayout extends BaseLayout
     private Setting stopwatchSetting;
     private Setting saveSetting;
     private int timerAmount;
+    private int selection;
     private float timerTime;
     private boolean saveState;
     private String timeUnit;
@@ -206,18 +207,24 @@ public class SettingsSubLayout extends BaseLayout
             }
         });
         
-        Spinner dropDown = (Spinner) countdownSetting.getElement(3);
+        final Spinner dropDown = (Spinner) countdownSetting.getElement(3);
         String[] items = new String[]{"min", "sec"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, items);
         dropDown.setAdapter(arrayAdapter);
+        selection = 0;
+        dropDown.setSelection(selection);
         dropDown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
         {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l)
             {
-                EditText editText = (EditText) countdownSetting.getElement(2);
-                Spinner dropDown = (Spinner) countdownSetting.getElement(3);
-                changeTimerTimes(editText, dropDown);
+                if (dropDown.getSelectedItemId() != selection)
+                {
+                    EditText editText = (EditText) countdownSetting.getElement(2);
+                    Spinner dropDown = (Spinner) countdownSetting.getElement(3);
+                    changeTimerTimes(editText, dropDown);
+                    selection = (int) dropDown.getSelectedItemId();
+                }
             }
             
             @Override
@@ -228,11 +235,8 @@ public class SettingsSubLayout extends BaseLayout
         });
         if (timeUnit.equals("sec"))
         {
-            dropDown.setSelection(1);
-        }
-        else
-        {
-            dropDown.setSelection(0);
+            selection = 1;
+            dropDown.setSelection(selection);
         }
     }
     

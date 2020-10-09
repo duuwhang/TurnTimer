@@ -15,6 +15,7 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 public class MainActivity extends AppCompatActivity
 {
     private boolean saveState;
+    private boolean loading;
     private MainLayout mainLayout;
     private static MainActivity activity;
     public static DisplayMetricsController displayMetricsController;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
+        loading = true;
         SharedPreferences preferences = getPreferences(MODE_PRIVATE);
         
         saveState = preferences.getBoolean("saveState", false);
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity
         settingsSubLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
         
         callInits(getLayout());
+        loading = false;
     }
     
     private void callInits(BaseLayout layout)
@@ -154,5 +157,10 @@ public class MainActivity extends AppCompatActivity
     public boolean getSaveStateOption()
     {
         return saveState;
+    }
+    
+    public boolean getLoading()
+    {
+        return loading;
     }
 }

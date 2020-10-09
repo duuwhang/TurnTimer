@@ -45,7 +45,7 @@ public class TimerParentLayout extends BaseLayout
             }
         });
         
-        updateTimerAmount();
+        updateCountdownTime();
         updateTimerMode();
     }
     
@@ -190,11 +190,20 @@ public class TimerParentLayout extends BaseLayout
             SharedPreferences preferences = MainActivity.getInstance().getPreferences(Context.MODE_PRIVATE);
             TimerLayout timerLayout = new TimerLayout(context);
             
+            timerLayout.setTimeMillis(countdownTimeMillis);
             if (MainActivity.getInstance().getSaveStateOption())
             {
                 String timerName = preferences.getString("timerName" + i, "Timer " + (i + 1));
                 timerLayout.setName(timerName);
-                timerLayout.setTimeMillis(preferences.getInt("timerTime" + i, countdownTimeMillis));
+                if (MainActivity.getInstance().getLoading())
+                {
+                    int timerTime = preferences.getInt("timerTime" + i, countdownTimeMillis);
+                    timerLayout.setTimeMillis(timerTime);
+                    if (timerLayout.getTimeMillis() == 0)
+                    {
+                        timerLayout.setTimeMillis(1);
+                    }
+                }
             }
             if (timerLayout.getName().equals(""))
             {
@@ -202,7 +211,6 @@ public class TimerParentLayout extends BaseLayout
             }
             
             timerLayout.setTimerMode(timerMode);
-            timerLayout.init();
             this.addView(timerLayout);
         }
     }
