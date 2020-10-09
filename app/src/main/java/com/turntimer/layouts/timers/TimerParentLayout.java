@@ -175,7 +175,7 @@ public class TimerParentLayout extends BaseLayout
         }
     }
     
-    public void updateTimerAmount()
+    public void resetTimers()
     {
         for (int i = 0; i < getChildCount(); i++)
         {
@@ -213,11 +213,6 @@ public class TimerParentLayout extends BaseLayout
             timerLayout.setTimerMode(timerMode);
             this.addView(timerLayout);
         }
-    }
-    
-    public void resetTimers()
-    {
-        updateTimerAmount();
     }
     
     private void startTimers()

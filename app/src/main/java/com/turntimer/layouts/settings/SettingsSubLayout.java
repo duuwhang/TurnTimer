@@ -130,7 +130,7 @@ public class SettingsSubLayout extends BaseLayout
                 
                 TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
                 timerParentLayout.setTimerAmount(timerAmount);
-                timerParentLayout.updateTimerAmount();
+                timerParentLayout.resetTimers();
             }
         });
     }
