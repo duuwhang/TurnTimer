@@ -58,7 +58,7 @@ public class TimerLayout extends BaseLayout
             @Override
             public void afterTextChanged(Editable editable)
             {
-                name = editText.getText().toString();
+                name = editable.toString();
             }
         });
         

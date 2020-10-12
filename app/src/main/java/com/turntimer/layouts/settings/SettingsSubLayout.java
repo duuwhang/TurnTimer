@@ -120,8 +120,7 @@ public class SettingsSubLayout extends BaseLayout
                 int timerAmount;
                 try
                 {
-                    EditText editText = (EditText) timerAmountSetting.getElement(1);
-                    timerAmount = Math.max(1, Math.min(30, Integer.parseInt(editText.getText().toString())));
+                    timerAmount = Math.max(1, Math.min(30, Integer.parseInt(editable.toString())));
                 }
                 catch (NumberFormatException e)
                 {
@@ -201,9 +200,8 @@ public class SettingsSubLayout extends BaseLayout
             @Override
             public void afterTextChanged(Editable editable)
             {
-                EditText editText = (EditText) countdownSetting.getElement(2);
                 Spinner dropDown = (Spinner) countdownSetting.getElement(3);
-                changeTimerTimes(editText, dropDown);
+                changeTimerTimes(editable, dropDown);
             }
         });
         
@@ -222,7 +220,7 @@ public class SettingsSubLayout extends BaseLayout
                 {
                     EditText editText = (EditText) countdownSetting.getElement(2);
                     Spinner dropDown = (Spinner) countdownSetting.getElement(3);
-                    changeTimerTimes(editText, dropDown);
+                    changeTimerTimes(editText.getText(), dropDown);
                     selection = (int) dropDown.getSelectedItemId();
                 }
             }
@@ -306,12 +304,12 @@ public class SettingsSubLayout extends BaseLayout
         checkBox.setChecked(saveState);
     }
     
-    private void changeTimerTimes(EditText editText, Spinner spinner)
+    private void changeTimerTimes(Editable editable, Spinner spinner)
     {
         float time;
         try
         {
-            time = Float.parseFloat(editText.getText().toString());
+            time = Float.parseFloat(editable.toString());
         }
         catch (NumberFormatException e)
         {
