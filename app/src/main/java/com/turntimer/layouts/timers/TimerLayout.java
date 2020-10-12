@@ -99,6 +99,7 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onTick(long millisUntilFinished)
             {
+                timeMillis = (int) millisUntilFinished;
                 formatTime((int) millisUntilFinished);
             }
             
@@ -186,7 +187,6 @@ public class TimerLayout extends BaseLayout
     public void setTimeMillis(int millis)
     {
         timeMillis = millis;
-        formatTime(timeMillis);
     }
     
     public int getTimeMillis()

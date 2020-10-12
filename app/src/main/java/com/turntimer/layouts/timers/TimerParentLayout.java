@@ -45,8 +45,8 @@ public class TimerParentLayout extends BaseLayout
             }
         });
         
-        updateCountdownTime();
         updateTimerMode();
+        updateCountdownTime();
     }
     
     @Override
@@ -181,36 +181,30 @@ public class TimerParentLayout extends BaseLayout
         {
             ((TimerLayout) getChildAt(i)).stopTimer();
         }
-        
-        activeTimerId = 0;
         this.removeAllViewsInLayout();
+        activeTimerId = 0;
         
         for (int i = 0; i < timerAmount; i++)
         {
-            SharedPreferences preferences = MainActivity.getInstance().getPreferences(Context.MODE_PRIVATE);
             TimerLayout timerLayout = new TimerLayout(context);
+            SharedPreferences preferences = MainActivity.getInstance().getPreferences(Context.MODE_PRIVATE);
             
             timerLayout.setTimeMillis(countdownTimeMillis);
             if (MainActivity.getInstance().getSaveStateOption())
             {
-                String timerName = preferences.getString("timerName" + i, "Timer " + (i + 1));
-                timerLayout.setName(timerName);
+                timerLayout.setName(preferences.getString("timerName" + i, ""));
                 if (MainActivity.getInstance().getLoading())
                 {
-                    int timerTime = preferences.getInt("timerTime" + i, countdownTimeMillis);
-                    timerLayout.setTimeMillis(timerTime);
-                    if (timerLayout.getTimeMillis() == 0)
-                    {
-                        timerLayout.setTimeMillis(1);
-                    }
+                    timerLayout.setTimeMillis(preferences.getInt("timerTime" + i, 1));
                 }
             }
+            
             if (timerLayout.getName().equals(""))
             {
                 timerLayout.setName("Timer " + (i + 1));
             }
-            
             timerLayout.setTimerMode(timerMode);
+            timerLayout.init();
             this.addView(timerLayout);
         }
     }
@@ -229,13 +223,6 @@ public class TimerParentLayout extends BaseLayout
     
     public void updateCountdownTime()
     {
-        float time = countdownTime;
-        if (timeUnit.equals("min"))
-        {
-            time *= 60;
-        }
-        countdownTimeMillis = (int) time * 1000;
-        
         if (timerMode == TimerMode.Countdown)
         {
             resetTimers();
@@ -294,6 +281,12 @@ public class TimerParentLayout extends BaseLayout
     public void setCountdownTime(float time)
     {
         this.countdownTime = time;
+        
+        if (timeUnit.equals("min"))
+        {
+            time *= 60;
+        }
+        countdownTimeMillis = (int) time * 1000;
     }
     
     public float getCountdownTime()

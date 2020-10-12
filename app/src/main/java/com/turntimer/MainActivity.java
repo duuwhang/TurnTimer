@@ -115,11 +115,11 @@ public class MainActivity extends AppCompatActivity
             settingsSubLayout.setTimerMode(TimerParentLayout.TimerMode.Countdown);
         }
         
-        timerParentLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
-        settingsSubLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
-        
         timerParentLayout.setTimeUnit(preferences.getString("countdownUnit", ""));
         settingsSubLayout.setTimeUnit(preferences.getString("countdownUnit", ""));
+        
+        timerParentLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
+        settingsSubLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
         
         timerParentLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
         settingsSubLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
