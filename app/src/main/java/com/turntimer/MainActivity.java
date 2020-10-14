@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity
             }
             editor.putFloat("countdownTime", timerParentLayout.getCountdownTime());
             editor.putString("countdownUnit", timerParentLayout.getTimeUnit());
+            editor.putInt("activeTimerId", timerParentLayout.getActiveTimerId());
             int timerAmount = timerParentLayout.getTimerAmount();
             editor.putInt("timerAmount", timerAmount);
             for (int i = 0; i < timerAmount; i++)
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity
             editor.putFloat("countdownTime", 5.0f);
             editor.putString("countdownUnit", "min");
             editor.putInt("timerAmount", 4);
+            editor.putInt("activeTimerId", 0);
             
             editor.apply();
         }
@@ -123,6 +125,8 @@ public class MainActivity extends AppCompatActivity
         
         timerParentLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
         settingsSubLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
+        
+        timerParentLayout.setActiveTimerId(preferences.getInt("activeTimerId", 0));
         
         callInits(getLayout());
         loading = false;

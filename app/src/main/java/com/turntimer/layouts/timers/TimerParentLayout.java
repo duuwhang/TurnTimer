@@ -13,7 +13,7 @@ public class TimerParentLayout extends BaseLayout
 {
     private int scaleFromMiddlePx = 1;
     private int timerAmount;
-    private int activeTimerId = 0;
+    private int activeTimerId;
     private int countdownTimeMillis;
     private float countdownTime;
     private String timeUnit;
@@ -181,7 +181,10 @@ public class TimerParentLayout extends BaseLayout
             ((TimerLayout) getChildAt(i)).stopTimer();
         }
         this.removeAllViewsInLayout();
-        activeTimerId = 0;
+        if (!MainActivity.getInstance().getLoading())
+        {
+            activeTimerId = 0;
+        }
         
         for (int i = 0; i < timerAmount; i++)
         {
@@ -227,6 +230,11 @@ public class TimerParentLayout extends BaseLayout
     {
         TimerLayout timerLayout = (TimerLayout) getChildAt(activeTimerId);
         timerLayout.stopTimer();
+    }
+    
+    public void setActiveTimerId(int activeTimerId)
+    {
+        this.activeTimerId = activeTimerId;
     }
     
     public int getActiveTimerId()
