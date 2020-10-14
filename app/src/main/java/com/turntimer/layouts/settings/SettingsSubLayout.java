@@ -3,6 +3,7 @@ package com.turntimer.layouts.settings;
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import java.util.List;
 import com.turntimer.MainActivity;
 import com.turntimer.layouts.BaseLayout;
 import com.turntimer.layouts.timers.TimerParentLayout;
+import static com.turntimer.MainActivity.displayMetricsController;
 
 public class SettingsSubLayout extends BaseLayout
 {
@@ -100,6 +102,8 @@ public class SettingsSubLayout extends BaseLayout
     {
         EditText editText = (EditText) timerAmountSetting.getElement(1);
         editText.setText("" + timerAmount);
+        editText.setWidth(displayMetricsController.dpToPx(30));
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         editText.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -176,6 +180,8 @@ public class SettingsSubLayout extends BaseLayout
         
         EditText editText = (EditText) countdownSetting.getElement(2);
         editText.setText("" + timerTime);
+        editText.setWidth(displayMetricsController.dpToPx(65));
+        editText.setInputType(InputType.TYPE_CLASS_PHONE);
         editText.addTextChangedListener(new TextWatcher()
         {
             @Override
