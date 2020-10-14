@@ -321,7 +321,7 @@ public class SettingsSubLayout extends BaseLayout
         TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
         timerParentLayout.setCountdownTime(timerTime);
         timerParentLayout.setTimeUnit(timeUnit);
-        timerParentLayout.updateCountdownTime();
+        timerParentLayout.resetTimers();
     }
     
     private void toggleMode()
@@ -339,7 +339,7 @@ public class SettingsSubLayout extends BaseLayout
     {
         TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
         timerParentLayout.setTimerMode(mode);
-        timerParentLayout.updateTimerMode();
+        timerParentLayout.resetTimers();
     }
     
     public void setTimerAmount(int timerAmount)

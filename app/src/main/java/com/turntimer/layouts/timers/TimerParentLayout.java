@@ -45,8 +45,7 @@ public class TimerParentLayout extends BaseLayout
             }
         });
         
-        updateTimerMode();
-        updateCountdownTime();
+        resetTimers();
     }
     
     @Override
@@ -221,41 +220,9 @@ public class TimerParentLayout extends BaseLayout
         timerLayout.stopTimer();
     }
     
-    public void updateCountdownTime()
+    public int getActiveTimerId()
     {
-        if (timerMode == TimerMode.Countdown)
-        {
-            resetTimers();
-            if (getVisibility() == VISIBLE)
-            {
-                startTimers();
-            }
-        }
-    }
-    
-    public void updateTimerMode()
-    {
-        resetTimers();
-        switch (timerMode)
-        {
-            case Countdown:
-                for (int i = 0; i < timerAmount; i++)
-                {
-                    TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.setTimerMode(TimerMode.Countdown);
-                    timer.setTimeMillis(countdownTimeMillis);
-                }
-                break;
-            default:
-            case Stopwatch:
-                for (int i = 0; i < timerAmount; i++)
-                {
-                    TimerLayout timer = (TimerLayout) getChildAt(i);
-                    timer.setTimerMode(TimerMode.Stopwatch);
-                    timer.setTimeMillis(Integer.MAX_VALUE);
-                }
-                break;
-        }
+        return activeTimerId;
     }
     
     public void setTimerAmount(int timerAmount)
