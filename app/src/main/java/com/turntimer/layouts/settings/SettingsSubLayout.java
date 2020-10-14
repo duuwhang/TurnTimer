@@ -305,8 +305,8 @@ public class SettingsSubLayout extends BaseLayout
         timeUnit = spinner.getSelectedItem().toString();
         
         TimerParentLayout timerParentLayout = MainActivity.getInstance().getLayout().getTimerParentLayout();
-        timerParentLayout.setCountdownTime(timerTime);
         timerParentLayout.setTimeUnit(timeUnit);
+        timerParentLayout.setCountdownTime(timerTime);
         timerParentLayout.resetTimers();
     }
     
