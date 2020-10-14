@@ -157,7 +157,7 @@ public class TimerParentLayout extends BaseLayout
         
         for (int i = 0; i < timerAmount; i++)
         {
-            if (!((TimerLayout) getChildAt(i)).hasEnded() && !((TimerLayout) getChildAt(i)).isRunning())
+            if (!((TimerLayout) getChildAt(i)).hasEnded())
             {
                 allTimersEnded = false;
                 break;
