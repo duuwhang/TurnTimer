@@ -8,7 +8,7 @@ public class DisplayMetricsController
 {
     private float pixelDensity;
     private Display display;
-
+    
     public DisplayMetricsController(Display display, float pixelDensity)
     {
         this.pixelDensity = pixelDensity;

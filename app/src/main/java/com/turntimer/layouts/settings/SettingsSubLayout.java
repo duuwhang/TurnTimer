@@ -126,7 +126,7 @@ public class SettingsSubLayout extends BaseLayout
                 {
                     timerAmount = Math.max(1, Math.min(30, Integer.parseInt(editable.toString())));
                 }
-                catch (NumberFormatException e)
+                catch (NumberFormatException exception)
                 {
                     timerAmount = 1;
                 }
