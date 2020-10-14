@@ -151,14 +151,7 @@ public class SettingsSubLayout extends BaseLayout
     {
         CheckBox checkBox = (CheckBox) countdownSetting.getElement(1);
         checkBoxes.add(checkBox);
-        if (timerMode == TimerParentLayout.TimerMode.Stopwatch)
-        {
-            checkBox.setChecked(false);
-        }
-        else
-        {
-            checkBox.setChecked(true);
-        }
+        checkBox.setChecked(timerMode != TimerParentLayout.TimerMode.Stopwatch);
         checkBox.setOnClickListener(new OnClickListener()
         {
             @Override
@@ -250,14 +243,7 @@ public class SettingsSubLayout extends BaseLayout
     {
         CheckBox checkBox = (CheckBox) stopwatchSetting.getElement(1);
         checkBoxes.add(checkBox);
-        if (timerMode == TimerParentLayout.TimerMode.Stopwatch)
-        {
-            checkBox.setChecked(true);
-        }
-        else
-        {
-            checkBox.setChecked(false);
-        }
+        checkBox.setChecked(timerMode == TimerParentLayout.TimerMode.Stopwatch);
         checkBox.setOnClickListener(new OnClickListener()
         {
             @Override

@@ -188,7 +188,16 @@ public class TimerParentLayout extends BaseLayout
             TimerLayout timerLayout = new TimerLayout(context);
             SharedPreferences preferences = MainActivity.getInstance().getPreferences(Context.MODE_PRIVATE);
             
-            timerLayout.setTimeMillis(countdownTimeMillis);
+            switch (timerMode)
+            {
+                default:
+                case Countdown:
+                    timerLayout.setTimeMillis(countdownTimeMillis);
+                    break;
+                case Stopwatch:
+                    timerLayout.setTimeMillis(Integer.MAX_VALUE);
+                    break;
+            }
             if (MainActivity.getInstance().getSaveStateOption())
             {
                 timerLayout.setName(preferences.getString("timerName" + i, ""));
