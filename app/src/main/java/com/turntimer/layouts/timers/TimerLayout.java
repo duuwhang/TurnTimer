@@ -164,7 +164,7 @@ public class TimerLayout extends BaseLayout
     {
         if (timerMode == TimerParentLayout.TimerMode.Stopwatch)
         {
-            millis = (Integer.MAX_VALUE - millis);
+            millis = (Integer.MAX_VALUE - millis + 900);
         }
         textView.setText(String.format("%d:%02d", millis / 60000, (millis / 1000) % 60));
     }
