@@ -11,13 +11,12 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
 {
-    private int scaleFromMiddlePx = 1;
+    private int scaleFromMiddlePx = 8;
     private int timerAmount;
     private int activeTimerId;
     private int countdownTimeMillis;
     private float countdownTime;
     private String timeUnit;
-    private Rect offset = new Rect();
     private Rect tempChildRect = new Rect();
     private TimerMode timerMode;
     
@@ -51,10 +50,10 @@ public class TimerParentLayout extends BaseLayout
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
-        left = ScaleFromMiddle.scaleLeft(scaleFromMiddlePx, left);
-        top = ScaleFromMiddle.scaleTop(scaleFromMiddlePx, top);
-        right = ScaleFromMiddle.scaleRight(scaleFromMiddlePx, right);
-        bottom = ScaleFromMiddle.scaleBottom(scaleFromMiddlePx, bottom);
+        left -= scaleFromMiddlePx;
+        top -= scaleFromMiddlePx;
+        right += scaleFromMiddlePx;
+        bottom += scaleFromMiddlePx;
         
         int height = bottom - top;
         int width = right - left;
@@ -62,16 +61,14 @@ public class TimerParentLayout extends BaseLayout
         int rows = calculateRows(timerAmount, displayMetricsController.getScreenHeight(), displayMetricsController.getScreenWidth());
         int columns = calculateColumns(timerAmount, rows);
         
-        offset.set(-1, -2, columns, rows);
-        
         for (int i = 0; i < getChildCount(); i++)
         {
             int childHeight = height / rows;
             int childWidth = width / columns;
             tempChildRect.setEmpty();
             
-            tempChildRect.left = offset.left + (i % columns) * childWidth;
-            tempChildRect.top = offset.top + i / columns * childHeight;
+            tempChildRect.left = left + (i % columns) * childWidth;
+            tempChildRect.top = top + i / columns * childHeight;
             
             int emptyTimerSpace = rows * columns - timerAmount;
             if (columns % 2 != 0 && timerAmount - (rows - 1) * columns == 1 && i >= timerAmount - emptyTimerSpace)
@@ -92,8 +89,8 @@ public class TimerParentLayout extends BaseLayout
                     tempChildRect.left -= tempChildRect.left / childWidth * width;
                 }
             }
-            tempChildRect.right += offset.right + tempChildRect.left + childWidth;
-            tempChildRect.bottom = offset.bottom + tempChildRect.top + childHeight;
+            tempChildRect.right += tempChildRect.left + childWidth;
+            tempChildRect.bottom = tempChildRect.top + childHeight;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
@@ -289,28 +286,5 @@ public class TimerParentLayout extends BaseLayout
     public String getTimeUnit()
     {
         return timeUnit;
-    }
-    
-    protected static class ScaleFromMiddle
-    {
-        protected static int scaleLeft(int scaleFromMiddlePx, int left)
-        {
-            return left - scaleFromMiddlePx;
-        }
-        
-        protected static int scaleTop(int scaleFromMiddlePx, int top)
-        {
-            return top - scaleFromMiddlePx;
-        }
-        
-        protected static int scaleRight(int scaleFromMiddlePx, int right)
-        {
-            return right + scaleFromMiddlePx;
-        }
-        
-        protected static int scaleBottom(int scaleFromMiddlePx, int bottom)
-        {
-            return bottom + scaleFromMiddlePx;
-        }
     }
 }
