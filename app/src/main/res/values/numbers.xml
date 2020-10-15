@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="anim_duration">100</integer>
-    <fraction name="anim_distance">3%</fraction>
-    <fraction name="anim_distance_neg">-3%</fraction>
+    <integer name="anim_duration">500</integer>
+    <fraction name="anim_distance">100%</fraction>
+    <fraction name="anim_distance_neg">-100%</fraction>
 </resources>
