@@ -11,7 +11,7 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
 {
-    private int scaleFromMiddlePx = 8;
+    private int scaleFromMiddlePx = 5;
     private int timerAmount;
     private int activeTimerId;
     private int countdownTimeMillis;
@@ -53,7 +53,7 @@ public class TimerParentLayout extends BaseLayout
         left -= scaleFromMiddlePx;
         top -= scaleFromMiddlePx;
         right += scaleFromMiddlePx;
-        bottom += scaleFromMiddlePx;
+        bottom += 2 * scaleFromMiddlePx;
         
         int height = bottom - top;
         int width = right - left;
