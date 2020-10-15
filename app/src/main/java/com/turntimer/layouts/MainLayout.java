@@ -112,7 +112,7 @@ public class MainLayout extends BaseLayout
                 return result;
             }
             
-            void onSwipeLeft() // experimental
+            void onSwipeLeft()
             {
                 if (currentChild > 0)
                 {
@@ -175,7 +175,7 @@ public class MainLayout extends BaseLayout
                 }
             }
             
-            void onSwipeRight() // experimental
+            void onSwipeRight()
             {
                 if (currentChild < getChildCount() - 1)
                 {
