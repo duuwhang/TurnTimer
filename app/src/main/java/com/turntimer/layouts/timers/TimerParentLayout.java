@@ -73,18 +73,18 @@ public class TimerParentLayout extends BaseLayout
             tempChildRect.left = offset.left + (i % columns) * childWidth;
             tempChildRect.top = offset.top + i / columns * childHeight;
             
-            int timerDifference = rows * columns - timerAmount;
-            if (columns % 2 != 0 && timerAmount - (rows - 1) * columns == 1 && i >= timerAmount - timerDifference) // more than double width
+            int emptyTimerSpace = rows * columns - timerAmount;
+            if (columns % 2 != 0 && timerAmount - (rows - 1) * columns == 1 && i >= timerAmount - emptyTimerSpace)
             {
                 if (i == timerAmount - 1)
                 {
-                    tempChildRect.right += childWidth * timerDifference;
+                    tempChildRect.right += childWidth * emptyTimerSpace;
                 }
             }
-            else if (timerDifference > 0 && i >= timerAmount - timerDifference) // place multiple timers with double width
+            else if (emptyTimerSpace > 0 && i >= timerAmount - emptyTimerSpace)
             {
+                tempChildRect.left -= (timerAmount - emptyTimerSpace - i) * childWidth;
                 childWidth *= 2;
-                tempChildRect.left += (timerAmount - i - timerDifference) * -0.5 * childWidth;
                 
                 if ((rows - 1) * columns > i)
                 {
