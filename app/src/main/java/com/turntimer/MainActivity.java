@@ -39,9 +39,6 @@ public class MainActivity extends AppCompatActivity
         Resources resources = getResources();
         WindowManager windowManager = getWindowManager();
         displayMetricsController = new DisplayMetricsController(windowManager.getDefaultDisplay(), resources.getDisplayMetrics().density);
-        
-        mainLayout = new MainLayout(this);
-        setContentView(mainLayout);
     }
     
     @Override
@@ -84,52 +81,59 @@ public class MainActivity extends AppCompatActivity
     protected void onResume()
     {
         super.onResume();
-        loading = true;
-        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-        
-        saveState = preferences.getBoolean("saveState", false);
-        if (!saveState)
+        if (mainLayout == null)
         {
-            SharedPreferences.Editor editor = preferences.edit();
             
-            editor.putBoolean("saveState", false);
-            editor.putInt("timerMode", 0);
-            editor.putFloat("countdownTime", 5.0f);
-            editor.putString("countdownUnit", "min");
-            editor.putInt("timerAmount", 4);
-            editor.putInt("activeTimerId", 0);
+            mainLayout = new MainLayout(this);
+            setContentView(mainLayout);
             
-            editor.apply();
+            loading = true;
+            SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+            
+            saveState = preferences.getBoolean("saveState", false);
+            if (!saveState)
+            {
+                SharedPreferences.Editor editor = preferences.edit();
+                
+                editor.putBoolean("saveState", false);
+                editor.putInt("timerMode", 0);
+                editor.putFloat("countdownTime", 5.0f);
+                editor.putString("countdownUnit", "min");
+                editor.putInt("timerAmount", 4);
+                editor.putInt("activeTimerId", 0);
+                
+                editor.apply();
+            }
+            
+            TimerParentLayout timerParentLayout = getLayout().getTimerParentLayout();
+            SettingsSubLayout settingsSubLayout = getLayout().getSettingsLayout().getSettingsSubLayout();
+            
+            settingsSubLayout.setSaveState(saveState);
+            if (preferences.getInt("timerMode", 0) == 1)
+            {
+                timerParentLayout.setTimerMode(TimerParentLayout.TimerMode.Stopwatch);
+                settingsSubLayout.setTimerMode(TimerParentLayout.TimerMode.Stopwatch);
+            }
+            else
+            {
+                timerParentLayout.setTimerMode(TimerParentLayout.TimerMode.Countdown);
+                settingsSubLayout.setTimerMode(TimerParentLayout.TimerMode.Countdown);
+            }
+            
+            timerParentLayout.setTimeUnit(preferences.getString("countdownUnit", ""));
+            settingsSubLayout.setTimeUnit(preferences.getString("countdownUnit", ""));
+            
+            timerParentLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
+            settingsSubLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
+            
+            timerParentLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
+            settingsSubLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
+            
+            timerParentLayout.setActiveTimerId(preferences.getInt("activeTimerId", 0));
+            
+            callInits(getLayout());
+            loading = false;
         }
-        
-        TimerParentLayout timerParentLayout = getLayout().getTimerParentLayout();
-        SettingsSubLayout settingsSubLayout = getLayout().getSettingsLayout().getSettingsSubLayout();
-        
-        settingsSubLayout.setSaveState(saveState);
-        if (preferences.getInt("timerMode", 0) == 1)
-        {
-            timerParentLayout.setTimerMode(TimerParentLayout.TimerMode.Stopwatch);
-            settingsSubLayout.setTimerMode(TimerParentLayout.TimerMode.Stopwatch);
-        }
-        else
-        {
-            timerParentLayout.setTimerMode(TimerParentLayout.TimerMode.Countdown);
-            settingsSubLayout.setTimerMode(TimerParentLayout.TimerMode.Countdown);
-        }
-        
-        timerParentLayout.setTimeUnit(preferences.getString("countdownUnit", ""));
-        settingsSubLayout.setTimeUnit(preferences.getString("countdownUnit", ""));
-        
-        timerParentLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
-        settingsSubLayout.setCountdownTime(preferences.getFloat("countdownTime", 0.0f));
-        
-        timerParentLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
-        settingsSubLayout.setTimerAmount(preferences.getInt("timerAmount", 0));
-        
-        timerParentLayout.setActiveTimerId(preferences.getInt("activeTimerId", 0));
-        
-        callInits(getLayout());
-        loading = false;
     }
     
     private void callInits(BaseLayout layout)
