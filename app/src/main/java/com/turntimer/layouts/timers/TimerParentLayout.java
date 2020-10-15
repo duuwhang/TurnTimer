@@ -74,11 +74,11 @@ public class TimerParentLayout extends BaseLayout
             tempChildRect.top = offset.top + i / columns * childHeight;
             
             int timerDifference = rows * columns - timerAmount;
-            if (columns % 2 != 0 && timerDifference > 0 && i >= timerAmount - timerDifference) // fix double width exception
+            if (columns % 2 != 0 && timerAmount - (rows - 1) * columns == 1 && i >= timerAmount - timerDifference) // more than double width
             {
                 if (i == timerAmount - 1)
                 {
-                    tempChildRect.right += childWidth * timerDifference;// ((i + 1) / timerAmount * (timerAmount / rows));
+                    tempChildRect.right += childWidth * timerDifference;
                 }
             }
             else if (timerDifference > 0 && i >= timerAmount - timerDifference) // place multiple timers with double width
@@ -88,15 +88,15 @@ public class TimerParentLayout extends BaseLayout
                 
                 if ((rows - 1) * columns > i)
                 {
-                    tempChildRect.left -= tempChildRect.left / childWidth * width;
                     tempChildRect.top += tempChildRect.left / childWidth * childHeight;
+                    tempChildRect.left -= tempChildRect.left / childWidth * width;
                 }
             }
             tempChildRect.right += offset.right + tempChildRect.left + childWidth;
             tempChildRect.bottom = offset.bottom + tempChildRect.top + childHeight;
             
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
-        } // flawed system -> hard 13, 16 exception & max amount is 30
+        }
     }
     
     @Override
@@ -131,7 +131,7 @@ public class TimerParentLayout extends BaseLayout
                 double width = (double) screenWidth / columns;
                 
                 int timerDifference = (i + 1) * columns - timerAmount;
-                if (timerDifference > 0 && j >= timerAmount - timerDifference)
+                if (timerDifference > 0 && j + 1 > timerAmount - timerDifference)
                 {
                     width *= 2 + 1; //punish uneven layouts
                 }
