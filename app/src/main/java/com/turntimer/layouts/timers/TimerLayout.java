@@ -61,8 +61,9 @@ public class TimerLayout extends BaseLayout
                 name = editable.toString();
             }
         });
-        
         editText.setText(name);
+        
+        textView.setTextSize(16);
         
         GradientDrawable gradientDrawable = new GradientDrawable();
         gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(this.context, R.color.colorSeparation));
