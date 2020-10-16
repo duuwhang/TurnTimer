@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Objects;
 import com.turntimer.layouts.BaseLayout;
@@ -83,13 +84,18 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         if (mainLayout == null)
         {
-            
             mainLayout = new MainLayout(this);
             setContentView(mainLayout);
-            
-            loading = true;
+    
             SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-            
+            if (!preferences.getBoolean("showedHint", false))
+            {
+                Toast.makeText(this, "Swipe right to view the timers", Toast.LENGTH_LONG).show();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("showedHint", true);
+                editor.apply();
+            }
+            loading = true;
             saveState = preferences.getBoolean("saveState", false);
             if (!saveState)
             {
