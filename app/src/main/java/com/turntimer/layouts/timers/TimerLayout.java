@@ -26,6 +26,7 @@ public class TimerLayout extends BaseLayout
     private String name = "";
     private TimerParentLayout.TimerMode timerMode;
     private Rect tempChildRect = new Rect();
+    private GradientDrawable gradientDrawable;
     
     public TimerLayout(Context context)
     {
@@ -65,9 +66,7 @@ public class TimerLayout extends BaseLayout
         
         textView.setTextSize(16);
         
-        GradientDrawable gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(this.context, R.color.colorSeparation));
-        this.setBackground(gradientDrawable);
+        initGradientDrawable();
         
         formatTime(timeMillis);
     }
@@ -113,6 +112,8 @@ public class TimerLayout extends BaseLayout
             }
         };
         countDownTimer.start();
+        gradientDrawable.setColor(ContextCompat.getColor(context, R.color.colorAccentDark));
+        this.setBackground(gradientDrawable);
     }
     
     public void stopTimer()
@@ -121,6 +122,7 @@ public class TimerLayout extends BaseLayout
         {
             countDownTimer.cancel();
         }
+        initGradientDrawable();
     }
     
     protected boolean isRunning()
@@ -149,7 +151,7 @@ public class TimerLayout extends BaseLayout
             public void onAnimationEnd(Animation animation)
             {
                 clearAnimation();
-                setAlpha(0.5f);
+                setAlpha(0.3f);
             }
             
             @Override
@@ -159,6 +161,7 @@ public class TimerLayout extends BaseLayout
             }
         });
         this.startAnimation(animationSet);
+        initGradientDrawable();
     }
     
     private void formatTime(int millis)
@@ -168,6 +171,13 @@ public class TimerLayout extends BaseLayout
             millis = (Integer.MAX_VALUE - millis + 900);
         }
         textView.setText(String.format("%d:%02d", millis / 60000, (millis / 1000) % 60));
+    }
+    
+    private void initGradientDrawable()
+    {
+        gradientDrawable = new GradientDrawable();
+        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(this.context, R.color.colorSeparation));
+        this.setBackground(gradientDrawable);
     }
     
     public void setTimerMode(TimerParentLayout.TimerMode timerMode)
