@@ -24,7 +24,7 @@ android {
             variant ->
                 variant.outputs.each {
                     output ->
-                        output.outputFileName = "${variant.name}.apk"
+                        output.outputFileName = "${rootProject.name}.apk"
                 }
         }
     }
