@@ -3,4 +3,5 @@
     <integer name="anim_duration">100</integer>
     <fraction name="anim_distance">3%</fraction>
     <fraction name="anim_distance_neg">-3%</fraction>
+    <fraction name="anim_timer_end_alpha">0.03</fraction>
 </resources>
