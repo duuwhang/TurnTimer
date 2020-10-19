@@ -94,26 +94,29 @@ public class TimerLayout extends BaseLayout
     public void startTimer()
     {
         stopTimer();
-        countDownTimer = new CountDownTimer(timeMillis, 200)
+        if (!hasEnded())
         {
-            @Override
-            public void onTick(long millisUntilFinished)
+            countDownTimer = new CountDownTimer(timeMillis, 200)
             {
-                timeMillis = (int) millisUntilFinished;
-                formatTime((int) millisUntilFinished);
-            }
-            
-            @Override
-            public void onFinish()
-            {
-                timeMillis = 0;
-                endTimer();
-                ((TimerParentLayout) getParent()).switchToNextTimer();
-            }
-        };
-        countDownTimer.start();
-        gradientDrawable.setColor(ContextCompat.getColor(context, R.color.colorAccentDark));
-        this.setBackground(gradientDrawable);
+                @Override
+                public void onTick(long millisUntilFinished)
+                {
+                    timeMillis = (int) millisUntilFinished;
+                    formatTime((int) millisUntilFinished);
+                }
+                
+                @Override
+                public void onFinish()
+                {
+                    timeMillis = 0;
+                    endTimer();
+                    ((TimerParentLayout) getParent()).switchToNextTimer();
+                }
+            };
+            countDownTimer.start();
+            gradientDrawable.setColor(ContextCompat.getColor(context, R.color.colorAccentDark));
+            this.setBackground(gradientDrawable);
+        }
     }
     
     public void stopTimer()
@@ -161,7 +164,7 @@ public class TimerLayout extends BaseLayout
             }
         });
         this.startAnimation(animationSet);
-        initGradientDrawable();
+        stopTimer();
     }
     
     private void formatTime(int millis)
