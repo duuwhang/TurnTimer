@@ -6,9 +6,6 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'macos-latest'
-
 steps:
 - task: Gradle@2
   inputs:
