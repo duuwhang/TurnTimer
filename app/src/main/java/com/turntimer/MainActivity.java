@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
         {
             mainLayout = new MainLayout(this);
             setContentView(mainLayout);
-    
+            
             SharedPreferences preferences = getPreferences(MODE_PRIVATE);
             if (!preferences.getBoolean("showedHint", false))
             {
