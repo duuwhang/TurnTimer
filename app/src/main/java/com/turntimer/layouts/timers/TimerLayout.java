@@ -86,14 +86,21 @@ public class TimerLayout extends BaseLayout
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
-            
+    
             tempChildRect.left = width / 2 - childWidth / 2;
             tempChildRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
             tempChildRect.right = tempChildRect.left + childWidth;
             tempChildRect.bottom = tempChildRect.top + childHeight;
-            
+    
             getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
         }
+    }
+    
+    private void initGradientDrawable()
+    {
+        gradientDrawable = new GradientDrawable();
+        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
+        this.setBackground(gradientDrawable);
     }
     
     public void startTimer()
@@ -131,16 +138,6 @@ public class TimerLayout extends BaseLayout
             countDownTimer.cancel();
         }
         initGradientDrawable();
-    }
-    
-    protected boolean isRunning()
-    {
-        return countDownTimer != null;
-    }
-    
-    public boolean hasEnded()
-    {
-        return timeMillis == 0;
     }
     
     private void endTimer()
@@ -185,21 +182,14 @@ public class TimerLayout extends BaseLayout
         textView.setText(String.format("%d:%02d", millis / 60000, (millis / 1000) % 60));
     }
     
-    private void initGradientDrawable()
+    public boolean isRunning()
     {
-        gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
-        this.setBackground(gradientDrawable);
+        return countDownTimer != null;
     }
     
-    public void setTimerMode(TimerParentLayout.TimerMode timerMode)
+    public boolean hasEnded()
     {
-        this.timerMode = timerMode;
-    }
-    
-    public void setName(String name)
-    {
-        this.name = name;
+        return timeMillis == 0;
     }
     
     public String getName()
@@ -207,13 +197,23 @@ public class TimerLayout extends BaseLayout
         return name;
     }
     
-    public void setTimeMillis(int millis)
+    public void setName(String name)
     {
-        timeMillis = millis;
+        this.name = name;
     }
     
     public int getTimeMillis()
     {
         return timeMillis;
+    }
+    
+    public void setTimeMillis(int millis)
+    {
+        timeMillis = millis;
+    }
+    
+    public void setTimerMode(TimerParentLayout.TimerMode timerMode)
+    {
+        this.timerMode = timerMode;
     }
 }

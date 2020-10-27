@@ -15,11 +15,11 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class MainActivity extends AppCompatActivity
 {
+    public static DisplayMetricsController displayMetricsController;
+    private static MainActivity activity;
     private boolean saveState;
     private boolean loading;
     private MainLayout mainLayout;
-    private static MainActivity activity;
-    public static DisplayMetricsController displayMetricsController;
     
     public MainActivity()
     {
@@ -158,9 +158,9 @@ public class MainActivity extends AppCompatActivity
         }
     }
     
-    public MainLayout getLayout()
+    public boolean getSaveStateOption()
     {
-        return mainLayout;
+        return saveState;
     }
     
     public void setSaveStateOption(boolean saveState)
@@ -168,13 +168,13 @@ public class MainActivity extends AppCompatActivity
         this.saveState = saveState;
     }
     
-    public boolean getSaveStateOption()
-    {
-        return saveState;
-    }
-    
     public boolean getLoading()
     {
         return loading;
+    }
+    
+    public MainLayout getLayout()
+    {
+        return mainLayout;
     }
 }

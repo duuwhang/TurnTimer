@@ -232,19 +232,14 @@ public class TimerParentLayout extends BaseLayout
         timerLayout.stopTimer();
     }
     
-    public void setActiveTimerId(int activeTimerId)
-    {
-        this.activeTimerId = activeTimerId;
-    }
-    
     public int getActiveTimerId()
     {
         return activeTimerId;
     }
     
-    public void setTimerAmount(int timerAmount)
+    public void setActiveTimerId(int activeTimerId)
     {
-        this.timerAmount = timerAmount;
+        this.activeTimerId = activeTimerId;
     }
     
     public int getTimerAmount()
@@ -252,14 +247,24 @@ public class TimerParentLayout extends BaseLayout
         return timerAmount;
     }
     
-    public void setTimerMode(TimerMode timerMode)
+    public void setTimerAmount(int timerAmount)
     {
-        this.timerMode = timerMode;
+        this.timerAmount = timerAmount;
     }
     
     public TimerMode getTimerMode()
     {
         return timerMode;
+    }
+    
+    public void setTimerMode(TimerMode timerMode)
+    {
+        this.timerMode = timerMode;
+    }
+    
+    public float getCountdownTime()
+    {
+        return countdownTime;
     }
     
     public void setCountdownTime(float time)
@@ -273,18 +278,13 @@ public class TimerParentLayout extends BaseLayout
         countdownTimeMillis = (int) time * 1000;
     }
     
-    public float getCountdownTime()
+    public String getTimeUnit()
     {
-        return countdownTime;
+        return timeUnit;
     }
     
     public void setTimeUnit(String timeUnit)
     {
         this.timeUnit = timeUnit;
-    }
-    
-    public String getTimeUnit()
-    {
-        return timeUnit;
     }
 }
