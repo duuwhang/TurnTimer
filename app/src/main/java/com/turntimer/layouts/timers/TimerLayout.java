@@ -34,8 +34,9 @@ public class TimerLayout extends BaseLayout
         
         editText = new EditText(context);
         this.addView(editText);
-        
+    
         textView = new TextView(context);
+        this.addView(textView);
     }
     
     @Override
