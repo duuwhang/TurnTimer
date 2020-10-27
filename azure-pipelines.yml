@@ -29,5 +29,5 @@ steps:
   - task: CopyFiles@2
     inputs:
       Contents: '*.apk'
-      TargetFolder: '\'
+      TargetFolder: ''
       OverWrite: true
