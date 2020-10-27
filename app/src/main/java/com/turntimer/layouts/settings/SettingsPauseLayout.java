@@ -12,9 +12,9 @@ import com.turntimer.layouts.timers.TimerParentLayout;
 
 public class SettingsPauseLayout extends BaseLayout
 {
-    private final TextView timersPausedText;
-    private final Button resetButton;
-    private final Rect tempChildRect = new Rect();
+    private TextView timersPausedText;
+    private Button resetButton;
+    private Rect tempChildRect = new Rect();
     
     public SettingsPauseLayout(final Context context)
     {

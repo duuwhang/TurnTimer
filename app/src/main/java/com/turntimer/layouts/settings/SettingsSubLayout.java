@@ -31,8 +31,8 @@ public class SettingsSubLayout extends BaseLayout
     private boolean saveState;
     private String timeUnit;
     private TimerParentLayout.TimerMode timerMode;
-    private final List<CheckBox> checkBoxes = new ArrayList<>();
-    private final Rect tempChildRect = new Rect();
+    private List<CheckBox> checkBoxes = new ArrayList<>();
+    private Rect tempChildRect = new Rect();
     
     public SettingsSubLayout(Context context)
     {

@@ -5,8 +5,8 @@ import android.view.Display;
 
 public class DisplayMetricsController
 {
-    private final float pixelDensity;
-    private final Display display;
+    private float pixelDensity;
+    private Display display;
     
     public DisplayMetricsController(Display display, float pixelDensity)
     {
