@@ -30,5 +30,5 @@ steps:
     inputs:
       SourceFolder: '$(Build.ArtifactStagingDirectory)'
       Contents: '*.apk'
-      TargetFolder: 
+      TargetFolder: '\'
       OverWrite: true
