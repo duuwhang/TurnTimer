@@ -28,7 +28,6 @@ steps:
 
   - task: CopyFiles@2
     inputs:
-      SourceFolder: '$(Build.ArtifactStagingDirectory)'
       Contents: '*.apk'
       TargetFolder: '\'
       OverWrite: true
