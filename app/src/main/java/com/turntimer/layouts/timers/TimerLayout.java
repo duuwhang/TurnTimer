@@ -18,14 +18,14 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerLayout extends BaseLayout
 {
-    private EditText editText;
-    private TextView textView;
+    private final EditText editText;
+    private final TextView textView;
     private CountDownTimer countDownTimer;
     private int timeMillis = 0;
-    private float outlineWidthDp = 0.8f;
+    private final float outlineWidthDp = 0.8f;
     private String name = "";
     private TimerParentLayout.TimerMode timerMode;
-    private Rect tempChildRect = new Rect();
+    private final Rect tempChildRect = new Rect();
     private GradientDrawable gradientDrawable;
     
     public TimerLayout(Context context)

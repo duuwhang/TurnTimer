@@ -1,16 +1,13 @@
-<set
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:fillAfter="true"
-    android:shareInterpolator="false">
-    <alpha
-        android:duration="@integer/anim_duration"
-        android:fromAlpha="1.0"
-        android:interpolator="@android:anim/linear_interpolator"
-        android:toAlpha="0.0" />
-    <translate
-        android:duration="@integer/anim_duration"
-        android:fromXDelta="0%"
-        android:fromYDelta="0%"
-        android:toXDelta="@fraction/anim_distance"
-        android:toYDelta="0%" />
+<set xmlns:android = "http://schemas.android.com/apk/res/android"
+     android:fillAfter = "true"
+     android:shareInterpolator = "false">
+    <alpha android:duration = "@integer/anim_duration"
+           android:fromAlpha = "1.0"
+           android:interpolator = "@android:anim/linear_interpolator"
+           android:toAlpha = "0.0" />
+    <translate android:duration = "@integer/anim_duration"
+               android:fromXDelta = "0%"
+               android:fromYDelta = "0%"
+               android:toXDelta = "@fraction/anim_distance"
+               android:toYDelta = "0%" />
 </set>

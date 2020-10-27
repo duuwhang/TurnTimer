@@ -11,13 +11,13 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class TimerParentLayout extends BaseLayout
 {
-    private int scaleFromMiddlePx = 5;
+    private final int scaleFromMiddlePx = 5;
     private int timerAmount;
     private int activeTimerId;
     private int countdownTimeMillis;
     private float countdownTime;
     private String timeUnit;
-    private Rect tempChildRect = new Rect();
+    private final Rect tempChildRect = new Rect();
     private TimerMode timerMode;
     
     public enum TimerMode

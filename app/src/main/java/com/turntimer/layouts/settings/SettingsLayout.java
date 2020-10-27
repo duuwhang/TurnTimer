@@ -6,9 +6,9 @@ import com.turntimer.layouts.BaseLayout;
 
 public class SettingsLayout extends BaseLayout
 {
-    private SettingsPauseLayout settingsPauseLayout;
-    private SettingsSubLayout settingsSubLayout;
-    private Rect tempChildRect = new Rect();
+    private final SettingsPauseLayout settingsPauseLayout;
+    private final SettingsSubLayout settingsSubLayout;
+    private final Rect tempChildRect = new Rect();
     
     public SettingsLayout(Context context)
     {

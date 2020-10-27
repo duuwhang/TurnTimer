@@ -16,10 +16,10 @@ public class MainLayout extends BaseLayout
     private int startingChild = 0;
     private int currentChild = startingChild;
     private boolean interruptClick = true;
-    private SettingsLayout settingsLayout;
-    private TimerParentLayout timerParentLayout;
+    private final SettingsLayout settingsLayout;
+    private final TimerParentLayout timerParentLayout;
     private GestureDetector gestureDetector = null;
-    private View.OnTouchListener touchListener = new View.OnTouchListener()
+    private final View.OnTouchListener touchListener = new View.OnTouchListener()
     {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent)

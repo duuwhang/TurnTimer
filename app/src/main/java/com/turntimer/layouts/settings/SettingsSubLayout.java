@@ -31,19 +31,16 @@ public class SettingsSubLayout extends BaseLayout
     private boolean saveState;
     private String timeUnit;
     private TimerParentLayout.TimerMode timerMode;
-    private List<CheckBox> checkBoxes = new ArrayList<>();
-    private Rect tempChildRect = new Rect();
+    private final List<CheckBox> checkBoxes = new ArrayList<>();
+    private final Rect tempChildRect = new Rect();
     
     public SettingsSubLayout(Context context)
     {
         super(context);
         
         constructTimerAmountSetting();
-        
         constructCountdownSetting();
-        
         constructStopwatchSetting();
-        
         constructSaveSetting();
     }
     
@@ -51,11 +48,8 @@ public class SettingsSubLayout extends BaseLayout
     public void init()
     {
         initTimerAmountSetting();
-        
         initCountdownSetting();
-        
         initStopwatchSetting();
-        
         initSaveSetting();
     }
     

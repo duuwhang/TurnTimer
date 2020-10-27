@@ -2,12 +2,11 @@ package com.turntimer;
 
 import android.util.DisplayMetrics;
 import android.view.Display;
-import android.view.WindowManager;
 
 public class DisplayMetricsController
 {
-    private float pixelDensity;
-    private Display display;
+    private final float pixelDensity;
+    private final Display display;
     
     public DisplayMetricsController(Display display, float pixelDensity)
     {
