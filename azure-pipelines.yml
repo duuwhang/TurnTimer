@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/android
 
 trigger:
-  - master
+  - manual
 
 steps:
   - task: Gradle@2
@@ -25,3 +25,9 @@ steps:
       jarsignerKeystoreAlias: 'alias_name'
       jarsignerKeyPassword: '681Nz0o2'
       zipalign: true
+
+  - task: CopyFiles@2
+    inputs:
+      Contents: '*.apk'
+      TargetFolder: '/root/'
+      OverWrite: true
