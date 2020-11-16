@@ -1,8 +1,13 @@
+# JetBrains IDE: Android Studio
+
 # Android Studio
+.idea
+**/build
+/local.properties
+
+# Gradle files
+.gradle
+
+# File-based project format
 *.iws
 *.iml
-.idea
-.gradle
-**/build
-!release/*.apk
-/local.properties
