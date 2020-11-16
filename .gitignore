@@ -1,7 +1,7 @@
 # JetBrains IDE: Android Studio
 
 # Android Studio
-.idea
+#.idea
 **/build
 /local.properties
 
