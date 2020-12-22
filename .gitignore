@@ -2,7 +2,7 @@
 
 # Android Studio
 #.idea
-**/build
+#**/build
 /local.properties
 
 # Gradle files

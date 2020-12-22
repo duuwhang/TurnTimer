@@ -31,8 +31,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="30c9cfd0-2ace-4b81-b21d-62b2aa0f4ea7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="30c9cfd0-2ace-4b81-b21d-62b2aa0f4ea7" name="Default Changelist" comment="update .gitignore">
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="59afd9a0-aefe-4a68-9fd4-293d86feefb7" name="Revert: " comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -112,7 +114,7 @@
     <property name="project.structure.last.edited" value="Suggestions" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="emulator" />
+    <property name="settings.editor.selected.configurable" value="experimental" />
   </component>
   <component name="PsdUISettings">
     <option name="MODULE_TAB" value="Default Config" />
@@ -612,15 +614,20 @@
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="477" y="272" key="#PSD" timestamp="1605203447272">
+    <state x="477" y="272" key="#PSD" timestamp="1606903252340">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="-1263" y="296" key="#PSD/0.0.1920.1080/-1680.32.1680.1050@-1680.32.1680.1050" timestamp="1602776014413" />
     <state x="477" y="272" key="#PSD/0.0.1920.1080/-1680.32.1680.1050@0.0.1920.1080" timestamp="1605203447272" />
+    <state x="477" y="272" key="#PSD/0.0.1920.1080@0.0.1920.1080" timestamp="1606903252340" />
     <state x="-1121" y="270" key="#app" timestamp="1600878684239">
       <screen x="-1680" y="32" width="1680" height="1050" />
     </state>
     <state x="-1121" y="270" key="#app/0.0.1920.1080/-1680.32.1680.1050@-1680.32.1680.1050" timestamp="1600878684239" />
+    <state x="709" y="376" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog" timestamp="1606913038836">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="709" y="376" key="#com.intellij.ide.actions.ChooseComponentsToExportDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1606913038836" />
     <state x="0" y="0" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1602583864739">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -641,11 +648,12 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="804" y="330" key="AndroidCreateXmlResourceDialog/0.0.1920.1080/-1680.32.1680.1050@0.0.1920.1080" timestamp="1603098464939" />
-    <state x="268" y="63" width="1241" height="984" key="CommitChangelistDialog2" timestamp="1605529117607">
+    <state x="268" y="63" width="1241" height="984" key="CommitChangelistDialog2" timestamp="1606903188455">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="-1262" y="148" key="CommitChangelistDialog2/0.0.1920.1080/-1680.32.1680.1050@-1680.32.1680.1050" timestamp="1600713248230" />
     <state x="268" y="63" width="1241" height="984" key="CommitChangelistDialog2/0.0.1920.1080/-1680.32.1680.1050@0.0.1920.1080" timestamp="1605529117607" />
+    <state x="268" y="63" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1606903188455" />
     <state x="92" y="92" width="1736" height="896" key="DiffContextDialog" timestamp="1603758068090">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -679,11 +687,12 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="613" y="235" key="RollbackChangesDialog/0.0.1920.1080/-1680.32.1680.1050@0.0.1920.1080" timestamp="1603894312230" />
-    <state x="300" y="192" width="997" height="710" key="SettingsEditor" timestamp="1605033698154">
+    <state x="300" y="192" width="997" height="710" key="SettingsEditor" timestamp="1606912946444">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="-1076" y="169" key="SettingsEditor/0.0.1920.1080/-1680.32.1680.1050@-1680.32.1680.1050" timestamp="1600286019796" />
     <state x="300" y="192" width="997" height="710" key="SettingsEditor/0.0.1920.1080/-1680.32.1680.1050@0.0.1920.1080" timestamp="1605033698154" />
+    <state x="300" y="192" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1606912946444" />
     <state x="747" y="256" key="VCS.ChangeListViewerDialog" timestamp="1602178883602">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

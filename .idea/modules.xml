@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TurnTimer.iml" filepath="$PROJECT_DIR$/TurnTimer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TurnTimer.iml" filepath="$PROJECT_DIR$/.idea/modules/TurnTimer.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TurnTimer.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TurnTimer.app.iml" />
     </modules>
   </component>
