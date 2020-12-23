@@ -6,7 +6,11 @@
 trigger:
   - manual
 
+
 steps:
+  - checkout: self
+    persistCredentials: true
+
   - task: Gradle@2
     inputs:
       workingDirectory: ''
@@ -15,7 +19,6 @@ steps:
       publishJUnitResults: false
       testResultsFiles: '**/TEST-*.xml'
       tasks: 'assembleDebug'
-  
 
   - task: CopyFiles@2
     inputs:
