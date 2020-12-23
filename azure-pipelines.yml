@@ -16,15 +16,6 @@ steps:
       testResultsFiles: '**/TEST-*.xml'
       tasks: 'assembleDebug'
   
-  - task: AndroidSigning@2
-    inputs:
-      apkFiles: '**/*.apk'
-      jarsign: true
-      jarsignerKeystoreFile: 'my-release-key.keystore'
-      jarsignerKeystorePassword: 'ddlhau8u'
-      jarsignerKeystoreAlias: 'alias_name'
-      jarsignerKeyPassword: '681Nz0o2'
-      zipalign: true
 
   - task: CopyFiles@2
     inputs:
