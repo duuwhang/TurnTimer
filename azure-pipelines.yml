@@ -24,10 +24,10 @@ steps:
     inputs:
       Contents: '*.apk'
       TargetFolder: '/home/vsts/work/1/s/app/'
-      
+      OverWrite: true
+
   - task: BatchScript@1
     inputs:
       filename: '/home/vsts/work/1/s/'
       arguments: 'merge.bat'
       modifyEnvironment: true
-        OverWrite: true
