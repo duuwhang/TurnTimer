@@ -1,6 +1,4 @@
 
-git checkout main
-
 git status
 
 git add .
