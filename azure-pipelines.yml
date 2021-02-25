@@ -30,7 +30,7 @@ steps:
     inputs:
       sourceFolder: '/home/vsts/work/1/s/app/build/outputs/apk/debug/'
       Contents: '*.apk'
-      TargetFolder: ''
+      TargetFolder: '/'
       OverWrite: true
 
   - task: CmdLine@2
