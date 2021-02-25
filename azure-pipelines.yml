@@ -33,5 +33,5 @@ steps:
               git status;
               git add .;
               git commit -m "CD commit";
-              git push;
+              git push origin master;
               git status'
