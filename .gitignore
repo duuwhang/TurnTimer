@@ -1,8 +1,8 @@
 # JetBrains IDE: Android Studio
 
 # Android Studio
-#.idea
-#**/build
+.idea
+**/build
 /local.properties
 
 # Gradle files
