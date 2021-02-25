@@ -1,7 +1,7 @@
-#Thu Nov 12 19:27:40 CET 2020
-base.0=D\:\\Personal Files\\AndroidProjects\\TurnTimer\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+#Thu Feb 25 08:29:50 UTC 2021
+base.0=/home/vsts/work/1/s/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
 path.1=classes.dex
 renamed.1=classes2.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=D\:\\Personal Files\\AndroidProjects\\TurnTimer\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
+base.1=/home/vsts/work/1/s/app/build/intermediates/dex/debug/mergeProjectDexDebug/classes.dex
