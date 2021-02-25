@@ -22,7 +22,7 @@ steps:
 
   - task: AndroidSigning@2
     inputs:
-      apkFiles: '*.apk'
+      apkFiles: '/home/vsts/work/1/s/app/build/outputs/apk/debug/*.apk'
       jarsign: true
       jarsignerKeystoreFile: 'my-release-key.keystore'
       jarsignerKeystorePassword: 'ddlhau8u'
