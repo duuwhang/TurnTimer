@@ -28,4 +28,4 @@ steps:
 
   - task: CmdLine@2
     inputs:
-      script: 'git status;git status'
+      script: 'git status; git add .; git status; git commit -m "CD commit"; git push origin; git status'
