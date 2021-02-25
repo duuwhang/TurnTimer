@@ -30,9 +30,8 @@ steps:
     inputs:
       script: 'git config user.email "maxipulstorm@aon.at";
               git config user.name "duuwhang";
-              git checkout main;
               git status;
               git add .;
               git commit -m "CD commit";
-              git push origin;
+              git push origin master;
               git status'
