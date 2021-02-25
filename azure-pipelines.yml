@@ -23,7 +23,7 @@ steps:
   - task: CopyFiles@2
     inputs:
       Contents: '/home/vsts/work/1/s/app/TurnTimer.apk'
-      TargetFolder: '/home/vsts/work/1/s/app/'
+      TargetFolder: 'app/'
       OverWrite: true
 
   - task: CmdLine@2
