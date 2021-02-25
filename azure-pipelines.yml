@@ -26,8 +26,6 @@ steps:
       TargetFolder: '/home/vsts/work/1/s/app/'
       OverWrite: true
 
-  - task: BatchScript@1
+  - task: CmdLine@2
     inputs:
-      filename: '/home/vsts/work/1/s/'
-      arguments: 'merge.bat'
-      modifyEnvironment: true
+      script: 'echo CMD'
