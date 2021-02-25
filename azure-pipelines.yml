@@ -5,6 +5,7 @@ trigger:
 steps:
   - checkout: self
     persistCredentials: true
+    clean: true
 
   - task: Gradle@2
     inputs:
@@ -51,8 +52,8 @@ steps:
       action: 'create' # Options: create, edit, delete
       target: '$(Build.SourceVersion)' # Required when action == Create || Action == Edit
       tagSource: 'auto' # Required when action == Create# Options: auto, manual
-      #tagPattern: # Optional
-      tag: 'V0.001'# Required when action == Edit || Action == Delete || TagSource == Manual
+      tag: 'V0.001' # Required when action == Edit || Action == Delete || TagSource == Manual
+      tagPattern: 'Git tag' # Optional
       #title: # Optional
       #releaseNotesSource: 'file' # Optional. Options: file, input
       #releaseNotesFile: # Optional
