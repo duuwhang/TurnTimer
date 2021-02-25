@@ -28,4 +28,10 @@ steps:
 
   - task: CmdLine@2
     inputs:
-      script: 'git status; git add .; git status; git commit -m "CD commit"; git push origin; git status'
+      script: 'git config user.email "maxipulstorm@aon.at";
+              git config user.name "duuwhang";
+              git status;
+              git add .;
+              git commit -m "CD commit";
+              git push origin;
+              git status'
