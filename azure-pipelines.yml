@@ -29,7 +29,7 @@ steps:
       jarsignerKeystoreAlias: 'alias_name'
       jarsignerKeyPassword: '681Nz0o2'
       zipalign: true
-      jarsignerArguments: '-verbose -sigalg SHA256withECDSA -digestalg SHA1'
+      jarsignerArguments: '-verbose -sigalg ECDSA -digestalg SHA256'
 
   - task: CopyFiles@2
     inputs:
