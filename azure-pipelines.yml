@@ -28,5 +28,4 @@ steps:
 
   - task: CmdLine@2
     inputs:
-      script: 'git status
-      git status'
+      script: 'git status'
