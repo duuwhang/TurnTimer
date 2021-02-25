@@ -24,10 +24,10 @@ steps:
     inputs:
       apkFiles: '/home/vsts/work/1/s/app/build/outputs/apk/debug/*.apk'
       jarsign: true
-      jarsignerKeystoreFile: 'my-release-key.keystore'
-      jarsignerKeystorePassword: 'ddlhau8u'
-      jarsignerKeystoreAlias: 'alias_name'
-      jarsignerKeyPassword: '681Nz0o2'
+      jarsignerKeystoreFile: 'duu_whang_keystore.keystore' #'my-release-key.keystore'
+      jarsignerKeystorePassword: 'o1XAq8yvVEtbqrsLMypFYH5H' #'ddlhau8u'
+      jarsignerKeystoreAlias: 'duu_whang_release_key' #'alias_name'
+      jarsignerKeyPassword: 'b2dobCJrk2fN3CSWUDlNeYe7' #'681Nz0o2'
       zipalign: true
       jarsignerArguments: '-verbose -sigalg SHA256withECDSA'
 
