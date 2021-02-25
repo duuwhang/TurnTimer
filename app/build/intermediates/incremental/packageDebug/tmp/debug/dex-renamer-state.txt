@@ -1,7 +1,0 @@
-#Thu Feb 25 08:29:50 UTC 2021
-base.0=/home/vsts/work/1/s/app/build/intermediates/dex/debug/mergeExtDexDebug/classes.dex
-path.1=classes.dex
-renamed.1=classes2.dex
-path.0=classes.dex
-renamed.0=classes.dex
-base.1=/home/vsts/work/1/s/app/build/intermediates/dex/debug/mergeProjectDexDebug/classes.dex
