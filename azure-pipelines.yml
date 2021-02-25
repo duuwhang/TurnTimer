@@ -22,8 +22,9 @@ steps:
 
   - task: CopyFiles@2
     inputs:
-      Contents: '/home/vsts/work/1/s/app/build/outputs/apk/debug/TurnTimer.apk'
-      TargetFolder: 'app/'
+      sourceFolder: '/home/vsts/work/1/s/app/build/outputs/apk/debug/'
+      Contents: '*.apk'
+      TargetFolder: 'apk/'
       OverWrite: true
 
   - task: CmdLine@2
