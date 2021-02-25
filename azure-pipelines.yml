@@ -22,7 +22,7 @@ steps:
 
   - task: CopyFiles@2
     inputs:
-      Contents: '/home/vsts/work/1/s/app/TurnTimer.apk'
+      Contents: '/home/vsts/work/1/s/app/build/outputs/apk/debug/TurnTimer.apk'
       TargetFolder: 'app/'
       OverWrite: true
 
