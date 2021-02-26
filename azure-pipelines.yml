@@ -52,7 +52,7 @@ steps:
       action: 'create' # Options: create, edit, delete
       target: '$(Build.SourceVersion)' # Required when action == Create || Action == Edit
       tagSource: 'auto' # Required when action == Create# Options: auto, manual
-      tagPattern: 'Git tag' # Optional
+      tagPattern: 'User specified tag' # Optional
       tag: 'V0.001' # Required when action == Edit || Action == Delete || TagSource == Manual
       #title: # Optional
       #releaseNotesSource: 'file' # Optional. Options: file, input
