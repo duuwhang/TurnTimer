@@ -21,9 +21,9 @@ steps:
       apkFiles: '/home/vsts/work/1/s/app/build/outputs/apk/debug/*.apk'
       jarsign: true
       jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
-      jarsignerKeystorePassword: 'o1XAq8yvVEtbqrsLMypFYH5H'
+      jarsignerKeystorePassword: '$(Release.Keystore.Password)'
       jarsignerKeystoreAlias: 'duu_whang_release_key'
-      jarsignerKeyPassword: 'b2dobCJrk2fN3CSWUDlNeYe7'
+      jarsignerKeyPassword: '$(Release.Key.Password)'
       jarsignerArguments: '-verbose -sigalg SHA256withECDSA'
       zipalign: true
 
