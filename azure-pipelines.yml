@@ -18,7 +18,7 @@ steps:
 
   - task: AndroidSigning@2
     inputs:
-      apkFiles: '/home/vsts/work/1/s/app/build/outputs/apk/release/*.apk'
+      apkFiles: '$(Root)app/build/outputs/apk/release/*.apk'
       jarsign: true
       jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
       jarsignerKeystorePassword: '$(Release.Keystore.Password)'
@@ -29,9 +29,9 @@ steps:
 
   - task: CopyFiles@2
     inputs:
-      sourceFolder: '/home/vsts/work/1/s/app/build/outputs/apk/release/'
+      sourceFolder: '$(Root)app/build/outputs/apk/release/'
       Contents: '*.apk'
-      TargetFolder: '/home/vsts/work/1/s/'
+      TargetFolder: '$(Root)'
       OverWrite: true
 
   - task: CmdLine@2
@@ -44,3 +44,24 @@ steps:
               git commit -m "CD commit";
               git push origin;
               git status'
+
+  - task: GitHubRelease@0
+    inputs:
+      gitHubConnection: github.com_duuwhang
+      repositoryName: 'TurnTimer' 
+      action: 'create' # Options: create, edit, delete
+      target: '$(Build.SourceVersion)' # Required when action == Create || Action == Edit
+      tagSource: 'auto' # Required when action == Create# Options: auto, manual
+      tagPattern: 'Git tag' # Optional
+      #tag: 'V0.002' # Required when action == Edit || Action == Delete || TagSource == Manual
+      #title: # Optional
+      #releaseNotesSource: 'file' # Optional. Options: file, input
+      #releaseNotesFile: # Optional
+      #releaseNotes: # Optional
+      #assets: '$(Build.ArtifactStagingDirectory)/*' # Optional
+      #assetUploadMode: 'delete' # Optional. Options: delete, replace
+      #isDraft: false # Optional
+      #isPreRelease: false # Optional
+      #addChangeLog: true # Optional
+      #compareWith: 'lastFullRelease' # Required when addChangeLog == True. Options: lastFullRelease, lastRelease, lastReleaseByTag
+      #releaseTag: # Required when compareWith == LastReleaseByTag
