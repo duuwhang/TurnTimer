@@ -43,7 +43,8 @@ steps:
               git add .;
               git commit -m "CD commit";
               git push origin;
-              git status'
+              value=`cat $(Root)app/build.gradle`
+              echo "$value"'
 
   - task: GitHubRelease@0
     inputs:
