@@ -9,7 +9,6 @@ steps:
     displayName: Checkout GitHub Repository
 
   - script: echo "##vso[task.setvariable variable=Version]`grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '`"
-            echo 'Version = $(Version)'
     displayName: Read Release App Version
 
   - task: Gradle@2
@@ -39,7 +38,8 @@ steps:
       TargetFolder: '$(Root)'
       OverWrite: true
 
-  - script: git config user.email "maxipulstorm@aon.at";
+  - script: echo 'Version = $(Version)';
+            git config user.email "maxipulstorm@aon.at";
             git config user.name "duuwhang";
             git checkout master;
             git add .;
