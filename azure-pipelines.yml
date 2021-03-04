@@ -1,24 +1,49 @@
 trigger:
   - manual
 
-variables:
-- name: two
-  value: initialValue
-
 steps:
   - checkout: self
     persistCredentials: true
     clean: true
     displayName: Checkout GitHub Repository
 
-  - bash: 'foo="2012"
-          echo $foo
-          echo "##vso[task.setvariable variable=two;isOutput=true]$foo"'
-    displayName: Bash
-    name: FooStep
+  - task: Gradle@2
+    inputs:
+      workingDirectory: ''
+      gradleWrapperFile: 'gradlew'
+      gradleOptions: '-Xmx3072m'
+      publishJUnitResults: false
+      testResultsFiles: '**/TEST-*.xml'
+      tasks: 'assembleRelease'
 
-  - bash: echo $(FooStep.two)
-    displayName: Commit Apk2
+  - task: AndroidSigning@2
+    inputs:
+      apkFiles: '$(Root)app/build/outputs/apk/release/*.apk'
+      jarsign: true
+      jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
+      jarsignerKeystorePassword: '$(Release.Keystore.Password)'
+      jarsignerKeystoreAlias: 'duu_whang_release_key'
+      jarsignerKeyPassword: '$(Release.Key.Password)'
+      jarsignerArguments: '-verbose -sigalg SHA256withECDSA'
+      zipalign: true
+
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: '$(Root)app/build/outputs/apk/release/'
+      Contents: '*.apk'
+      TargetFolder: '$(Root)'
+      OverWrite: true
+
+  - script: git config user.email "maxipulstorm@aon.at";
+            git config user.name "duuwhang";
+            git checkout master;
+            git tag V0.004;
+            git push origin V0.004;
+            git rev-parse HEAD;
+            git add .;
+            git commit -m "CD commit";
+            git tag V0.003;
+            git push origin;
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
