@@ -60,10 +60,11 @@ jobs:
         displayName: Create GitHub Release
         inputs:
           gitHubConnection: github.com_duuwhang
-          repositoryName: TurnTimer
+          repositoryName: duuwhang/TurnTimer
           action: create
           target: '$(Build.SourceVersion)' # Required when action == Create || Action == Edit
-          tagSource: 'Git tag'
+          tagSource: manual
+          tagPattern: 'Git tag' # Optional
           tag: 'V0.003' # Required when action == Edit || Action == Delete || TagSource == Manual
           #title: # Optional
           #releaseNotesSource: 'file' # Optional. Options: file, input
