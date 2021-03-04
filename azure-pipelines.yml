@@ -17,8 +17,8 @@ steps:
           git add .;
           git commit -m "CD commit";
           git tag V0.003;
-          git push origin --tags;
-          foo=git rev-parse HEAD;
+          git push origin --tags
+          foo = 'git rev-parse HEAD'
           echo "##vso[task.setvariable variable=two]$foo"
     displayName: Commit Apk
     name: Step
