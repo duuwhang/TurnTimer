@@ -19,12 +19,12 @@ steps:
           git tag V0.003;
           git push origin --tags;
           git rev-parse HEAD;
-          echo "##vso[task.setvariable variable=foo]$foo"'
+          echo "##vso[task.setvariable variable=foo]$foo"
     displayName: Commit Apk
 
   - script: echo $(foo)
             echo $(two)
-    displayName: Commit Apk
+    displayName: Commit Apk2
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
