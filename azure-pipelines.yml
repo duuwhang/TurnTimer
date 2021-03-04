@@ -11,7 +11,6 @@ steps:
     clean: true
     displayName: Checkout GitHub Repository
 
-
   - script: git config user.email "maxipulstorm@aon.at";
           git config user.name "duuwhang";
           git checkout master;
@@ -20,17 +19,12 @@ steps:
           git tag V0.003;
           git push origin --tags;
           git rev-parse HEAD;
-          echo hello;
-          echo '##vso[task.setvariable variable=one]secondValue;'
+          echo "##vso[task.setvariable variable=foo]$foo"'
     displayName: Commit Apk
 
-  - script: echo $(one)
+  - script: echo $(foo)
             echo $(two)
     displayName: Commit Apk
-
-  - bash: echo '##vso[task.setvariable variable=one]secondValue'
-          echo $(one)
-          echo $(two)
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
