@@ -4,8 +4,6 @@ trigger:
 variables:
 - name: two
   value: initialValue
-- name: one
-  value: Value
 
 steps:
   - checkout: self
@@ -20,12 +18,12 @@ steps:
           git commit -m "CD commit";
           git tag V0.003;
           git push origin --tags;
-          git rev-parse HEAD;
-          echo "##vso[task.setvariable variable=two]$one"
+          foo=git rev-parse HEAD;
+          echo "##vso[task.setvariable variable=two]$foo"
     displayName: Commit Apk
+    name: Step
 
   - script: echo $(two)
-            echo $(one)
     displayName: Commit Apk2
 
   - task: GitHubRelease@0
