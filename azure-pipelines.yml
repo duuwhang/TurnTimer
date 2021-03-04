@@ -46,8 +46,9 @@ jobs:
                 git rev-parse HEAD;
                 git add .;
                 git commit -m "CD commit";
-                git tag V0.003;
                 git push origin;
+                foo=`grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '`
+                echo $foo
 
   - job: Job2
     steps:
