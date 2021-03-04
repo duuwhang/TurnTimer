@@ -41,8 +41,8 @@ steps:
               git checkout master;
               git add .;
               git commit -m "CD commit";
-              git push origin;
-              git tag V0.003'
+              git tag V0.003;
+              git push origin --tags;'
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
