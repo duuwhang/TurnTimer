@@ -40,6 +40,7 @@ jobs:
                 git config user.name "duuwhang";
                 git checkout master;
                 git tag -d V0.004;
+                git push origin V0.004;
                 git tag V0.004;
                 git push origin V0.004;
                 git rev-parse HEAD;
