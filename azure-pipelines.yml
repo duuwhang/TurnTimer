@@ -9,7 +9,7 @@ steps:
     displayName: Checkout GitHub Repository
 
   - script: |
-      echo "##vso[task.setvariable variable=Version]${`grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '`//[[:blank:]]/}"
+      echo "##vso[task.setvariable variable=Version]`grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
     displayName: Read Release App Version
 
   - task: Gradle@2
