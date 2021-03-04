@@ -53,7 +53,7 @@ steps:
       gitHubConnection: github.com_duuwhang
       repositoryName: TurnTimer
       action: create
-      target: '$(Version)' # Required when action == Create || Action == Edit
+      target: '$(Build.SourceVersion)' # Required when action == Create || Action == Edit
       tagSource: manual
       tagPattern: 'User specified tag' # Optional
       tag: '$(Version)' # Required when action == Edit || Action == Delete || TagSource == Manual
