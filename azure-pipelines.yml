@@ -11,17 +11,9 @@ steps:
     clean: true
     displayName: Checkout GitHub Repository
 
-  - script: git config user.email "maxipulstorm@aon.at";
-          git config user.name "duuwhang";
-          git checkout master;
-          git add .;
-          git commit -m "CD commit";
-          git tag V0.003;
-          git push origin --tags
-          foo = 'git rev-parse HEAD'
-          echo "##vso[task.setvariable variable=two]$foo"
-    displayName: Commit Apk
-    name: Step
+  - bash: foo = "2012"
+            echo "##vso[task.setvariable variable=two]$foo"
+    displayName: Bash
 
   - script: echo $(two)
     displayName: Commit Apk2
