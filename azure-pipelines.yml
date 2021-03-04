@@ -9,7 +9,6 @@ jobs:
         clean: true
         displayName: Checkout GitHub Repository
 
-      - script: foo=`grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '`
-                echo "##vso[task.setvariable variable=two]$foo"
+      - script: echo "##vso[task.setvariable variable=two]`grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '`"
 
       - script: echo $(two)
