@@ -22,8 +22,10 @@ steps:
           git rev-parse HEAD;
           echo hello;
           echo '##vso[task.setvariable variable=one]secondValue;'
-          echo $(one);
-          echo $(two);
+    displayName: Commit Apk
+
+  - script: echo $(one);
+            echo $(two);
     displayName: Commit Apk
 
   - bash: echo '##vso[task.setvariable variable=one]secondValue;'
