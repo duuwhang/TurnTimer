@@ -40,7 +40,7 @@ steps:
       OverWrite: true
 
   - script: |
-      foo=$(Version)
+      foo=`$(Version)`
       echo "##vso[task.setvariable variable=Version]`${foo//[[:blank:]]/}`"
       git config user.email "maxipulstorm@aon.at"
       git config user.name "duuwhang"
