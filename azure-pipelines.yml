@@ -39,12 +39,10 @@ steps:
       script: 'git config user.email "maxipulstorm@aon.at";
               git config user.name "duuwhang";
               git checkout master;
-              git status;
               git add .;
               git commit -m "CD commit";
               git push origin;
-              value=$(<$(Root)app/build.gradle)
-echo "$value"'
+              git tag V0.003'
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
