@@ -41,7 +41,7 @@ steps:
 
   - script: |
       foo=$(Version)
-      Version=`${foo//[[:blank:]]/}`
+      echo "##vso[task.setvariable variable=Version]`${foo//[[:blank:]]/}`"
       git config user.email "maxipulstorm@aon.at"
       git config user.name "duuwhang"
       git checkout master
