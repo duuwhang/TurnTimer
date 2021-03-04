@@ -10,9 +10,10 @@ steps:
 
   - script: |
       echo "##vso[task.setvariable variable=Version]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
-    displayName: Read Release App Version
+    displayName: Read Release Version
 
   - task: Gradle@2
+    displayName: Gradle Build Release APK
     inputs:
       workingDirectory: ''
       gradleWrapperFile: 'gradlew'
@@ -20,10 +21,12 @@ steps:
       publishJUnitResults: false
       testResultsFiles: '**/TEST-*.xml'
       tasks: 'assembleRelease'
+      options: '--no-daemon'
 
   - task: AndroidSigning@2
+    displayName: Sign APK
     inputs:
-      apkFiles: '$(Root)/app/build/outputs/apk/release/*.apk'
+      apkFiles: '$(Root)app/build/outputs/apk/release/*.apk'
       jarsign: true
       jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
       jarsignerKeystorePassword: '$(Release.Keystore.Password)'
