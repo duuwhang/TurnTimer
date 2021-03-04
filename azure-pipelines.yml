@@ -6,21 +6,24 @@ steps:
   - checkout: self
     persistCredentials: true
     clean: true
+    displayName: Checkout GitHub Repository
 
 
-  - task: CmdLine@2
-    inputs:
-      script: git config user.email "maxipulstorm@aon.at";
-              git config user.name "duuwhang";
-              git checkout master;
-              git add .;
-              git commit -m "CD commit";
-              git tag V0.003;
-              git push origin --tags;
-              git rev-parse HEAD;
-              echo hello;
-              echo '##vso[task.setvariable variable=one]secondValue;'
-              echo $(one);
+  - script: git config user.email "maxipulstorm@aon.at";
+          git config user.name "duuwhang";
+          git checkout master;
+          git add .;
+          git commit -m "CD commit";
+          git tag V0.003;
+          git push origin --tags;
+          git rev-parse HEAD;
+          echo hello;
+          echo '##vso[task.setvariable variable=one]secondValue;'
+          echo $(one);
+    displayName: Commit Apk
+
+  - bash: echo '##vso[task.setvariable variable=one]secondValue;'
+          echo $(one);
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
