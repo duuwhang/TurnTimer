@@ -8,7 +8,8 @@ steps:
     persistCredentials: true
     displayName: Checkout GitHub Repository
 
-  - script: echo "##vso[task.setvariable variable=Version]`grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '`"
+  - script: |
+      echo "##vso[task.setvariable variable=Version]`grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '`"
     displayName: Read Release App Version
 
   - task: Gradle@2
@@ -38,14 +39,15 @@ steps:
       TargetFolder: '$(Root)'
       OverWrite: true
 
-  - script: foo=$(Version);
-            Version=`${foo//[[:blank:]]/}`;
-            git config user.email "maxipulstorm@aon.at";
-            git config user.name "duuwhang";
-            git checkout master;
-            git add .;
-            git commit -m "CD commit";
-            git push origin;
+  - script: |
+      foo=$(Version)
+      Version=`${foo//[[:blank:]]/}`
+      git config user.email "maxipulstorm@aon.at"
+      git config user.name "duuwhang"
+      git checkout master
+      git add .
+      git commit -m "CD commit"
+      git push origin
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
