@@ -9,5 +9,5 @@ jobs:
         clean: true
         displayName: Checkout GitHub Repository
 
-      - script: while read line; do echo $line; done < $(Root)app/build.gradle
+      - script: echo `grep 'versionName' $(Root)app/build.gradle | tr '"' ' ' | tr 'versionName' ' '`
 
