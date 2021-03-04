@@ -7,32 +7,6 @@ steps:
     persistCredentials: true
     clean: true
 
-  - task: Gradle@2
-    inputs:
-      workingDirectory: ''
-      gradleWrapperFile: 'gradlew'
-      gradleOptions: '-Xmx3072m'
-      publishJUnitResults: false
-      testResultsFiles: '**/TEST-*.xml'
-      tasks: 'assembleRelease'
-
-  - task: AndroidSigning@2
-    inputs:
-      apkFiles: '$(Root)app/build/outputs/apk/release/*.apk'
-      jarsign: true
-      jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
-      jarsignerKeystorePassword: '$(Release.Keystore.Password)'
-      jarsignerKeystoreAlias: 'duu_whang_release_key'
-      jarsignerKeyPassword: '$(Release.Key.Password)'
-      jarsignerArguments: '-verbose -sigalg SHA256withECDSA'
-      zipalign: true
-
-  - task: CopyFiles@2
-    inputs:
-      sourceFolder: '$(Root)app/build/outputs/apk/release/'
-      Contents: '*.apk'
-      TargetFolder: '$(Root)'
-      OverWrite: true
 
   - task: CmdLine@2
     inputs:
