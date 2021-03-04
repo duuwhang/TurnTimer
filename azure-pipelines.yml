@@ -11,8 +11,8 @@ steps:
     clean: true
     displayName: Checkout GitHub Repository
 
-  - bash: foo = "2012"
-            echo "##vso[task.setvariable variable=two]$foo"
+  - bash: foo="2012"
+          echo "##vso[task.setvariable variable=two]$foo"
     displayName: Bash
 
   - script: echo $(two)
