@@ -10,7 +10,7 @@ steps:
 
   - task: CmdLine@2
     inputs:
-      script: 'git config user.email "maxipulstorm@aon.at";
+      script: git config user.email "maxipulstorm@aon.at";
               git config user.name "duuwhang";
               git checkout master;
               git add .;
@@ -18,7 +18,9 @@ steps:
               git tag V0.003;
               git push origin --tags;
               git rev-parse HEAD;
-              echo hello'
+              echo hello;
+              echo '##vso[task.setvariable variable=one]secondValue;'
+              echo $(one);
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
