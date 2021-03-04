@@ -22,8 +22,7 @@ steps:
           echo "##vso[task.setvariable variable=two]$two"
     displayName: Commit Apk
 
-  - script: echo $(foo)
-            echo $(two)
+  - script: echo $(two)
     displayName: Commit Apk2
 
   - task: GitHubRelease@0
