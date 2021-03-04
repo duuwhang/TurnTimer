@@ -24,13 +24,13 @@ steps:
           echo '##vso[task.setvariable variable=one]secondValue;'
     displayName: Commit Apk
 
-  - script: echo $(one);
-            echo $(two);
+  - script: echo $(one)
+            echo $(two)
     displayName: Commit Apk
 
-  - bash: echo '##vso[task.setvariable variable=one]secondValue;'
-          echo $(one);
-          echo $(two);
+  - bash: echo '##vso[task.setvariable variable=one]secondValue'
+          echo $(one)
+          echo $(two)
 
   - task: GitHubRelease@0
     displayName: Create GitHub Release
