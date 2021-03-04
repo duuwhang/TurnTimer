@@ -38,7 +38,8 @@ steps:
       TargetFolder: '$(Root)'
       OverWrite: true
 
-  - script: Version=`${$(Version)//[[:blank:]]/}`
+  - script: foo=$(Version);
+            Version=`${foo//[[:blank:]]/}`;
             git config user.email "maxipulstorm@aon.at";
             git config user.name "duuwhang";
             git checkout master;
