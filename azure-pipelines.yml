@@ -66,7 +66,7 @@ jobs:
           action: create
           target: '$(Version)' # Required when action == Create || Action == Edit
           tagSource: manual
-          tagPattern: 'Git tag' # Optional
+          tagPattern: 'User specified tag' # Optional
           tag: '$(Version)' # Required when action == Edit || Action == Delete || TagSource == Manual
           #title: # Optional
           #releaseNotesSource: 'file' # Optional. Options: file, input
