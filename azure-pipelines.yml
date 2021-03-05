@@ -71,5 +71,3 @@ jobs:
           #releaseNotesFile: # Optional
           #releaseNotes: # Optional
           assets: '$(Root)$(ReleaseDirectory)/*.apk'
-          #assetUploadMode: 'delete' # Optional. Options: delete, replace
-          #addChangeLog: true # Optional
