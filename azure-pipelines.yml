@@ -64,10 +64,10 @@ jobs:
           gitHubConnection: github.com_duuwhang
           repositoryName: duuwhang/TurnTimer
           action: create
-          target: '0.0.2' # Required when action == Create || Action == Edit
+          target: '$(Version)' # Required when action == Create || Action == Edit
           tagSource: manual
-          tagPattern: 'Git tag' # Optional
-          tag: '0.0.3' # Required when action == Edit || Action == Delete || TagSource == Manual
+          tagPattern: 'User specified tag' # Optional
+          tag: '$(Version)' # Required when action == Edit || Action == Delete || TagSource == Manual
           #title: # Optional
           #releaseNotesSource: 'file' # Optional. Options: file, input
           #releaseNotesFile: # Optional
