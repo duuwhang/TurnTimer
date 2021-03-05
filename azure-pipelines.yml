@@ -54,6 +54,8 @@ jobs:
           git add .
           git commit -m "CD commit"
           git push origin
+          git tag $(Version)
+          git push origin --tags
         displayName: Commit APK to GitHub Repository
 
       - task: GitHubRelease@0
