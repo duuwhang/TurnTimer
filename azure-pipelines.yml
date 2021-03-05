@@ -1,8 +1,6 @@
 trigger:
   - manual
 
-variables:
-- group: vargr
 
 jobs:
   - job: AndroidReleaseCDPipeline
@@ -75,7 +73,3 @@ jobs:
           #assets: '$(Build.ArtifactStagingDirectory)/*' # Optional
           #assetUploadMode: 'delete' # Optional. Options: delete, replace
           #addChangeLog: true # Optional
-
-      - script: |
-          echo "##vso[task.setvariable variable=prevver]$(Version)"
-        displayName: Save version
