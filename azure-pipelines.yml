@@ -80,3 +80,4 @@ jobs:
 
       - script: |
           echo "##vso[task.setvariable variable=prevver]$(Version)"
+        displayName: Save version
