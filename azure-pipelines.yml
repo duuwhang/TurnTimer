@@ -40,7 +40,7 @@ jobs:
       - task: CopyFiles@2
         displayName: Copy APK to Root
         inputs:
-          sourceFolder: '$(Root)/app/build/outputs/apk/release/'
+          sourceFolder: '$(Root)$(Build.ArtifactStagingDirectory)/'
           Contents: '*.apk'
           TargetFolder: '$(Root)/'
           OverWrite: true
@@ -70,6 +70,6 @@ jobs:
           #releaseNotesSource: 'file' # Optional. Options: file, input
           #releaseNotesFile: # Optional
           #releaseNotes: # Optional
-          assets: '*.apk'
+          assets: '$(Build.ArtifactStagingDirectory)/*.apk'
           #assetUploadMode: 'delete' # Optional. Options: delete, replace
           #addChangeLog: true # Optional
