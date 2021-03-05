@@ -65,9 +65,9 @@ jobs:
           repositoryName: duuwhang/TurnTimer
           action: create
           target: '$(Version)' # Required when action == Create || Action == Edit
-          tagSource: manual
-          tagPattern: 'User specified tag' # Optional
-          tag: '$(Version)' # Required when action == Edit || Action == Delete || TagSource == Manual
+          tagSource: auto
+          tagPattern: 'Git tag' # Optional
+          #tag: '$(Version)' # Required when action == Edit || Action == Delete || TagSource == Manual
           #title: # Optional
           #releaseNotesSource: 'file' # Optional. Options: file, input
           #releaseNotesFile: # Optional
