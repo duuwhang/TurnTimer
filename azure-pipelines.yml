@@ -51,11 +51,11 @@ jobs:
           git config user.email "maxipulstorm@aon.at"
           git config user.name "duuwhang"
           git checkout master
+          git tag $(Version)
+          git push origin --tags
           git add .
           git commit -m "CD commit"
           git push origin
-          git tag $(Version)
-          git push origin --tags
         displayName: Commit APK to GitHub Repository
 
       - task: GitHubRelease@0
@@ -66,7 +66,7 @@ jobs:
           action: create
           target: '$(Version)' # Required when action == Create || Action == Edit
           tagSource: manual
-          tagPattern: 'User specified tag' # Optional
+          tagPattern: 'Git tag' # Optional
           tag: '$(Version)' # Required when action == Edit || Action == Delete || TagSource == Manual
           #title: # Optional
           #releaseNotesSource: 'file' # Optional. Options: file, input
