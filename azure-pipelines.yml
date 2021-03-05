@@ -28,7 +28,7 @@ jobs:
       - task: AndroidSigning@2
         displayName: Sign APK
         inputs:
-          apkFiles: '$(Root)/app/build/outputs/apk/release/*.apk'
+          apkFiles: '$(Root)$(Build.ArtifactStagingDirectory)*.apk'
           jarsign: true
           jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
           jarsignerKeystorePassword: '$(Release.Keystore.Password)'
