@@ -70,6 +70,6 @@ jobs:
           #releaseNotesSource: 'file' # Optional. Options: file, input
           #releaseNotesFile: # Optional
           #releaseNotes: # Optional
-          assets: '$(Root)$(Build.ArtifactStagingDirectory)/*'
+          assets: '*.apk'
           #assetUploadMode: 'delete' # Optional. Options: delete, replace
           #addChangeLog: true # Optional
