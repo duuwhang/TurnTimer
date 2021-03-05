@@ -64,7 +64,7 @@ jobs:
           gitHubConnection: github.com_duuwhang
           repositoryName: duuwhang/TurnTimer
           action: create
-          target: '0.0.1' # Required when action == Create || Action == Edit
+          target: '0.0.2' # Required when action == Create || Action == Edit
           tagSource: manual
           tagPattern: 'Git tag' # Optional
           tag: '$(Version)' # Required when action == Edit || Action == Delete || TagSource == Manual
