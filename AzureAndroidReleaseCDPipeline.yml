@@ -1,4 +1,4 @@
-name: $(SourceBranchName)$(Rev:_r)
+name: $(Rev:_r)
 
 trigger:
   - manual
@@ -28,7 +28,7 @@ jobs:
         displayName: Read Release Version
 
       - script: |
-          echo "##vso[build.updatebuildnumber]customBuild"
+          echo "##vso[build.updatebuildnumber]`customBuild$(Build.BuildNumber)`"
         displayName: Read Release Version
 
       - script: |
