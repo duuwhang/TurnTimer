@@ -23,6 +23,7 @@ jobs:
           tasks: 'build test'
 
   - job: AndroidReleaseCDPipeline
+    condition: always()
     timeoutInMinutes: 10
     dependsOn: AndroidTestCIPipeline
     variables:
@@ -33,7 +34,6 @@ jobs:
       - script: |
           echo "##vso[build.updatebuildnumber]$(Version)_$(Condition)"
         displayName: Update Run Name
-        condition: always()
 
       - checkout: self
         displayName: Checkout GitHub Repository
