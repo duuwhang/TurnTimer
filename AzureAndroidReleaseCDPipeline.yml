@@ -2,11 +2,22 @@ name: $(Rev:_r)
 
 jobs:
   - job: AndroidTestCIPipeline
+    timeoutInMinutes: 25
     steps:
       - checkout: self
         displayName: Checkout GitHub Repository
         clean: true
         persistCredentials: true
+
+      - task: Gradle@2
+        displayName: Gradle Build Debug APK
+        inputs:
+          workingDirectory: ''
+          gradleWrapperFile: 'gradlew'
+          gradleOptions: '-Xmx3072m'
+          publishJUnitResults: false
+          testResultsFiles: '**/TEST-*.xml'
+          tasks: 'assembleDebug'
 
       - script: |
           echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-28;google_apis;x86' 
@@ -34,6 +45,7 @@ jobs:
         name: ReadReleaseVersion
 
   - job: AndroidReleaseCDPipeline
+    timeoutInMinutes: 10
     dependsOn: AndroidTestCIPipeline
     variables:
       Version: $[ dependencies.AndroidTestCIPipeline.outputs['ReadReleaseVersion.ReleaseVersion'] ]
