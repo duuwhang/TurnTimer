@@ -25,6 +25,7 @@ jobs:
           gradleWrapperFile: 'gradlew'
           javaHomeOption: 'JDKVersion'
           publishJUnitResults: true
+          testResultsFiles: '**/TEST-*.xml'
           tasks: 'testDevDebug'
 
       - script: |
