@@ -44,6 +44,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb devices
         displayName: 'wait for Android emulator'
         timeoutInMinutes: 5
+        continueOnError: true
 
       # have to run nunit3-console directly; as of 2020-12-17, even though "dotnet
       # run" works with Mono to run .net framework projects, "dotnet test" does not
