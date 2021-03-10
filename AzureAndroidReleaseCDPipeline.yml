@@ -1,4 +1,3 @@
-name: $(Rev:_r)
 
 jobs:
   - job: AndroidTestCIPipeline
@@ -9,6 +8,10 @@ jobs:
         clean: true
         persistCredentials: true
 
+      - script: |
+          echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
+        displayName: Read Release Version
+        name: ReadReleaseVersion
       - task: Gradle@2
         displayName: Gradle Build Debug APK
         inputs:
@@ -21,6 +24,7 @@ jobs:
 
       - task: Gradle@2
         displayName: UNit test
+        continueOnError: true
         inputs:
           workingDirectory: ''
           gradleWrapperFile: 'gradlew'
@@ -31,9 +35,8 @@ jobs:
           tasks: 'test'
 
       - script: |
-          echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
-        displayName: Read Release Version
-        name: ReadReleaseVersion
+          git status
+        displayName: status
 
   - job: AndroidReleaseCDPipeline
     timeoutInMinutes: 10
