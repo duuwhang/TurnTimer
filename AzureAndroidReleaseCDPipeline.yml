@@ -1,6 +1,8 @@
 trigger:
   - manual
 
+variables:
+  ver: $[ dependencies.Storage.outputs['Version'] ]
 
 jobs:
   - job: AndroidTestCIPipeline
@@ -22,7 +24,11 @@ jobs:
         displayName: Read Release Version
 
       - script: |
-          echo $(Version)
+          echo $(ver)
+        displayName: Read Release Version
+
+      - script: |
+          echo $env:ver
         displayName: Read Release Version
 
       - task: Gradle@2
