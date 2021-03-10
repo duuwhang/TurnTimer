@@ -11,9 +11,13 @@ jobs:
         clean: true
         persistCredentials: true
 
+      - script: |
+          echo "##vso[task.setvariable variable=Version2;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
+        displayName: Read Release Version
+
   - job: AndroidReleaseCDPipeline
     variables:
-      Condition: 0
+      Condition: $[ counter($(Version2), 0) ]
 
     steps:
       - checkout: self
@@ -28,7 +32,7 @@ jobs:
       - script: |
           echo "##vso[build.updatebuildnumber]$(Version)$(Build.BuildNumber)"
         displayName: Read Release Version2
- #echo "##vso[task.setvariable variable=Condition]$[counter($(Version), 0)]"
+ #echo "##vso[task.setvariable variable=Condition]$[counter($(Version2), 0)]"
 
       - task: Gradle@2
         displayName: Gradle Build Release APK
