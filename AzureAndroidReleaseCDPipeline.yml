@@ -7,6 +7,12 @@ jobs:
         displayName: Checkout GitHub Repository
         clean: true
         persistCredentials: true
+        
+      - script: |
+          ./gradlew connectedDebugAndroidTest --stacktrace
+          ./gradlew --stop
+        displayName: Run Unit Tests
+        continueOnError: true
 
       - script: |
           echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
