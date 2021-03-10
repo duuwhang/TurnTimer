@@ -1,4 +1,4 @@
-name: $(SourceBranchName)_$(Rev:.r)
+name: $(SourceBranchName)$(Rev:_r)
 
 trigger:
   - manual
@@ -23,11 +23,8 @@ jobs:
         displayName: Read Release Version
 
       - script: |
-          echo $(ver)
-        displayName: Read Release Version
-
-      - script: |
-          echo $env:ver
+          echo '$(Version)'
+          echo '$(Build.BuildNumber)'
         displayName: Read Release Version
 
       - task: Gradle@2
