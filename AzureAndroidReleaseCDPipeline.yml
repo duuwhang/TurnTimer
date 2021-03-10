@@ -28,7 +28,7 @@ jobs:
         displayName: Read Release Version
 
       - script: |
-          echo "##vso[build.updatebuildnumber]`customBuild$(Build.BuildNumber)`"
+          echo "##vso[build.updatebuildnumber]customBuild$(Build.BuildNumber)"
         displayName: Read Release Version
 
       - script: |
