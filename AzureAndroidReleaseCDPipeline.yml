@@ -17,7 +17,7 @@ jobs:
 
   - job: AndroidReleaseCDPipeline
     variables:
-      Condition: $[ counter($(Version2), 0) ]
+      Condition: $[ counter(variables['Version2'], 0) ]
 
     steps:
       - checkout: self
