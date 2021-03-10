@@ -27,7 +27,7 @@ jobs:
           gradleOptions: '-Xmx3072m'
           javaHomeOption: 'JDKVersion'
           publishJUnitResults: true
-          testResultsFiles: '**/TEST-*.xml'
+          testResultsFiles: '$(Root)/TEST.xml'
           tasks: 'test'
 
       - script: |
