@@ -12,6 +12,8 @@ jobs:
         persistCredentials: true
 
   - job: AndroidReleaseCDPipeline
+    variables:
+      Condition: 0
 
     steps:
       - checkout: self
@@ -25,11 +27,8 @@ jobs:
 
       - script: |
           echo "##vso[build.updatebuildnumber]$(Version)$(Build.BuildNumber)"
-         
         displayName: Read Release Version2
  #echo "##vso[task.setvariable variable=Condition]$[counter($(Version), 0)]"
-  variables:
-    Condition: 0
 
       - task: Gradle@2
         displayName: Gradle Build Release APK
