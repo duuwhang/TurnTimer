@@ -37,7 +37,7 @@ jobs:
 
       - checkout: self
         displayName: Checkout GitHub Repository
-        condition: eq(variables['Condition'], 0)
+        condition: succeeded()
         clean: true
         persistCredentials: true
 
