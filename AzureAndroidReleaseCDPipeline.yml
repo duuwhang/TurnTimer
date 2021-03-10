@@ -25,6 +25,14 @@ jobs:
         displayName: 'Download and install emulator image' 
         condition: ne(variables.AVD_IMAGES_RESTORED, 'true')
 
+      - task: DotNetCoreCLI@2
+        displayName: 'unit tests'
+        inputs:
+          command: 'test'
+          projects: '**/*NUnit*.csproj'
+          configuration: '$(buildConfiguration)'
+          testRunTitle: 'Unit Tests'
+
       - script: |
           ./gradlew connectedDebugAndroidTest --stacktrace 
           ./gradlew --stop 
