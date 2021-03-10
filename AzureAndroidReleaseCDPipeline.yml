@@ -13,13 +13,11 @@ jobs:
 
       - script: |
           echo "##vso[task.setvariable variable=Version;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
-          echo "##vso[build.updatebuildnumber]$(Version)$(Build.BuildNumber)"
         displayName: Read Release Version
 
   - job: AndroidReleaseCDPipeline
-
     variables:
-      Condition: $[ counter(variables['Version'], 0) ]
+      Condition: $[counter(variables['Version'], 0)]
 
     steps:
       - checkout: self
@@ -30,6 +28,7 @@ jobs:
 
       - task: Gradle@2
         displayName: Gradle Build Release APK
+        condition: succeeded()
         inputs:
           workingDirectory: ''
           gradleWrapperFile: 'gradlew'
@@ -40,6 +39,7 @@ jobs:
 
       - task: AndroidSigning@2
         displayName: Sign APK
+        condition: succeeded()
         inputs:
           apkFiles: '$(Root)$(ReleaseDirectory)/*.apk'
           jarsign: true
@@ -52,6 +52,7 @@ jobs:
 
       - task: CopyFiles@2
         displayName: Copy APK to Root
+        condition: succeeded()
         inputs:
           sourceFolder: '$(Root)$(ReleaseDirectory)/'
           Contents: '*.apk'
@@ -59,6 +60,7 @@ jobs:
           OverWrite: true
 
       - script: |
+          echo "##vso[build.updatebuildnumber]$(Version)$(Build.BuildNumber)"
           git config user.email "maxipulstorm@aon.at"
           git config user.name "duuwhang"
           git checkout master
@@ -68,9 +70,11 @@ jobs:
           git tag $(Version)
           git push origin --tags
         displayName: Commit APK to GitHub Repository
+        condition: succeeded()
 
       - task: GitHubRelease@0
         displayName: Create GitHub Release
+        condition: succeeded()
         inputs:
           gitHubConnection: github.com_duuwhang
           repositoryName: duuwhang/TurnTimer
