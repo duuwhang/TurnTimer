@@ -37,7 +37,7 @@ jobs:
 
       - checkout: self
         displayName: Checkout GitHub Repository
-        condition: succeeded()
+        condition: dependencies.AndroidTestCIPipeline.succeeded()
         clean: true
         persistCredentials: true
 
