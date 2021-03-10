@@ -52,6 +52,19 @@ jobs:
           javaHomeOption: 'JDKVersion'
           tasks: 'assembleRelease'
 
+      - task: AndroidSigning@2
+        displayName: Sign APK
+        condition: eq(variables['Condition'], 0)
+        inputs:
+          apkFiles: '$(Root)$(ReleaseDirectory)/*.apk'
+          jarsign: true
+          jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
+          jarsignerKeystorePassword: '$(Release.Keystore.Password)'
+          jarsignerKeystoreAlias: 'duu_whang_release_key'
+          jarsignerKeyPassword: '$(Release.Key.Password)'
+          jarsignerArguments: '-verbose -sigalg SHA256withECDSA'
+          zipalign: true
+
       - task: CopyFiles@2
         displayName: Copy APK to Root
         condition: eq(variables['Condition'], 0)
@@ -60,19 +73,6 @@ jobs:
           Contents: '*.apk'
           TargetFolder: '$(Root)/'
           OverWrite: true
-
-      - task: AndroidSigning@2
-        displayName: Sign APK
-        condition: eq(variables['Condition'], 0)
-        inputs:
-          apkFiles: '$(Root)/*.apk'
-          jarsign: true
-          jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
-          jarsignerKeystorePassword: '$(Release.Keystore.Password)'
-          jarsignerKeystoreAlias: 'duu_whang_release_key'
-          jarsignerKeyPassword: '$(Release.Key.Password)'
-          jarsignerArguments: '-verbose -sigalg SHA256withECDSA'
-          zipalign: true
 
       - script: |
           git config user.email "maxipulstorm@aon.at"
