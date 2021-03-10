@@ -19,44 +19,13 @@ jobs:
           testResultsFiles: '**/TEST-*.xml'
           tasks: 'assembleDebug'
 
-      - bash: |
-          set -o xtrace
-          $ANDROID_HOME/tools/bin/sdkmanager --list
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-30;google_apis;x86'
-        displayName: 'install Android image'
-
-      - bash: |
-          set -o xtrace
-          $ANDROID_HOME/emulator/emulator -list-avds
-          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n uitest_android_emulator -k 'system-images;android-30;google_apis;x86' --force
-          $ANDROID_HOME/emulator/emulator -list-avds
-        displayName: 'create AVD'
-
-      - bash: |
-          set -o xtrace
-          $ANDROID_HOME/platform-tools/adb devices
-          nohup $ANDROID_HOME/emulator/emulator -avd uitest_android_emulator -no-snapshot -no-boot-anim -gpu auto -qemu > /dev/null 2>&1 &
-        displayName: 'start Android emulator'
-
-      - bash: |
-          set -o xtrace
-          $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
-          $ANDROID_HOME/platform-tools/adb devices
-        displayName: 'wait for Android emulator'
-        timeoutInMinutes: 5
-        continueOnError: true
-
-      # have to run nunit3-console directly; as of 2020-12-17, even though "dotnet
-      # run" works with Mono to run .net framework projects, "dotnet test" does not
-      # work the same project; see open issue https://github.com/mono/mono/issues/6984
-      - pwsh: |
-          Set-PSDebug -Trace 1
-          $env:UITEST_APK_PATH = "$(Root)$(ReleaseDirectory)/"
-          $testAssemblies = Get-Item "$(Build.SourcesDirectory)/TurnTimer.UITest/bin/Release/TurnTimer.UITest*.dll"
-          nunit3-console $testAssemblies --output="$(Build.ArtifactStagingDirectory)/uitest.log" --result="$(Build.ArtifactStagingDirectory)/uitest_result.xml"
-        displayName: 'run android emulator ui tests'
-        continueOnError: true
-        timeoutInMinutes: 120
+      - task: Gradle@2
+        displayName: UNit test
+        inputs:
+          gradleWrapperFile: 'gradlew'
+          javaHomeOption: 'JDKVersion'
+          publishJUnitResults: true
+          tasks: 'testDevDebug'
 
       - script: |
           echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
