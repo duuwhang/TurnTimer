@@ -10,7 +10,6 @@ jobs:
 
       - script: |
           echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
-          echo "##vso[build.updatebuildnumber]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`$(Build.BuildNumber)"
         displayName: Read Release Version
         name: ReadReleaseVersion
 
@@ -21,6 +20,10 @@ jobs:
       Condition: $[ counter(variables['Version'], 0) ]
 
     steps:
+      - script: |
+          echo "##vso[build.updatebuildnumber]$(Version)_$(Condition)"
+        displayName: Update Run Name
+
       - checkout: self
         displayName: Checkout GitHub Repository
         condition: eq(variables['Condition'], 0)
