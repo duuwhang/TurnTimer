@@ -10,7 +10,7 @@ public class MainActivityTests
     {
         MainActivity mainActivity = new MainActivity();
     
-        Assert.assertEquals(MainActivity.getInstance(), null);
+        Assert.assertNotEquals(MainActivity.getInstance(), null);
         Assert.assertEquals(MainActivity.getInstance(), mainActivity);
     }
     
