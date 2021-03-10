@@ -79,7 +79,7 @@ jobs:
           git config user.name "duuwhang"
           git checkout master
           git add .
-          git commit -m "CD commit"
+          git commit -m "release version $(Version)"
           git push origin
           git tag $(Version)
           git push origin --tags
