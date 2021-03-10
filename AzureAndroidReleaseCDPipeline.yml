@@ -20,9 +20,12 @@ jobs:
 
       - script: |
           echo "##vso[task.setvariable variable=Version]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
+        displayName: Read Release Version
+
+      - script: |
           echo "##vso[build.updatebuildnumber]$(Version)$(Build.BuildNumber)"
           $[counter($(Version), 0)]
-        displayName: Read Release Version
+        displayName: Read Release Version2
 
       - task: Gradle@2
         displayName: Gradle Build Release APK
