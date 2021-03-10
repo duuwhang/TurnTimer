@@ -3,6 +3,13 @@ trigger:
 
 
 jobs:
+  - job: AndroidTestCIPipeline
+    steps:
+      - checkout: self
+        displayName: Checkout GitHub Repository
+        clean: true
+        persistCredentials: true
+
   - job: AndroidReleaseCDPipeline
     steps:
       - checkout: self
@@ -11,7 +18,11 @@ jobs:
         persistCredentials: true
 
       - script: |
-          echo "##vso[task.setvariable variable=Version]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
+          echo "##vso[task.setvariable variable=Version;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
+        displayName: Read Release Version
+
+      - script: |
+          echo $(Version)
         displayName: Read Release Version
 
       - task: Gradle@2
