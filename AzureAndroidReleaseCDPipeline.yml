@@ -1,8 +1,5 @@
 name: $(Rev:_r)
 
-trigger:
-  - manual
-
 jobs:
   - job: AndroidTestCIPipeline
     steps:
