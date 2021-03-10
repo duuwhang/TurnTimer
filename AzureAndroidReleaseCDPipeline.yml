@@ -24,12 +24,12 @@ jobs:
 
       - script: |
           echo "##vso[build.updatebuildnumber]$(Version)$(Build.BuildNumber)"
-          echo "##vso[task.setvariable variable=Condition]`$[counter(variables['Version'], 0)]`"
+          echo "##vso[task.setvariable variable=Condition]$[counter(variables['Version'], 0)]"
         displayName: Read Release Version2
 
       - task: Gradle@2
         displayName: Gradle Build Release APK
-        condition: eq(variables['Condition'], 0)
+        condition: eq($(Condition), 0)
         inputs:
           workingDirectory: ''
           gradleWrapperFile: 'gradlew'
