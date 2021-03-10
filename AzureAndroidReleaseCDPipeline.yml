@@ -9,13 +9,16 @@ jobs:
         persistCredentials: true
 
       - script: |
-          echo "##vso[task.setvariable variable=Version;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
+          echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
           echo "##vso[build.updatebuildnumber]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`$(Build.BuildNumber)"
         displayName: Read Release Version
+        name: ReadReleaseVersion
 
   - job: AndroidReleaseCDPipeline
+    dependsOn: AndroidTestCIPipeline
     variables:
-      Condition: $[counter($(Version), 0)]
+      Version: $[ dependencies.AndroidTestCIPipeline.outputs['ReadReleaseVersion.ReleaseVersion'] ]
+      Condition: $[ counter(variables['Version'], 0) ]
 
     steps:
       - checkout: self
