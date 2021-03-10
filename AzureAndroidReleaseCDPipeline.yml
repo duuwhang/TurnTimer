@@ -26,7 +26,7 @@ jobs:
 
       - task: Gradle@2
         displayName: Gradle Build Release APK
-        condition: eq($(Version), 0)
+        condition: $[eq($(Version), 0)]
         inputs:
           workingDirectory: ''
           gradleWrapperFile: 'gradlew'
