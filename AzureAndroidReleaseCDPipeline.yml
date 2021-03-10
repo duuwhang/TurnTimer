@@ -1,8 +1,7 @@
+name: $(SourceBranchName)_$(Rev:.r)
+
 trigger:
   - manual
-
-variables:
-  ver: $[ dependencies.Storage.outputs['Version'] ]
 
 jobs:
   - job: AndroidTestCIPipeline
