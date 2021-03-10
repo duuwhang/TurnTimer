@@ -27,6 +27,15 @@ jobs:
           echo '$(Build.BuildNumber)'
         displayName: Read Release Version
 
+      - script: |
+          echo "##vso[build.updatebuildnumber]customBuild"
+        displayName: Read Release Version
+
+      - script: |
+          echo '$(Version)'
+          echo '$(Build.BuildNumber)'
+        displayName: Read Release Version
+
       - task: Gradle@2
         displayName: Gradle Build Release APK
         inputs:
