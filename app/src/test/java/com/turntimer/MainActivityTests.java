@@ -2,6 +2,7 @@ package com.turntimer;
 
 import org.junit.Assert;
 import org.junit.Test;
+import static com.turntimer.MainActivity.displayMetricsController;
 
 public class MainActivityTests
 {
@@ -9,14 +10,16 @@ public class MainActivityTests
     public void getInstance_shouldReturnValidInstance()
     {
         MainActivity mainActivity = new MainActivity();
-    
-        Assert.assertNotEquals(MainActivity.getInstance(), null);
+        
+        Assert.assertNotNull(MainActivity.getInstance());
         Assert.assertEquals(MainActivity.getInstance(), mainActivity);
     }
     
     @Test
     public void onCreate()
     {
+        MainActivity mainActivity = new MainActivity();
+        Assert.assertNotNull(displayMetricsController);// idk
     }
     
     @Test
