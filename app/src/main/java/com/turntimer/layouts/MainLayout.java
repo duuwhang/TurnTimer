@@ -8,16 +8,16 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import com.turntimer.R;
-import com.turntimer.layouts.settings.SettingsLayout;
-import com.turntimer.layouts.timers.TimerParentLayout;
+import com.turntimer.layouts.settings.SettingsParentLayout;
+import com.turntimer.layouts.timers.TimersParentLayout;
 
 public class MainLayout extends BaseLayout
 {
     private int startingChild = 0;
     private int currentChild = startingChild;
     private boolean interruptClick = true;
-    private SettingsLayout settingsLayout;
-    private TimerParentLayout timerParentLayout;
+    private SettingsParentLayout settingsParentLayout;
+    private TimersParentLayout timersParentLayout;
     private GestureDetector gestureDetector = null;
     private View.OnTouchListener touchListener = new View.OnTouchListener()
     {
@@ -35,12 +35,12 @@ public class MainLayout extends BaseLayout
     public MainLayout(Context context)
     {
         super(context);
-        
-        settingsLayout = new SettingsLayout(context);
-        this.addView(settingsLayout);
-        
-        timerParentLayout = new TimerParentLayout(context);
-        this.addView(timerParentLayout);
+    
+        settingsParentLayout = new SettingsParentLayout(context);
+        this.addView(settingsParentLayout);
+    
+        timersParentLayout = new TimersParentLayout(context);
+        this.addView(timersParentLayout);
     }
     
     @Override
@@ -60,14 +60,14 @@ public class MainLayout extends BaseLayout
         setGestureListener();
     }
     
-    public SettingsLayout getSettingsLayout()
+    public SettingsParentLayout getSettingsParentLayout()
     {
-        return settingsLayout;
+        return settingsParentLayout;
     }
     
-    public TimerParentLayout getTimerParentLayout()
+    public TimersParentLayout getTimersParentLayout()
     {
-        return timerParentLayout;
+        return timersParentLayout;
     }
     
     private void setGestureListener()

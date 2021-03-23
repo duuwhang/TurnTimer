@@ -5,20 +5,20 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class Setting extends LinearLayout
+public class SettingLayout extends LinearLayout
 {
     protected Context context;
     private TextView settingText;
     private View[] controlElements;
     
-    public Setting(Context context)
+    public SettingLayout(Context context)
     {
         super(context);
         this.context = context;
         init("Setting");
     }
     
-    public Setting(Context context, String textToDisplay, View... controlElements)
+    public SettingLayout(Context context, String textToDisplay, View... controlElements)
     {
         super(context);
         this.context = context;

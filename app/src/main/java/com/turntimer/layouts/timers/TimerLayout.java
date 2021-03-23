@@ -24,8 +24,8 @@ public class TimerLayout extends BaseLayout
     private int timeMillis = 0;
     private float outlineWidthDp = 0.8f;
     private String name = "";
-    private TimerParentLayout.TimerMode timerMode;
-    private Rect tempChildRect = new Rect();
+    private TimersParentLayout.TimerMode timerMode;
+    private Rect childRect = new Rect();
     private GradientDrawable gradientDrawable;
     
     public TimerLayout(Context context)
@@ -86,13 +86,13 @@ public class TimerLayout extends BaseLayout
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
+    
+            childRect.left = width / 2 - childWidth / 2;
+            childRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
+            childRect.right = childRect.left + childWidth;
+            childRect.bottom = childRect.top + childHeight;
             
-            tempChildRect.left = width / 2 - childWidth / 2;
-            tempChildRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
-            tempChildRect.right = tempChildRect.left + childWidth;
-            tempChildRect.bottom = tempChildRect.top + childHeight;
-            
-            getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
+            getChildAt(i).layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
         }
     }
     
@@ -122,7 +122,7 @@ public class TimerLayout extends BaseLayout
                 {
                     timeMillis = 0;
                     endTimer();
-                    ((TimerParentLayout) getParent()).switchToNextTimer();
+                    ((TimersParentLayout) getParent()).switchToNextTimer();
                 }
             };
             countDownTimer.start();
@@ -175,7 +175,7 @@ public class TimerLayout extends BaseLayout
     
     private void formatTime(int millis)
     {
-        if (timerMode == TimerParentLayout.TimerMode.Stopwatch)
+        if (timerMode == TimersParentLayout.TimerMode.Stopwatch)
         {
             millis = (Integer.MAX_VALUE - millis + 900);
         }
@@ -212,7 +212,7 @@ public class TimerLayout extends BaseLayout
         timeMillis = millis;
     }
     
-    public void setTimerMode(TimerParentLayout.TimerMode timerMode)
+    public void setTimerMode(TimersParentLayout.TimerMode timerMode)
     {
         this.timerMode = timerMode;
     }
