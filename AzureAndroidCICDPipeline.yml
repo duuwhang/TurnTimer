@@ -100,6 +100,6 @@ jobs:
           tag: '$(Version)'
           title: 'TurnTimer Version $(Version)'
           assets: '$(Root)$(ReleaseDirectory)/*.apk'
-          releaseNotes: $(ReleaseNotes)
-          #releaseNotesSource: 'file' # Optional. Options: file, input
-          #releaseNotesFile: # Optional
+          releaseNotesSource: 'file'
+          releaseNotesFile: '$(Root)/ReleaseNotes.md'
+          #releaseNotes: $(ReleaseNotes)
