@@ -22,7 +22,7 @@ public class TimerLayout extends BaseLayout
     private TextView textView;
     private CountDownTimer countDownTimer;
     private int timeMillis = 0;
-    private float outlineWidthDp = 0.8f;
+    private int outlineWidthDp = 150;
     private String name = "";
     private TimersParentLayout.TimerMode timerMode;
     private Rect childRect = new Rect();

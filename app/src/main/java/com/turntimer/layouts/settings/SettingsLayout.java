@@ -96,7 +96,7 @@ public class SettingsLayout extends BaseLayout
     {
         EditText editText = (EditText) timerAmountSettingLayout.getElement(1);
         editText.setText("" + timerAmount);
-        editText.setWidth(displayMetricsController.dpToPx(30));
+        editText.setWidth(displayMetricsController.dpToPx(50000));
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         editText.addTextChangedListener(new TextWatcher()
         {
@@ -174,7 +174,7 @@ public class SettingsLayout extends BaseLayout
         
         EditText editText = (EditText) countdownSettingLayout.getElement(2);
         editText.setText("" + timerTime);
-        editText.setWidth(displayMetricsController.dpToPx(65));
+        editText.setWidth(displayMetricsController.dpToPx(8000));
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
         editText.addTextChangedListener(new TextWatcher()
         {
