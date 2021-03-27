@@ -8,15 +8,15 @@ import android.widget.TextView;
 import com.turntimer.MainActivity;
 import com.turntimer.layouts.BaseLayout;
 import com.turntimer.layouts.MainLayout;
-import com.turntimer.layouts.timers.TimerParentLayout;
+import com.turntimer.layouts.timers.TimersParentLayout;
 
-public class SettingsPauseLayout extends BaseLayout
+public class PauseLayout extends BaseLayout
 {
     private TextView timersPausedText;
     private Button resetButton;
-    private Rect tempChildRect = new Rect();
+    private Rect childRect = new Rect();
     
-    public SettingsPauseLayout(final Context context)
+    public PauseLayout(final Context context)
     {
         super(context);
         
@@ -40,8 +40,8 @@ public class SettingsPauseLayout extends BaseLayout
             public void onClick(View view)
             {
                 MainLayout mainLayout = (MainActivity.getInstance()).getLayout();
-                TimerParentLayout timerParentLayout = mainLayout.getTimerParentLayout();
-                timerParentLayout.resetTimers();
+                TimersParentLayout timersParentLayout = mainLayout.getTimersParentLayout();
+                timersParentLayout.resetTimers();
             }
         });
     }
@@ -56,13 +56,13 @@ public class SettingsPauseLayout extends BaseLayout
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
+    
+            childRect.left = width / 2 - childWidth / 2;
+            childRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
+            childRect.right = childRect.left + childWidth;
+            childRect.bottom = childRect.top + childHeight;
             
-            tempChildRect.left = width / 2 - childWidth / 2;
-            tempChildRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
-            tempChildRect.right = tempChildRect.left + childWidth;
-            tempChildRect.bottom = tempChildRect.top + childHeight;
-            
-            getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
+            getChildAt(i).layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
         }
     }
 }

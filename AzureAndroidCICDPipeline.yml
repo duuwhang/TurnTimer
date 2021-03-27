@@ -33,6 +33,7 @@ jobs:
     steps:
       - script: |
           echo "##vso[build.updatebuildnumber]$(Version)_$(Condition)"
+          echo "##vso[task.setvariable variable=ReleaseNotes]`grep 'Changes' $(Root)/app/build.gradle`"
         displayName: Update Run Name
 
       - checkout: self
@@ -99,6 +100,7 @@ jobs:
           tag: '$(Version)'
           title: 'TurnTimer Version $(Version)'
           assets: '$(Root)$(ReleaseDirectory)/*.apk'
-          #releaseNotesSource: 'file' # Optional. Options: file, input
-          #releaseNotesFile: # Optional
-          #releaseNotes: # Optional
+          addChangeLog: false
+          releaseNotesSource: 'file'
+          releaseNotesFile: '$(Root)/ReleaseNotes.md'
+          #releaseNotes: $(ReleaseNotes)

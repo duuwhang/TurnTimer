@@ -9,7 +9,7 @@ import com.turntimer.MainActivity;
 import com.turntimer.layouts.BaseLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
 
-public class TimerParentLayout extends BaseLayout
+public class TimersParentLayout extends BaseLayout
 {
     private int scaleFromMiddlePx = 5;
     private int timerAmount;
@@ -17,7 +17,7 @@ public class TimerParentLayout extends BaseLayout
     private int countdownTimeMillis;
     private float countdownTime;
     private String timeUnit;
-    private Rect tempChildRect = new Rect();
+    private Rect childRect = new Rect();
     private TimerMode timerMode;
     
     public enum TimerMode
@@ -26,7 +26,7 @@ public class TimerParentLayout extends BaseLayout
         Stopwatch
     }
     
-    public TimerParentLayout(Context context)
+    public TimersParentLayout(Context context)
     {
         super(context);
     }
@@ -65,34 +65,34 @@ public class TimerParentLayout extends BaseLayout
         {
             int childHeight = height / rows;
             int childWidth = width / columns;
-            tempChildRect.setEmpty();
-            
-            tempChildRect.left = left + (i % columns) * childWidth;
-            tempChildRect.top = top + i / columns * childHeight;
+            childRect.setEmpty();
+    
+            childRect.left = left + (i % columns) * childWidth;
+            childRect.top = top + i / columns * childHeight;
             
             int emptyTimerSpace = rows * columns - timerAmount;
             if (columns % 2 != 0 && timerAmount - (rows - 1) * columns == 1 && i >= timerAmount - emptyTimerSpace)
             {
                 if (i == timerAmount - 1)
                 {
-                    tempChildRect.right += childWidth * emptyTimerSpace;
+                    childRect.right += childWidth * emptyTimerSpace;
                 }
             }
             else if (emptyTimerSpace > 0 && i >= timerAmount - emptyTimerSpace)
             {
-                tempChildRect.left -= (timerAmount - emptyTimerSpace - i) * childWidth;
+                childRect.left -= (timerAmount - emptyTimerSpace - i) * childWidth;
                 childWidth *= 2;
                 
                 if ((rows - 1) * columns > i)
                 {
-                    tempChildRect.top += tempChildRect.left / childWidth * childHeight;
-                    tempChildRect.left -= tempChildRect.left / childWidth * width;
+                    childRect.top += childRect.left / childWidth * childHeight;
+                    childRect.left -= childRect.left / childWidth * width;
                 }
             }
-            tempChildRect.right += tempChildRect.left + childWidth;
-            tempChildRect.bottom = tempChildRect.top + childHeight;
+            childRect.right += childRect.left + childWidth;
+            childRect.bottom = childRect.top + childHeight;
             
-            getChildAt(i).layout(tempChildRect.left, tempChildRect.top, tempChildRect.right, tempChildRect.bottom);
+            getChildAt(i).layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
         }
     }
     
