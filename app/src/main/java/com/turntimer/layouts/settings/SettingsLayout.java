@@ -96,7 +96,7 @@ public class SettingsLayout extends BaseLayout
     {
         EditText editText = (EditText) timerAmountSettingLayout.getElement(1);
         editText.setText("" + timerAmount);
-        editText.setWidth(displayMetricsController.dpToPx(50000));
+        editText.setWidth(displayMetricsController.dpToPx(5000));
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         editText.addTextChangedListener(new TextWatcher()
         {
