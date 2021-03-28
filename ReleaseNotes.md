@@ -1,5 +1,5 @@
-# Changes:
-- this
-- is
-a
-# test
+# First Minor Release
+## Basic Functionality:
+- dynamic amount of timers capped at 30
+- countdown and stopwatch mode
+- saving the app state
