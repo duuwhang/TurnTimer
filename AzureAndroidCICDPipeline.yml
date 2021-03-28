@@ -33,7 +33,6 @@ jobs:
     steps:
       - script: |
           echo "##vso[build.updatebuildnumber]$(Version)_$(Condition)"
-          echo "##vso[task.setvariable variable=ReleaseNotes]`grep 'Changes' $(Root)/app/build.gradle`"
         displayName: Update Run Name
 
       - checkout: self
@@ -92,15 +91,14 @@ jobs:
         condition: eq(variables['Condition'], 0)
         inputs:
           gitHubConnection: github.com_duuwhang
-          repositoryName: duuwhang/TurnTimer
+          repositoryName: duuwhang/$(ProjectName)
           action: create
           target: '$(Build.SourceVersion)'
           tagSource: manual
           tagPattern: 'Git tag'
           tag: '$(Version)'
-          title: 'TurnTimer Version $(Version)'
+          title: '$(ProjectName) Version $(Version)'
           assets: '$(Root)$(ReleaseDirectory)/*.apk'
           addChangeLog: false
           releaseNotesSource: 'file'
           releaseNotesFile: '$(Root)/ReleaseNotes.md'
-          #releaseNotes: $(ReleaseNotes)
