@@ -7,3 +7,8 @@ The user is able to adjust:
 - mode in which they are ticking (countdown or stopwatch)
 - start time of the countdown
 - whether or not the state of the application should be saved
+
+## How to install TurnTimer on Android
+- Visit TurnTimer's GitHub releases at https://github.com/duuwhang/TurnTimer/releases .
+- Choose the latest or an older TurnTimer Version.
+- Download the TurnTimer.apk under Assets and follow Android's instruction.
