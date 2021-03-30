@@ -118,8 +118,8 @@ public class MainLayout extends BaseLayout
                 {
                     AnimationSet animation = new AnimationSet(false);
                     final View child1 = getChildAt(currentChild);
-                    final View child2 = getChildAt(currentChild +1);
-    
+                    final View child2 = getChildAt(currentChild + 1);
+                    
                     animation.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutleft));
                     animation.setAnimationListener(new Animation.AnimationListener()
                     {
@@ -153,8 +153,8 @@ public class MainLayout extends BaseLayout
                 {
                     AnimationSet animation = new AnimationSet(false);
                     final View child1 = getChildAt(currentChild);
-                    final View child2 = getChildAt(currentChild -1);
-    
+                    final View child2 = getChildAt(currentChild - 1);
+                    
                     animation.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutright));
                     animation.setAnimationListener(new Animation.AnimationListener()
                     {
