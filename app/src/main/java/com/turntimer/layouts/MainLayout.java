@@ -35,10 +35,10 @@ public class MainLayout extends BaseLayout
     public MainLayout(Context context)
     {
         super(context);
-    
+        
         settingsParentLayout = new SettingsParentLayout(context);
         this.addView(settingsParentLayout);
-    
+        
         timersParentLayout = new TimersParentLayout(context);
         this.addView(timersParentLayout);
     }
@@ -95,11 +95,11 @@ public class MainLayout extends BaseLayout
                     {
                         if (diffX > 0)
                         {
-                            onSwipeLeft();
+                            onSwipeRight();
                         }
                         else
                         {
-                            onSwipeRight();
+                            onSwipeLeft();
                         }
                         result = true;
                         interruptClick = true;
@@ -114,128 +114,71 @@ public class MainLayout extends BaseLayout
             
             void onSwipeLeft()
             {
-                if (currentChild > 0)
+                if (currentChild < getChildCount() - 1)
                 {
-                    AnimationSet animationSet = new AnimationSet(false);
-                    
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutright));
+                    AnimationSet animation = new AnimationSet(false);
                     final View child1 = getChildAt(currentChild);
-                    animationSet.setAnimationListener(new Animation.AnimationListener()
+                    final View child2 = getChildAt(currentChild +1);
+    
+                    animation.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutleft));
+                    animation.setAnimationListener(new Animation.AnimationListener()
                     {
                         @Override
                         public void onAnimationStart(Animation animation)
                         {
-                        
+                            child1.setVisibility(View.INVISIBLE);
                         }
                         
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
-                            child1.setVisibility(View.INVISIBLE);
-                            child1.clearAnimation();
-                            child1.setX(child1.getWidth());
-                        }
-                        
-                        @Override
-                        public void onAnimationRepeat(Animation animation)
-                        {
-                        
-                        }
-                    });
-                    child1.startAnimation(animationSet);
-                    
-                    animationSet = new AnimationSet(false);
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinright));
-                    final View child2 = getChildAt(currentChild - 1);
-                    animationSet.setAnimationListener(new Animation.AnimationListener()
-                    {
-                        @Override
-                        public void onAnimationStart(Animation animation)
-                        {
-                            child2.setX(-child1.getWidth());
                             child2.setVisibility(View.VISIBLE);
                         }
                         
                         @Override
-                        public void onAnimationEnd(Animation animation)
-                        {
-                            child2.setX(0);
-                            child2.clearAnimation();
-                        }
-                        
-                        @Override
                         public void onAnimationRepeat(Animation animation)
                         {
                         
                         }
                     });
-                    child2.startAnimation(animationSet);
+                    child1.startAnimation(animation);
                     
-                    currentChild--;
+                    currentChild++;
                 }
             }
             
             void onSwipeRight()
             {
-                if (currentChild < getChildCount() - 1)
+                if (currentChild > 0)
                 {
-                    
-                    AnimationSet animationSet = new AnimationSet(false);
-                    
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutleft));
+                    AnimationSet animation = new AnimationSet(false);
                     final View child1 = getChildAt(currentChild);
-                    animationSet.setAnimationListener(new Animation.AnimationListener()
+                    final View child2 = getChildAt(currentChild -1);
+    
+                    animation.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeoutright));
+                    animation.setAnimationListener(new Animation.AnimationListener()
                     {
                         @Override
                         public void onAnimationStart(Animation animation)
                         {
-                        
+                            child1.setVisibility(View.INVISIBLE);
                         }
                         
                         @Override
                         public void onAnimationEnd(Animation animation)
                         {
-                            child1.setX(-child1.getWidth());
-                            child1.setVisibility(View.INVISIBLE);
-                            child1.clearAnimation();
-                        }
-                        
-                        @Override
-                        public void onAnimationRepeat(Animation animation)
-                        {
-                        
-                        }
-                    });
-                    child1.startAnimation(animationSet);
-                    
-                    animationSet = new AnimationSet(false);
-                    final View child2 = getChildAt(currentChild + 1);
-                    animationSet.setAnimationListener(new Animation.AnimationListener()
-                    {
-                        @Override
-                        public void onAnimationStart(Animation animation)
-                        {
-                            child2.setX(child2.getWidth());
                             child2.setVisibility(View.VISIBLE);
                         }
                         
                         @Override
-                        public void onAnimationEnd(Animation animation)
-                        {
-                            child2.setX(0);
-                            child2.clearAnimation();
-                        }
-                        
-                        @Override
                         public void onAnimationRepeat(Animation animation)
                         {
                         
                         }
                     });
-                    animationSet.addAnimation(AnimationUtils.loadAnimation(context, R.anim.fadeinleft));
-                    child2.startAnimation(animationSet);
+                    child1.startAnimation(animation);
                     
-                    currentChild++;
+                    currentChild--;
                 }
             }
         });

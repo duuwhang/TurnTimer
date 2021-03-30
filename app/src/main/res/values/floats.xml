@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <fraction name = "anim_distance">3%</fraction>
+    <fraction name = "anim_distance_neg">-3%</fraction>
+    <fraction name = "anim_timer_end_alpha">0.03</fraction>
+</resources>
