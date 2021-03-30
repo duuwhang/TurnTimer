@@ -1,9 +1,7 @@
 package com.turntimer;
 
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.WindowManager;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Objects;
@@ -37,9 +35,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(this.getSupportActionBar()).hide();
         
-        Resources resources = getResources();
-        WindowManager windowManager = getWindowManager();
-        displayMetricsController = new DisplayMetricsController(windowManager.getDefaultDisplay(), resources.getDisplayMetrics().density);
+        displayMetricsController = new DisplayMetricsController(getWindowManager().getDefaultDisplay(), getResources().getDisplayMetrics().density);
     }
     
     @Override
