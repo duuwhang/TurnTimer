@@ -1,15 +1,18 @@
 package com.turntimer.layouts;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import com.turntimer.MainActivity;
 import com.turntimer.R;
 import com.turntimer.layouts.settings.SettingsParentLayout;
 import com.turntimer.layouts.timers.TimersParentLayout;
+import pl.droidsonroids.gif.GifImageView;
 
 public class MainLayout extends BaseLayout
 {
@@ -18,6 +21,8 @@ public class MainLayout extends BaseLayout
     private boolean interruptClick = true;
     private SettingsParentLayout settingsParentLayout;
     private TimersParentLayout timersParentLayout;
+    private GifImageView gifImageView;
+    private Rect childRect = new Rect();
     private GestureDetector gestureDetector = null;
     private View.OnTouchListener touchListener = new View.OnTouchListener()
     {
@@ -41,6 +46,10 @@ public class MainLayout extends BaseLayout
         
         timersParentLayout = new TimersParentLayout(context);
         this.addView(timersParentLayout);
+        
+        gifImageView = new GifImageView(context);
+        gifImageView.setImageResource(R.drawable.swipe);
+        this.addView(gifImageView);
     }
     
     @Override
@@ -53,11 +62,30 @@ public class MainLayout extends BaseLayout
         currentChild = startingChild;
         for (int i = 0; i < getChildCount(); i++)
         {
-            getChildAt(i).setOnTouchListener(touchListener);
-            getChildAt(i).setVisibility(View.INVISIBLE);
+            View child = getChildAt(i);
+            child.setOnTouchListener(touchListener);
+            child.setVisibility(View.INVISIBLE);
         }
         getChildAt(startingChild).setVisibility(View.VISIBLE);
         setGestureListener();
+        if (MainActivity.getInstance().getFirstStart())
+        {
+            gifImageView.setVisibility(View.VISIBLE);
+        }
+    }
+    
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom)
+    {
+        for (int i = 0; i < getChildCount() - 1; i++)
+        {
+            getChildAt(i).layout(left, top, right, bottom);
+        }
+        childRect.left = (left + right) / 2 - gifImageView.getMeasuredWidth() / 8;
+        childRect.right = childRect.left + gifImageView.getMeasuredWidth() / 4;
+        childRect.top = (top + bottom) * 4 / 5 - gifImageView.getMeasuredHeight() / 8;
+        childRect.bottom = childRect.top + gifImageView.getMeasuredHeight() / 4;
+        gifImageView.layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
     }
     
     public SettingsParentLayout getSettingsParentLayout()
@@ -114,7 +142,7 @@ public class MainLayout extends BaseLayout
             
             void onSwipeLeft()
             {
-                if (currentChild < getChildCount() - 1)
+                if (currentChild < getChildCount() - 2)
                 {
                     AnimationSet animation = new AnimationSet(false);
                     final View child1 = getChildAt(currentChild);
@@ -144,6 +172,11 @@ public class MainLayout extends BaseLayout
                     child1.startAnimation(animation);
                     
                     currentChild++;
+                }
+                if (MainActivity.getInstance().getFirstStart())
+                {
+                    gifImageView.setVisibility(View.INVISIBLE);
+                    MainActivity.getInstance().setFirstStart(false);
                 }
             }
             

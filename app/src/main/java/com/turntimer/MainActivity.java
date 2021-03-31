@@ -2,7 +2,6 @@ package com.turntimer;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Objects;
 import com.turntimer.layouts.BaseLayout;
@@ -17,6 +16,7 @@ public class MainActivity extends AppCompatActivity
     private static MainActivity activity;
     private boolean saveState;
     private boolean loading;
+    private boolean firstStart;
     private MainLayout mainLayout;
     
     public MainActivity()
@@ -84,12 +84,9 @@ public class MainActivity extends AppCompatActivity
             setContentView(mainLayout);
             
             SharedPreferences preferences = getPreferences(MODE_PRIVATE);
-            if (!preferences.getBoolean("showedHint", false))
+            if (!preferences.getBoolean("notFirstStart", false))
             {
-                Toast.makeText(this, "Swipe right to view the timers", Toast.LENGTH_LONG).show();
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("showedHint", true);
-                editor.apply();
+                firstStart = true;
             }
             loading = true;
             saveState = preferences.getBoolean("saveState", false);
@@ -167,6 +164,20 @@ public class MainActivity extends AppCompatActivity
     public boolean getLoading()
     {
         return loading;
+    }
+    
+    public boolean getFirstStart()
+    {
+        return firstStart;
+    }
+    
+    public void setFirstStart(boolean firstStart)
+    {
+        this.firstStart = firstStart;
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("notFirstStart", true);
+        editor.apply();
     }
     
     public MainLayout getLayout()
