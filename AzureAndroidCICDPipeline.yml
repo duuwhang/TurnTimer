@@ -60,7 +60,7 @@ jobs:
           jarsign: true
           jarsignerKeystoreFile: 'duuwhang.keystore'
           jarsignerKeystorePassword: '$(Release.Keystore.Password)'
-          jarsignerKeystoreAlias: 'duu_whang_release_key'
+          jarsignerKeystoreAlias: 'duuwhang_release_key'
           jarsignerKeyPassword: '$(Release.Key.Password)'
           jarsignerArguments: '-verbose -sigalg SHA256withECDSA'
           zipalign: true
