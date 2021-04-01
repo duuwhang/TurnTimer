@@ -37,7 +37,7 @@ public class DisplayMetricsControllerTests
             DisplayMetrics displayMetrics = (DisplayMetrics) invocation.getArguments()[0];
             displayMetrics.heightPixels = height;
             return null;
-        }).when(displayMock).getMetrics(any(DisplayMetrics.class));
+        }).when(displayMock).getRealMetrics(any(DisplayMetrics.class));
         
         DisplayMetricsController displayMetricsController = new DisplayMetricsController(displayMock, 120);
         
@@ -54,7 +54,7 @@ public class DisplayMetricsControllerTests
             DisplayMetrics displayMetrics = (DisplayMetrics) invocation.getArguments()[0];
             displayMetrics.widthPixels = width;
             return null;
-        }).when(displayMock).getMetrics(any(DisplayMetrics.class));
+        }).when(displayMock).getRealMetrics(any(DisplayMetrics.class));
     
         DisplayMetricsController displayMetricsController = new DisplayMetricsController(displayMock, 120);
     
