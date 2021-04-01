@@ -22,14 +22,14 @@ public class DisplayMetricsController
     public int getScreenHeight()
     {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getRealMetrics(displayMetrics);
+        display.getMetrics(displayMetrics);
         return displayMetrics.heightPixels;
     }
     
     public int getScreenWidth()
     {
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getRealMetrics(displayMetrics);
+        display.getMetrics(displayMetrics);
         return displayMetrics.widthPixels;
     }
 }
