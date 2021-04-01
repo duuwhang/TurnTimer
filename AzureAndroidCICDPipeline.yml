@@ -37,13 +37,13 @@ jobs:
 
       - checkout: self
         displayName: Checkout GitHub Repository
-        condition: eq(variables['Condition'], 0)
+        condition: and(succeeded(), eq(variables['Condition'], 0))
         clean: true
         persistCredentials: true
 
       - task: Gradle@2
         displayName: Gradle Build Release APK
-        condition: eq(variables['Condition'], 0)
+        condition: and(succeeded(), eq(variables['Condition'], 0))
         inputs:
           workingDirectory: ''
           gradleWrapperFile: 'gradlew'
@@ -54,7 +54,7 @@ jobs:
 
       - task: AndroidSigning@2
         displayName: Sign APK
-        condition: eq(variables['Condition'], 0)
+        condition: and(succeeded(), eq(variables['Condition'], 0))
         inputs:
           apkFiles: '$(Root)$(ReleaseDirectory)/*.apk'
           jarsign: true
@@ -67,7 +67,7 @@ jobs:
 
       - task: CopyFiles@2
         displayName: Copy APK to Root
-        condition: eq(variables['Condition'], 0)
+        condition: and(succeeded(), eq(variables['Condition'], 0))
         inputs:
           sourceFolder: '$(Root)$(ReleaseDirectory)/'
           Contents: '*.apk'
@@ -84,11 +84,11 @@ jobs:
           git tag $(Version)
           git push origin --tags
         displayName: Commit APK to GitHub Repository
-        condition: eq(variables['Condition'], 0)
+        condition: and(succeeded(), eq(variables['Condition'], 0))
 
       - task: GitHubRelease@0
         displayName: Create GitHub Release
-        condition: eq(variables['Condition'], 0)
+        condition: and(succeeded(), eq(variables['Condition'], 0))
         inputs:
           gitHubConnection: github.com_duuwhang
           repositoryName: duuwhang/$(ProjectName)
