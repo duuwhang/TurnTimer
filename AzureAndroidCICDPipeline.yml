@@ -58,7 +58,7 @@ jobs:
         inputs:
           apkFiles: '$(Root)$(ReleaseDirectory)/*.apk'
           jarsign: true
-          jarsignerKeystoreFile: 'duu_whang_keystore.keystore'
+          jarsignerKeystoreFile: 'duuwhang.keystore'
           jarsignerKeystorePassword: '$(Release.Keystore.Password)'
           jarsignerKeystoreAlias: 'duu_whang_release_key'
           jarsignerKeyPassword: '$(Release.Key.Password)'
