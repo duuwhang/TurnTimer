@@ -10,8 +10,8 @@ android
         applicationId "com.turntimer"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 28
-        versionName "1.0.9"
+        versionCode 29
+        versionName "1.0.10"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
