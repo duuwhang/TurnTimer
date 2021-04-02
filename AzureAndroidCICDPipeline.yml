@@ -63,7 +63,7 @@ jobs:
           jarsignerKeystoreAlias: 'duuwhang_release_key'
           jarsignerKeyPassword: '$(Release.Key.Password)'
           jarsignerArguments: '-verbose -sigalg SHA256withRSA'
-          zipalign: false
+          zipalign: true
 
       - task: CopyFiles@2
         displayName: Copy APK to Root
