@@ -62,7 +62,7 @@ jobs:
           jarsignerKeystorePassword: '$(Release.Keystore.Password)'
           jarsignerKeystoreAlias: 'duuwhang_release_key'
           jarsignerKeyPassword: '$(Release.Key.Password)'
-          jarsignerArguments: '-verbose -sigalg SHA256withRSA'
+          jarsignerArguments: '-verbose'
           zipalign: true
 
       - task: CopyFiles@2
