@@ -62,6 +62,7 @@ jobs:
           jarsignerKeystorePassword: '$(Release.Keystore.Password)'
           jarsignerKeystoreAlias: 'duuwhang_release_key'
           jarsignerKeyPassword: '$(Release.Key.Password)'
+          jarsignerArguments: '-sigalg SHA256withRSA'
           zipalign: true
 
       - task: CopyFiles@2
@@ -69,7 +70,7 @@ jobs:
         condition: and(succeeded(), eq(variables['Condition'], 0))
         inputs:
           sourceFolder: '$(Root)$(ReleaseDirectory)/'
-          Contents: '*.unsigned'
+          Contents: '*.apk'
           TargetFolder: '$(Root)/'
           OverWrite: true
 
