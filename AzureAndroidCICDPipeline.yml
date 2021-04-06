@@ -41,49 +41,13 @@ jobs:
         clean: true
         persistCredentials: true
 
-      - task: Gradle@2
-        displayName: Gradle Build Release APK
-        condition: and(succeeded(), eq(variables['Condition'], 0))
-        inputs:
-          workingDirectory: ''
-          gradleWrapperFile: 'gradlew'
-          gradleOptions: '-Xmx3072m'
-          publishJUnitResults: false
-          javaHomeOption: 'JDKVersion'
-          tasks: 'assembleRelease'
-
-      - task: AndroidSigning@2
-        displayName: Sign APK
-        condition: and(succeeded(), eq(variables['Condition'], 0))
-        inputs:
-          apkFiles: '$(Root)$(ReleaseDirectory)/*.apk'
-          jarsign: true
-          jarsignerKeystoreFile: 'duuwhang.keystore'
-          jarsignerKeystorePassword: '$(Release.Keystore.Password)'
-          jarsignerKeystoreAlias: 'duuwhang_release_key'
-          jarsignerKeyPassword: '$(Release.Key.Password)'
-          jarsignerArguments: '-verbose -sigalg SHA256withECDSA'
-          zipalign: true
-
-      - task: CopyFiles@2
-        displayName: Copy APK to Root
-        condition: and(succeeded(), eq(variables['Condition'], 0))
-        inputs:
-          sourceFolder: '$(Root)$(ReleaseDirectory)/'
-          Contents: '*.apk'
-          TargetFolder: '$(Root)/'
-          OverWrite: true
-
       - script: |
           git config user.email "maxipulstorm@aon.at"
           git config user.name "duuwhang"
           git checkout master
-          git add .
-          git commit -m "release version $(Version)"
-          git push origin
           git tag $(Version)
           git push origin --tags
-        displayName: Commit APK to GitHub Repository
+        displayName: Create GitHub Release Tag
         condition: and(succeeded(), eq(variables['Condition'], 0))
 
       - task: GitHubRelease@0
@@ -98,7 +62,7 @@ jobs:
           tagPattern: 'Git tag'
           tag: '$(Version)'
           title: '$(ProjectName) Version $(Version)'
-          assets: '$(Root)$(ReleaseDirectory)/*.apk'
+          assets: '$(Root)/$(ProjectName).apk'
           addChangeLog: false
           releaseNotesSource: 'file'
           releaseNotesFile: '$(Root)/ReleaseNotes.md'
