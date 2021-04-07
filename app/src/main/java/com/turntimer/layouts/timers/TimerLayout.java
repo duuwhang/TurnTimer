@@ -16,6 +16,7 @@ import com.turntimer.R;
 import com.turntimer.layouts.BaseLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class TimerLayout extends BaseLayout
 {
     private EditText editText;

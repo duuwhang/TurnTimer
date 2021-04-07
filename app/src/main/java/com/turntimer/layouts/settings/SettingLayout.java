@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class SettingLayout extends LinearLayout
 {
     protected Context context;

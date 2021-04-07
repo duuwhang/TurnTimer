@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import com.turntimer.layouts.BaseLayout;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class SettingsParentLayout extends BaseLayout
 {
     private PauseLayout pauseLayout;
