@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class SettingsLayout extends BaseLayout
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
-    
+            
             childRect.left = left + width / 2 - childrenMaxWidth / 2;
             childRect.top = currentTop;
             childRect.right = childRect.left + childWidth;
@@ -87,7 +86,7 @@ public class SettingsLayout extends BaseLayout
     private void constructTimerAmountSetting()
     {
         EditText editText = new EditText(context);
-    
+        
         timerAmountSettingLayout = new SettingLayout(context, "Timer Amount (1-30): ", editText);
         addView(timerAmountSettingLayout);
     }
@@ -137,7 +136,7 @@ public class SettingsLayout extends BaseLayout
         CheckBox checkBox = new CheckBox(context);
         EditText editText = new EditText(context);
         Spinner dropDown = new Spinner(context);
-    
+        
         countdownSettingLayout = new SettingLayout(context, "Countdown Mode ",
             checkBox,
             editText,
@@ -150,25 +149,17 @@ public class SettingsLayout extends BaseLayout
         CheckBox checkBox = (CheckBox) countdownSettingLayout.getElement(1);
         checkBoxes.add(checkBox);
         checkBox.setChecked(timerMode != TimersParentLayout.TimerMode.Stopwatch);
-        checkBox.setOnClickListener(new OnClickListener()
+        checkBox.setOnClickListener(view ->
         {
-            @Override
-            public void onClick(View view)
-            {
-                view.setEnabled(false);
-                toggleMode();
-                view.setEnabled(true);
-            }
+            view.setEnabled(false);
+            toggleMode();
+            view.setEnabled(true);
         });
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        checkBox.setOnCheckedChangeListener((compoundButton, checked) ->
         {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
+            if (checked)
             {
-                if (checked)
-                {
-                    changeTimerMode(TimersParentLayout.TimerMode.Countdown);
-                }
+                changeTimerMode(TimersParentLayout.TimerMode.Countdown);
             }
         });
         
@@ -234,7 +225,7 @@ public class SettingsLayout extends BaseLayout
     private void constructStopwatchSetting()
     {
         CheckBox checkBox = new CheckBox(context);
-    
+        
         stopwatchSettingLayout = new SettingLayout(context, "Stopwatch Mode ", checkBox);
         addView(stopwatchSettingLayout);
     }
@@ -244,25 +235,17 @@ public class SettingsLayout extends BaseLayout
         CheckBox checkBox = (CheckBox) stopwatchSettingLayout.getElement(1);
         checkBoxes.add(checkBox);
         checkBox.setChecked(timerMode == TimersParentLayout.TimerMode.Stopwatch);
-        checkBox.setOnClickListener(new OnClickListener()
+        checkBox.setOnClickListener(view ->
         {
-            @Override
-            public void onClick(View view)
-            {
-                view.setEnabled(false);
-                toggleMode();
-                view.setEnabled(true);
-            }
+            view.setEnabled(false);
+            toggleMode();
+            view.setEnabled(true);
         });
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        checkBox.setOnCheckedChangeListener((compoundButton, checked) ->
         {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
+            if (checked)
             {
-                if (checked)
-                {
-                    changeTimerMode(TimersParentLayout.TimerMode.Stopwatch);
-                }
+                changeTimerMode(TimersParentLayout.TimerMode.Stopwatch);
             }
         });
     }
@@ -270,7 +253,7 @@ public class SettingsLayout extends BaseLayout
     private void constructSaveSetting()
     {
         CheckBox checkBox = new CheckBox(context);
-    
+        
         saveSettingLayout = new SettingLayout(context, "Save State ", checkBox);
         addView(saveSettingLayout);
     }
@@ -278,14 +261,10 @@ public class SettingsLayout extends BaseLayout
     private void initSaveSetting()
     {
         CheckBox checkBox = (CheckBox) saveSettingLayout.getElement(1);
-        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        checkBox.setOnCheckedChangeListener((compoundButton, checked) ->
         {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
-            {
-                MainActivity.getInstance().setSaveStateOption(checked);
-                saveState = checked;
-            }
+            MainActivity.getInstance().setSaveStateOption(checked);
+            saveState = checked;
         });
         checkBox.setChecked(saveState);
     }

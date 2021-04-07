@@ -35,14 +35,7 @@ public class TimersParentLayout extends BaseLayout
     public void init()
     {
         setClickable(true);
-        setOnClickListener(new OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                switchToNextTimer();
-            }
-        });
+        setOnClickListener(view -> switchToNextTimer());
         
         resetTimers();
     }
@@ -66,7 +59,7 @@ public class TimersParentLayout extends BaseLayout
             int childHeight = height / rows;
             int childWidth = width / columns;
             childRect.setEmpty();
-    
+            
             childRect.left = left + (i % columns) * childWidth;
             childRect.top = top + i / columns * childHeight;
             

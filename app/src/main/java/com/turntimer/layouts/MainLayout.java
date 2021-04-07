@@ -24,17 +24,13 @@ public class MainLayout extends BaseLayout
     private GifImageView gifImageView;
     private Rect childRect = new Rect();
     private GestureDetector gestureDetector = null;
-    private View.OnTouchListener touchListener = new View.OnTouchListener()
+    private View.OnTouchListener touchListener = (view, motionEvent) ->
     {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent)
+        if (!interruptClick)
         {
-            if (!interruptClick)
-            {
-                getChildAt(currentChild).performClick();
-            }
-            return gestureDetector.onTouchEvent(motionEvent);
+            getChildAt(currentChild).performClick();
         }
+        return gestureDetector.onTouchEvent(motionEvent);
     };
     
     public MainLayout(Context context)
