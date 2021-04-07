@@ -7,17 +7,17 @@ import com.turntimer.layouts.BaseLayout;
 @SuppressWarnings("FieldCanBeLocal")
 public class SettingsParentLayout extends BaseLayout
 {
-    private PauseLayout pauseLayout;
-    private SettingsLayout settingsLayout;
+    private final PauseLayout pauseLayout;
+    private final SettingsLayout settingsLayout;
     private final Rect childRect = new Rect();
     
     public SettingsParentLayout(Context context)
     {
         super(context);
-    
+        
         pauseLayout = new PauseLayout(context);
         addView(pauseLayout);
-    
+        
         settingsLayout = new SettingsLayout(context);
         addView(settingsLayout);
     }

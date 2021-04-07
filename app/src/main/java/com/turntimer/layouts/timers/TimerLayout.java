@@ -19,11 +19,11 @@ import static com.turntimer.MainActivity.displayMetricsController;
 @SuppressWarnings("FieldCanBeLocal")
 public class TimerLayout extends BaseLayout
 {
-    private EditText editText;
-    private TextView textView;
+    private final EditText editText;
+    private final TextView textView;
     private CountDownTimer countDownTimer;
     private int timeMillis = 0;
-    private int outlineWidthDp = 150;
+    private final int outlineWidthDp = 150;
     private String name = "";
     private TimersParentLayout.TimerMode timerMode;
     private final Rect childRect = new Rect();
@@ -87,7 +87,7 @@ public class TimerLayout extends BaseLayout
         {
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
-    
+            
             childRect.left = width / 2 - childWidth / 2;
             childRect.top = (i + 1) * height / (getChildCount() + 1) - childHeight / 2;
             childRect.right = childRect.left + childWidth;

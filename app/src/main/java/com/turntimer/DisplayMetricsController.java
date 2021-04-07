@@ -7,8 +7,8 @@ import android.view.WindowMetrics;
 
 public class DisplayMetricsController
 {
-    private float pixelDensity;
-    private WindowManager windowManager;
+    private final float pixelDensity;
+    private final WindowManager windowManager;
     
     public DisplayMetricsController(WindowManager windowManager, float pixelDensity)
     {

@@ -30,7 +30,7 @@ public class SettingsLayout extends BaseLayout
     private boolean saveState;
     private String timeUnit;
     private TimersParentLayout.TimerMode timerMode;
-    private List<CheckBox> checkBoxes = new ArrayList<>();
+    private final List<CheckBox> checkBoxes = new ArrayList<>();
     private final Rect childRect = new Rect();
     
     public SettingsLayout(Context context)

@@ -19,12 +19,12 @@ public class MainLayout extends BaseLayout
     private int startingChild = 0;
     private int currentChild = startingChild;
     private boolean interruptClick = true;
-    private SettingsParentLayout settingsParentLayout;
-    private TimersParentLayout timersParentLayout;
-    private GifImageView gifImageView;
+    private final SettingsParentLayout settingsParentLayout;
+    private final TimersParentLayout timersParentLayout;
+    private final GifImageView gifImageView;
     private final Rect childRect = new Rect();
     private GestureDetector gestureDetector = null;
-    private View.OnTouchListener touchListener = (view, motionEvent) ->
+    private final View.OnTouchListener touchListener = (view, motionEvent) ->
     {
         if (!interruptClick)
         {

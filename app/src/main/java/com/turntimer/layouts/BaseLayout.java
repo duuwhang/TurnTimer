@@ -6,7 +6,7 @@ import static com.turntimer.MainActivity.displayMetricsController;
 
 public class BaseLayout extends ViewGroup
 {
-    protected Context context;
+    protected final Context context;
     
     public BaseLayout(Context context)
     {

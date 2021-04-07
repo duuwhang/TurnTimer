@@ -8,7 +8,7 @@ import android.widget.TextView;
 @SuppressWarnings("FieldCanBeLocal")
 public class SettingLayout extends LinearLayout
 {
-    protected Context context;
+    protected final Context context;
     private TextView settingText;
     
     public SettingLayout(Context context)
