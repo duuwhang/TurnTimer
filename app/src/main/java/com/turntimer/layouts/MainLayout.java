@@ -42,14 +42,14 @@ public class MainLayout extends BaseLayout
         super(context);
         
         settingsParentLayout = new SettingsParentLayout(context);
-        this.addView(settingsParentLayout);
+        addView(settingsParentLayout);
         
         timersParentLayout = new TimersParentLayout(context);
-        this.addView(timersParentLayout);
+        addView(timersParentLayout);
         
         gifImageView = new GifImageView(context);
         gifImageView.setImageResource(R.drawable.swipe);
-        this.addView(gifImageView);
+        addView(gifImageView);
     }
     
     @Override

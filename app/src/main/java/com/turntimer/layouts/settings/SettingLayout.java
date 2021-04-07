@@ -27,15 +27,15 @@ public class SettingLayout extends LinearLayout
     
     private void init(String textToDisplay, View... controlElements)
     {
-        this.settingText = new TextView(context);
-        this.settingText.setText(textToDisplay);
-        this.settingText.setTextSize(20);
-        this.addView(settingText);
+        settingText = new TextView(context);
+        settingText.setText(textToDisplay);
+        settingText.setTextSize(20);
+        addView(settingText);
         
         this.controlElements = controlElements;
-        for (View view : this.controlElements)
+        for (View view : controlElements)
         {
-            this.addView(view);
+            addView(view);
         }
     }
     

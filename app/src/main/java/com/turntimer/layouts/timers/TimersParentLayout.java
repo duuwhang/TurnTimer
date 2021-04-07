@@ -34,8 +34,8 @@ public class TimersParentLayout extends BaseLayout
     @Override
     public void init()
     {
-        this.setClickable(true);
-        this.setOnClickListener(new OnClickListener()
+        setClickable(true);
+        setOnClickListener(new OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -180,7 +180,7 @@ public class TimersParentLayout extends BaseLayout
         {
             ((TimerLayout) getChildAt(i)).stopTimer();
         }
-        this.removeAllViewsInLayout();
+        removeAllViewsInLayout();
         if (!MainActivity.getInstance().getLoading())
         {
             activeTimerId = 0;
@@ -216,7 +216,7 @@ public class TimersParentLayout extends BaseLayout
             }
             timerLayout.setTimerMode(timerMode);
             timerLayout.init();
-            this.addView(timerLayout);
+            addView(timerLayout);
         }
     }
     

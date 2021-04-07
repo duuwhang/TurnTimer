@@ -33,10 +33,10 @@ public class TimerLayout extends BaseLayout
         super(context);
         
         editText = new EditText(context);
-        this.addView(editText);
+        addView(editText);
         
         textView = new TextView(context);
-        this.addView(textView);
+        addView(textView);
     }
     
     @Override
@@ -100,7 +100,7 @@ public class TimerLayout extends BaseLayout
     {
         gradientDrawable = new GradientDrawable();
         gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
-        this.setBackground(gradientDrawable);
+        setBackground(gradientDrawable);
     }
     
     public void startTimer()
@@ -127,7 +127,7 @@ public class TimerLayout extends BaseLayout
             };
             countDownTimer.start();
             gradientDrawable.setColor(ContextCompat.getColor(context, R.color.colorAccentDark));
-            this.setBackground(gradientDrawable);
+            setBackground(gradientDrawable);
         }
     }
     
@@ -169,7 +169,7 @@ public class TimerLayout extends BaseLayout
             
             }
         });
-        this.startAnimation(animationSet);
+        startAnimation(animationSet);
         stopTimer();
     }
     

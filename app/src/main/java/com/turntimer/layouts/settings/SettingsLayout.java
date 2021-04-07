@@ -89,7 +89,7 @@ public class SettingsLayout extends BaseLayout
         EditText editText = new EditText(context);
     
         timerAmountSettingLayout = new SettingLayout(context, "Timer Amount (1-30): ", editText);
-        this.addView(timerAmountSettingLayout);
+        addView(timerAmountSettingLayout);
     }
     
     private void initTimerAmountSetting()
@@ -142,7 +142,7 @@ public class SettingsLayout extends BaseLayout
             checkBox,
             editText,
             dropDown);
-        this.addView(countdownSettingLayout);
+        addView(countdownSettingLayout);
     }
     
     private void initCountdownSetting()
@@ -236,7 +236,7 @@ public class SettingsLayout extends BaseLayout
         CheckBox checkBox = new CheckBox(context);
     
         stopwatchSettingLayout = new SettingLayout(context, "Stopwatch Mode ", checkBox);
-        this.addView(stopwatchSettingLayout);
+        addView(stopwatchSettingLayout);
     }
     
     private void initStopwatchSetting()
@@ -272,7 +272,7 @@ public class SettingsLayout extends BaseLayout
         CheckBox checkBox = new CheckBox(context);
     
         saveSettingLayout = new SettingLayout(context, "Save State ", checkBox);
-        this.addView(saveSettingLayout);
+        addView(saveSettingLayout);
     }
     
     private void initSaveSetting()

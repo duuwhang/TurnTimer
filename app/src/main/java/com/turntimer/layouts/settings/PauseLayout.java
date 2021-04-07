@@ -21,10 +21,10 @@ public class PauseLayout extends BaseLayout
         super(context);
         
         timersPausedText = new TextView(context);
-        this.addView(timersPausedText);
+        addView(timersPausedText);
         
         resetButton = new Button(context);
-        this.addView(resetButton);
+        addView(resetButton);
     }
     
     @Override

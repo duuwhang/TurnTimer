@@ -15,16 +15,16 @@ public class SettingsParentLayout extends BaseLayout
         super(context);
     
         pauseLayout = new PauseLayout(context);
-        this.addView(pauseLayout);
+        addView(pauseLayout);
     
         settingsLayout = new SettingsLayout(context);
-        this.addView(settingsLayout);
+        addView(settingsLayout);
     }
     
     @Override
     public void init()
     {
-        this.setClickable(true);
+        setClickable(true);
     }
     
     @Override
