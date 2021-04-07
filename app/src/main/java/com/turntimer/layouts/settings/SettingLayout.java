@@ -9,7 +9,6 @@ public class SettingLayout extends LinearLayout
 {
     protected Context context;
     private TextView settingText;
-    private View[] controlElements;
     
     public SettingLayout(Context context)
     {
@@ -32,7 +31,6 @@ public class SettingLayout extends LinearLayout
         settingText.setTextSize(20);
         addView(settingText);
         
-        this.controlElements = controlElements;
         for (View view : controlElements)
         {
             addView(view);
