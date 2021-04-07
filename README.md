@@ -10,6 +10,5 @@ The user is able to adjust:
 
 ## How to install TurnTimer on Android
 - Visit TurnTimer's GitHub releases at https://github.com/duuwhang/TurnTimer/releases .
-- Choose the latest or an older TurnTimer Version.
 - Download the TurnTimer.apk under Assets and follow Android's app install instructions.
-- If the app can not be installed on your Android device, please choose an older TurnTimer Version.
+- If the app does not install, try an older TurnTimer Version.
