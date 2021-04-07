@@ -8,7 +8,7 @@ public class SettingsParentLayout extends BaseLayout
 {
     private PauseLayout pauseLayout;
     private SettingsLayout settingsLayout;
-    private Rect childRect = new Rect();
+    private final Rect childRect = new Rect();
     
     public SettingsParentLayout(Context context)
     {

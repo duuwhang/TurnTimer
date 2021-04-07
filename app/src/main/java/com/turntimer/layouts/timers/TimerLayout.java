@@ -25,7 +25,7 @@ public class TimerLayout extends BaseLayout
     private int outlineWidthDp = 150;
     private String name = "";
     private TimersParentLayout.TimerMode timerMode;
-    private Rect childRect = new Rect();
+    private final Rect childRect = new Rect();
     private GradientDrawable gradientDrawable;
     
     public TimerLayout(Context context)

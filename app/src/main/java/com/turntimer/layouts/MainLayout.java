@@ -22,7 +22,7 @@ public class MainLayout extends BaseLayout
     private SettingsParentLayout settingsParentLayout;
     private TimersParentLayout timersParentLayout;
     private GifImageView gifImageView;
-    private Rect childRect = new Rect();
+    private final Rect childRect = new Rect();
     private GestureDetector gestureDetector = null;
     private View.OnTouchListener touchListener = (view, motionEvent) ->
     {

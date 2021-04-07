@@ -17,7 +17,7 @@ public class TimersParentLayout extends BaseLayout
     private int countdownTimeMillis;
     private float countdownTime;
     private String timeUnit;
-    private Rect childRect = new Rect();
+    private final Rect childRect = new Rect();
     private TimerMode timerMode;
     
     public enum TimerMode

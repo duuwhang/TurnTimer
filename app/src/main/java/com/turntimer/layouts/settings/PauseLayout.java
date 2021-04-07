@@ -13,7 +13,7 @@ public class PauseLayout extends BaseLayout
 {
     private TextView timersPausedText;
     private Button resetButton;
-    private Rect childRect = new Rect();
+    private final Rect childRect = new Rect();
     
     public PauseLayout(final Context context)
     {
