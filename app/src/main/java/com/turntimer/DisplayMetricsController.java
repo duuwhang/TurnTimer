@@ -1,17 +1,19 @@
 package com.turntimer;
 
+import android.os.Build;
 import android.util.DisplayMetrics;
-import android.view.Display;
+import android.view.WindowManager;
+import android.view.WindowMetrics;
 
 public class DisplayMetricsController
 {
     private float pixelDensity;
-    private Display display;
+    private WindowManager windowManager;
     
-    public DisplayMetricsController(Display display, float pixelDensity)
+    public DisplayMetricsController(WindowManager windowManager, float pixelDensity)
     {
         this.pixelDensity = pixelDensity;
-        this.display = display;
+        this.windowManager = windowManager;
     }
     
     public int dpToPx(float dp)
@@ -21,15 +23,31 @@ public class DisplayMetricsController
     
     public int getScreenHeight()
     {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getRealMetrics(displayMetrics);
-        return displayMetrics.heightPixels;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
+            WindowMetrics windowMetrics = windowManager.getCurrentWindowMetrics();
+            return windowMetrics.getBounds().height();
+        }
+        else
+        {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+            return displayMetrics.heightPixels;
+        }
     }
     
     public int getScreenWidth()
     {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getRealMetrics(displayMetrics);
-        return displayMetrics.widthPixels;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        {
+            WindowMetrics windowMetrics = windowManager.getCurrentWindowMetrics();
+            return windowMetrics.getBounds().width();
+        }
+        else
+        {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            windowManager.getDefaultDisplay().getMetrics(displayMetrics);
+            return displayMetrics.widthPixels;
+        }
     }
 }

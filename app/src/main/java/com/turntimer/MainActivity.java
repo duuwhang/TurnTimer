@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(this.getSupportActionBar()).hide();
         
-        displayMetricsController = new DisplayMetricsController(getWindowManager().getDefaultDisplay(), getResources().getDisplayMetrics().density);
+        displayMetricsController = new DisplayMetricsController(getWindowManager(), getResources().getDisplayMetrics().density);
     }
     
     @Override
