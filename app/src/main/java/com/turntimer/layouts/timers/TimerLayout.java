@@ -1,5 +1,6 @@
 package com.turntimer.layouts.timers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
@@ -175,6 +176,7 @@ public class TimerLayout extends BaseLayout
         stopTimer();
     }
     
+    @SuppressLint("DefaultLocale")
     private void formatTime(int millis)
     {
         if (timerMode == TimersParentLayout.TimerMode.Stopwatch)

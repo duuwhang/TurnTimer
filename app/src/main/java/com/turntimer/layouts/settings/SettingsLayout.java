@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 import com.turntimer.MainActivity;
+import com.turntimer.R;
 import com.turntimer.layouts.BaseLayout;
 import com.turntimer.layouts.timers.TimersParentLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
@@ -89,10 +90,11 @@ public class SettingsLayout extends BaseLayout
     {
         EditText editText = new EditText(context);
         
-        timerAmountSettingLayout = new SettingLayout(context, "Timer Amount (1-30): ", editText);
+        timerAmountSettingLayout = new SettingLayout(context, context.getString(R.string.timer_amount) + " (1-30): ", editText);
         addView(timerAmountSettingLayout);
     }
     
+    @SuppressLint("SetTextI18n")
     private void initTimerAmountSetting()
     {
         EditText editText = (EditText) timerAmountSettingLayout.getElement(1);
@@ -140,13 +142,14 @@ public class SettingsLayout extends BaseLayout
         EditText editText = new EditText(context);
         Spinner dropDown = new Spinner(context);
         
-        countdownSettingLayout = new SettingLayout(context, "Countdown Mode ",
+        countdownSettingLayout = new SettingLayout(context, context.getString(R.string.countdown_mode) + " ",
             checkBox,
             editText,
             dropDown);
         addView(countdownSettingLayout);
     }
     
+    @SuppressLint("SetTextI18n")
     private void initCountdownSetting()
     {
         CheckBox checkBox = (CheckBox) countdownSettingLayout.getElement(1);
@@ -167,7 +170,7 @@ public class SettingsLayout extends BaseLayout
         });
         
         EditText editText = (EditText) countdownSettingLayout.getElement(2);
-        editText.setText("" + timerTime);
+        editText.setText(Float.toString(timerTime));
         editText.setWidth(displayMetricsController.dpToPx(8000));
         editText.setInputType(InputType.TYPE_CLASS_PHONE);
         editText.addTextChangedListener(new TextWatcher()
@@ -193,7 +196,7 @@ public class SettingsLayout extends BaseLayout
         });
         
         final Spinner dropDown = (Spinner) countdownSettingLayout.getElement(3);
-        String[] items = new String[]{"min", "sec"};
+        String[] items = new String[]{context.getString(R.string.minutes_short), context.getString(R.string.seconds_short)};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_dropdown_item, items);
         dropDown.setAdapter(arrayAdapter);
         selection = 0;
@@ -218,7 +221,7 @@ public class SettingsLayout extends BaseLayout
             
             }
         });
-        if (timeUnit.equals("sec"))
+        if (timeUnit.equals(context.getString(R.string.seconds_short)))
         {
             selection = 1;
             dropDown.setSelection(selection);
@@ -229,7 +232,7 @@ public class SettingsLayout extends BaseLayout
     {
         CheckBox checkBox = new CheckBox(context);
         
-        stopwatchSettingLayout = new SettingLayout(context, "Stopwatch Mode ", checkBox);
+        stopwatchSettingLayout = new SettingLayout(context, context.getString(R.string.stopwatch_mode) + " ", checkBox);
         addView(stopwatchSettingLayout);
     }
     
@@ -257,7 +260,7 @@ public class SettingsLayout extends BaseLayout
     {
         CheckBox checkBox = new CheckBox(context);
         
-        saveSettingLayout = new SettingLayout(context, "Save State ", checkBox);
+        saveSettingLayout = new SettingLayout(context, context.getString(R.string.save_state) + " ", checkBox);
         addView(saveSettingLayout);
     }
     

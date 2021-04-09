@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.view.View;
 import androidx.annotation.NonNull;
 import com.turntimer.MainActivity;
+import com.turntimer.R;
 import com.turntimer.layouts.BaseLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
 
@@ -206,7 +207,7 @@ public class TimersParentLayout extends BaseLayout
             
             if (timerLayout.getName().equals(""))
             {
-                timerLayout.setName("Timer " + (i + 1));
+                timerLayout.setName(context.getString(R.string.timer) + " " + (i + 1));
             }
             timerLayout.setTimerMode(timerMode);
             timerLayout.init();

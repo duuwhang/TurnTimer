@@ -6,6 +6,7 @@ import android.util.TypedValue;
 import android.widget.Button;
 import android.widget.TextView;
 import com.turntimer.MainActivity;
+import com.turntimer.R;
 import com.turntimer.layouts.BaseLayout;
 import com.turntimer.layouts.MainLayout;
 import com.turntimer.layouts.timers.TimersParentLayout;
@@ -30,10 +31,10 @@ public class PauseLayout extends BaseLayout
     @Override
     public void init()
     {
-        timersPausedText.setText("Timers Paused");
+        timersPausedText.setText(R.string.timers_paused);
         timersPausedText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 45);
         
-        resetButton.setText("Reset Timers");
+        resetButton.setText(R.string.reset_timers);
         resetButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         resetButton.setOnClickListener(view ->
         {

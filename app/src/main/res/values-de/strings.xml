@@ -1,0 +1,11 @@
+<resources>
+    <string name = "minutes_short">min</string>
+    <string name = "seconds_short">sek</string>
+    <string name = "timer">Timer</string>
+    <string name = "timers_paused">Timer Pausiert</string>
+    <string name = "reset_timers">Timer Zurücksetzen</string>
+    <string name = "timer_amount">Timer Anzahl</string>
+    <string name = "countdown_mode">Countdown Modus</string>
+    <string name = "stopwatch_mode">Stoppuhr Modus</string>
+    <string name = "save_state">Zustand Speichern</string>
+</resources>
