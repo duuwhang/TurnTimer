@@ -6,6 +6,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -64,11 +65,11 @@ public class TimerLayout extends BaseLayout
             }
         });
         editText.setText(name);
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         
-        textView.setTextSize(16);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
         
         formatTime(timeMillis);
-        
         initGradientDrawable();
         
         if (hasEnded())

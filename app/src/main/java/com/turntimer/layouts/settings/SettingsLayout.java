@@ -1,10 +1,12 @@
 package com.turntimer.layouts.settings;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -94,7 +96,8 @@ public class SettingsLayout extends BaseLayout
     private void initTimerAmountSetting()
     {
         EditText editText = (EditText) timerAmountSettingLayout.getElement(1);
-        editText.setText("" + timerAmount);
+        editText.setText(Integer.toString(timerAmount));
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
         editText.setWidth(displayMetricsController.dpToPx(5000));
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         editText.addTextChangedListener(new TextWatcher()
