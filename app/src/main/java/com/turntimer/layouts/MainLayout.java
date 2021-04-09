@@ -75,7 +75,7 @@ public class MainLayout extends BaseLayout
     {
         for (int i = 0; i < getChildCount(); i++)
         {
-            getChildAt(i).layout(300, 300, right - left, bottom - top);
+            getChildAt(i).layout(0, 0, right - left, bottom - top);
         }
         childRect.left = (left + right) / 2 - gifImageView.getMeasuredWidth() / 8;
         childRect.right = childRect.left + gifImageView.getMeasuredWidth() / 4;
