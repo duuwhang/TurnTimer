@@ -107,13 +107,11 @@ public class SettingsLayout extends BaseLayout
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-            
             }
             
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-            
             }
             
             @Override
@@ -178,13 +176,11 @@ public class SettingsLayout extends BaseLayout
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-            
             }
             
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-            
             }
             
             @Override
@@ -218,7 +214,6 @@ public class SettingsLayout extends BaseLayout
             @Override
             public void onNothingSelected(AdapterView<?> adapterView)
             {
-            
             }
         });
         if (timeUnit.equals(context.getString(R.string.seconds_short)))

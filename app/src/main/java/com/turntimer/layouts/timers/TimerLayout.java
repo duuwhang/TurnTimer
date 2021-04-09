@@ -50,13 +50,11 @@ public class TimerLayout extends BaseLayout
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-            
             }
             
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-            
             }
             
             @Override
@@ -152,7 +150,6 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onAnimationStart(Animation animation)
             {
-            
             }
             
             @Override
@@ -169,7 +166,6 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onAnimationRepeat(Animation animation)
             {
-            
             }
         });
         startAnimation(animationSet);

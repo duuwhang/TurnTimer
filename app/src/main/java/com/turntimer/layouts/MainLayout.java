@@ -162,7 +162,6 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationRepeat(Animation animation)
                         {
-                        
                         }
                     });
                     child1.startAnimation(animation);
@@ -202,7 +201,6 @@ public class MainLayout extends BaseLayout
                         @Override
                         public void onAnimationRepeat(Animation animation)
                         {
-                        
                         }
                     });
                     child1.startAnimation(animation);
