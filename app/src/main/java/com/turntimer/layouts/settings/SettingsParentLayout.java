@@ -35,10 +35,10 @@ public class SettingsParentLayout extends BaseLayout
         
         for (int i = 0; i < getChildCount(); i++)
         {
-            childRect.left = left;
-            childRect.top = top + i * height / 4;
+            childRect.left = 0;
+            childRect.top = i * height / 4;
             childRect.right = right;
-            childRect.bottom = top + (1 + 3 * i) * height / 4;
+            childRect.bottom = (1 + 3 * i) * height / 4;
             
             getChildAt(i).layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
         }

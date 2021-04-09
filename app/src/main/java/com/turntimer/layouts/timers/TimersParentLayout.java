@@ -45,13 +45,17 @@ public class TimersParentLayout extends BaseLayout
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
+        
         left -= scaleFromMiddlePx;
         top -= scaleFromMiddlePx;
         right += scaleFromMiddlePx;
-        bottom += 2 * scaleFromMiddlePx;
+        bottom += scaleFromMiddlePx;
         
         int height = bottom - top;
         int width = right - left;
+        
+        left = -scaleFromMiddlePx;
+        top = -scaleFromMiddlePx;
         
         int rows = calculateRows(timerAmount, displayMetricsController.getScreenHeight(), displayMetricsController.getScreenWidth());
         int columns = calculateColumns(timerAmount, rows);

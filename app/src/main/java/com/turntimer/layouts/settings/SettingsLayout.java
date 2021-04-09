@@ -76,7 +76,7 @@ public class SettingsLayout extends BaseLayout
             int childHeight = getChildAt(i).getMeasuredHeight();
             int childWidth = getChildAt(i).getMeasuredWidth();
             
-            childRect.left = left + width / 2 - childrenMaxWidth / 2;
+            childRect.left = width / 2 - childrenMaxWidth / 2;
             childRect.top = currentTop;
             childRect.right = childRect.left + childWidth;
             childRect.bottom = childRect.top + childHeight;
