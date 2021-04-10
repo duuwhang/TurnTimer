@@ -22,13 +22,13 @@ public class DisplayMetricsControllerTests
     @Test
     public void dpToPx_shouldConvertCorrectly()
     {
-        int dp = 240;
+        int dp = 16;
         
-        DisplayMetricsController displayMetricsController = new DisplayMetricsController(windowManagerMock, 120);
-        Assert.assertEquals(180, displayMetricsController.dpToPx(dp));
+        DisplayMetricsController displayMetricsController = new DisplayMetricsController(windowManagerMock, 1);
+        Assert.assertEquals(16, displayMetricsController.dpToPx(dp));
         
-        displayMetricsController = new DisplayMetricsController(windowManagerMock, 240);
-        Assert.assertEquals(360, displayMetricsController.dpToPx(dp));
+        displayMetricsController = new DisplayMetricsController(windowManagerMock, 2.75f);
+        Assert.assertEquals(44, displayMetricsController.dpToPx(dp));
     }
     
     @Test

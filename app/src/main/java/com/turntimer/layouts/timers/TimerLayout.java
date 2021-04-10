@@ -25,7 +25,7 @@ public class TimerLayout extends BaseLayout
     private final TextView textView;
     private CountDownTimer countDownTimer;
     private int timeMillis = 0;
-    private final int outlineWidthDp = 150;
+    private final int outlineWidthPx = displayMetricsController.dpToPx(0.9f);
     private String name = "";
     private TimersParentLayout.TimerMode timerMode;
     private final Rect childRect = new Rect();
@@ -100,7 +100,7 @@ public class TimerLayout extends BaseLayout
     private void initGradientDrawable()
     {
         gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
+        gradientDrawable.setStroke(outlineWidthPx, ContextCompat.getColor(context, R.color.colorSeparation));
         setBackground(gradientDrawable);
     }
     

@@ -18,7 +18,7 @@ public class DisplayMetricsController
     
     public int dpToPx(float dp)
     {
-        return (int) (dp * pixelDensity) / 160;
+        return (int) (dp * pixelDensity);
     }
     
     public int getScreenHeight()
