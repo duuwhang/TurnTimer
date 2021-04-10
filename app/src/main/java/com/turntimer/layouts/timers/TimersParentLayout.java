@@ -202,9 +202,9 @@ public class TimersParentLayout extends BaseLayout
             }
             if (MainActivity.getInstance().getSaveStateOption())
             {
-                timerLayout.setName(preferences.getString("timerName" + i, ""));
                 if (MainActivity.getInstance().getLoading())
                 {
+                    timerLayout.setName(preferences.getString("timerName" + i, ""));
                     timerLayout.setTimeMillis(preferences.getInt("timerTime" + i, 1));
                 }
             }
