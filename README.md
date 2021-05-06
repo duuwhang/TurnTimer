@@ -9,9 +9,13 @@ The user is able to adjust:
 - whether or not the state of the application should be saved
 
 <p float="left">
-​	<img src="Dynamic_Timers.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement" style="zoom:50%;" /> 
-​	<img src="Dynamic_Timers.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement" style="zoom:50%;" />
+<img src="images/Settings.jpg?raw=true" alt="drawing" title="Settings" style="zoom:50%;" /> 
+<img src="images/Dynamic_Timers1.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement" style="zoom:50%;" /> 
+<img src="images/Dynamic_Timers2.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement" style="zoom:50%;" />
 </p>
+
+
+
 
 ## How to install TurnTimer on Android
 - Visit TurnTimer's GitHub releases at https://github.com/duuwhang/TurnTimer/releases.
