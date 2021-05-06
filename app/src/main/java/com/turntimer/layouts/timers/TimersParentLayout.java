@@ -13,7 +13,7 @@ import static com.turntimer.MainActivity.displayMetricsController;
 @SuppressWarnings("FieldCanBeLocal")
 public class TimersParentLayout extends BaseLayout
 {
-    private final int scaleFromMiddlePx = displayMetricsController.dpToPx(2.2f);
+    private final int scaleFromMiddlePx = displayMetricsController.dpToPx(2.4f);
     private int timerAmount;
     private int activeTimerId;
     private int countdownTimeMillis;
