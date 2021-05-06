@@ -9,9 +9,9 @@ The user is able to adjust:
 - whether or not the state of the application should be saved
 
 <p float="left">
-<img src="images/Settings.jpg?raw=true" alt="drawing" title="Settings"  width=275 /> 
-<img src="images/Dynamic_Timers1.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement"  width=275 /> 
-<img src="images/Dynamic_Timers2.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement"  width=275 />
+<img src="images/Settings.jpg?raw=true" alt="drawing" title="Settings"  width=250 /> 
+<img src="images/Dynamic_Timers1.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement"  width=250 /> 
+<img src="images/Dynamic_Timers2.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement"  width=250 />
 </p>
 
 
