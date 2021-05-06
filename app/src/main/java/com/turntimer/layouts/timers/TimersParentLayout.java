@@ -6,13 +6,14 @@ import android.graphics.Rect;
 import android.view.View;
 import androidx.annotation.NonNull;
 import com.turntimer.MainActivity;
+import com.turntimer.R;
 import com.turntimer.layouts.BaseLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class TimersParentLayout extends BaseLayout
 {
-    private final int scaleFromMiddlePx = 5;
+    private final int scaleFromMiddlePx = displayMetricsController.dpToPx(2.2f);
     private int timerAmount;
     private int activeTimerId;
     private int countdownTimeMillis;
@@ -44,13 +45,17 @@ public class TimersParentLayout extends BaseLayout
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
+        
         left -= scaleFromMiddlePx;
         top -= scaleFromMiddlePx;
         right += scaleFromMiddlePx;
-        bottom += 2 * scaleFromMiddlePx;
+        bottom += scaleFromMiddlePx;
         
         int height = bottom - top;
         int width = right - left;
+        
+        left = -scaleFromMiddlePx;
+        top = -scaleFromMiddlePx;
         
         int rows = calculateRows(timerAmount, displayMetricsController.getScreenHeight(), displayMetricsController.getScreenWidth());
         int columns = calculateColumns(timerAmount, rows);
@@ -197,16 +202,16 @@ public class TimersParentLayout extends BaseLayout
             }
             if (MainActivity.getInstance().getSaveStateOption())
             {
-                timerLayout.setName(preferences.getString("timerName" + i, ""));
                 if (MainActivity.getInstance().getLoading())
                 {
+                    timerLayout.setName(preferences.getString("timerName" + i, ""));
                     timerLayout.setTimeMillis(preferences.getInt("timerTime" + i, 1));
                 }
             }
             
             if (timerLayout.getName().equals(""))
             {
-                timerLayout.setName("Timer " + (i + 1));
+                timerLayout.setName(context.getString(R.string.timer) + " " + (i + 1));
             }
             timerLayout.setTimerMode(timerMode);
             timerLayout.init();

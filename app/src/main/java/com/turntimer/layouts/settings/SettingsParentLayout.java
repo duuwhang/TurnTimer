@@ -31,14 +31,15 @@ public class SettingsParentLayout extends BaseLayout
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
+        int width = right - left;
         int height = bottom - top;
         
         for (int i = 0; i < getChildCount(); i++)
         {
-            childRect.left = left;
-            childRect.top = top + i * height / 4;
-            childRect.right = right;
-            childRect.bottom = top + (1 + 3 * i) * height / 4;
+            childRect.left = 0;
+            childRect.top = i * height / 4;
+            childRect.right = width;
+            childRect.bottom = (1 + 3 * i) * height / 4;
             
             getChildAt(i).layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
         }

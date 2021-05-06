@@ -1,11 +1,13 @@
 package com.turntimer.layouts.timers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
 import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
@@ -23,7 +25,7 @@ public class TimerLayout extends BaseLayout
     private final TextView textView;
     private CountDownTimer countDownTimer;
     private int timeMillis = 0;
-    private final int outlineWidthDp = 150;
+    private final int outlineWidthPx = displayMetricsController.dpToPx(0.9f);
     private String name = "";
     private TimersParentLayout.TimerMode timerMode;
     private final Rect childRect = new Rect();
@@ -48,13 +50,11 @@ public class TimerLayout extends BaseLayout
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-            
             }
             
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
             {
-            
             }
             
             @Override
@@ -64,11 +64,11 @@ public class TimerLayout extends BaseLayout
             }
         });
         editText.setText(name);
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
         
-        textView.setTextSize(16);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
         
         formatTime(timeMillis);
-        
         initGradientDrawable();
         
         if (hasEnded())
@@ -100,7 +100,7 @@ public class TimerLayout extends BaseLayout
     private void initGradientDrawable()
     {
         gradientDrawable = new GradientDrawable();
-        gradientDrawable.setStroke(displayMetricsController.dpToPx(outlineWidthDp), ContextCompat.getColor(context, R.color.colorSeparation));
+        gradientDrawable.setStroke(outlineWidthPx, ContextCompat.getColor(context, R.color.colorSeparation));
         setBackground(gradientDrawable);
     }
     
@@ -150,7 +150,6 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onAnimationStart(Animation animation)
             {
-            
             }
             
             @Override
@@ -167,13 +166,13 @@ public class TimerLayout extends BaseLayout
             @Override
             public void onAnimationRepeat(Animation animation)
             {
-            
             }
         });
         startAnimation(animationSet);
         stopTimer();
     }
     
+    @SuppressLint("DefaultLocale")
     private void formatTime(int millis)
     {
         if (timerMode == TimersParentLayout.TimerMode.Stopwatch)
