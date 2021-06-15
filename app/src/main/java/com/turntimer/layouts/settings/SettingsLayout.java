@@ -59,8 +59,7 @@ public class SettingsLayout extends BaseLayout
     protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
         int width = right - left;
-        int currentTop = 0;
-        int heightPadding = getChildAt(0).getMeasuredHeight();
+        int height = bottom - top;
         
         int childrenMaxWidth = 0;
         for (int i = 0; i < getChildCount(); i++)
@@ -71,17 +70,18 @@ public class SettingsLayout extends BaseLayout
             }
         }
         
+        int margin = Integer.min(displayMetricsController.dpToPx(75), (int) (height * 1.1f / getChildCount()));
+        childRect.setEmpty();
+        
         for (int i = 0; i < getChildCount(); i++)
         {
-            int childHeight = getChildAt(i).getMeasuredHeight();
-            int childWidth = getChildAt(i).getMeasuredWidth();
-            
             childRect.left = width / 2 - childrenMaxWidth / 2;
-            childRect.top = currentTop;
-            childRect.right = childRect.left + childWidth;
-            childRect.bottom = childRect.top + childHeight;
-            currentTop = childRect.bottom + heightPadding;
-            
+            childRect.top = Integer.max(childRect.bottom,
+                i * margin
+                + ((SettingLayout) getChildAt(0)).getChildAt(0).getMeasuredHeight() / 2
+                - ((SettingLayout) getChildAt(i)).getChildAt(0).getMeasuredHeight() / 2);
+            childRect.right = childRect.left + getChildAt(i).getMeasuredWidth();
+            childRect.bottom = childRect.top + getChildAt(i).getMeasuredHeight();
             getChildAt(i).layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
         }
     }
