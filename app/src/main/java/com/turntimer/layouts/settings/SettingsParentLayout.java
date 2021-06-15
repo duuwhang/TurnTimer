@@ -33,16 +33,16 @@ public class SettingsParentLayout extends BaseLayout
     {
         int width = right - left;
         int height = bottom - top;
+        childRect.left = 0;
+        childRect.right = width;
         
-        for (int i = 0; i < getChildCount(); i++)
-        {
-            childRect.left = 0;
-            childRect.top = i * height / 4;
-            childRect.right = width;
-            childRect.bottom = (1 + 3 * i) * height / 4;
-            
-            getChildAt(i).layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
-        }
+        childRect.top = 0;
+        childRect.bottom = Integer.max(height / 4, pauseLayout.timersPausedText.getMeasuredHeight() + pauseLayout.resetButton.getMeasuredHeight());
+        pauseLayout.layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
+        
+        childRect.top = childRect.bottom;
+        childRect.bottom = height;
+        settingsLayout.layout(childRect.left, childRect.top, childRect.right, childRect.bottom);
     }
     
     public SettingsLayout getSettingsLayout()
