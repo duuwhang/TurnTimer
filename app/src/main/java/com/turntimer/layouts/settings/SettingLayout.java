@@ -38,13 +38,4 @@ public class SettingLayout extends LinearLayout
             addView(view);
         }
     }
-    
-    public View getElement(int index)
-    {
-        if (index > 0 && index < getChildCount())
-        {
-            return getChildAt(index);
-        }
-        return getChildAt(0);
-    }
 }
