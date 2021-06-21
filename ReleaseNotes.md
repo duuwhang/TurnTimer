@@ -1,5 +1,5 @@
-# First Release
-## Basic Functionality:
-- dynamic amount of timers capped at 30
-- countdown and stopwatch mode
-- saving the app state
+## Changes:
+- add german and french language options (which follow system default language)
+- text fonts now follow system font size
+- various fixes for landscape orientation
+- state saving fixes
