@@ -10,7 +10,6 @@ import com.turntimer.R;
 import com.turntimer.layouts.BaseLayout;
 import static com.turntimer.MainActivity.displayMetricsController;
 
-@SuppressWarnings("FieldCanBeLocal")
 public class TimersParentLayout extends BaseLayout
 {
     private final int scaleFromMiddlePx = displayMetricsController.dpToPx(2.4f);
