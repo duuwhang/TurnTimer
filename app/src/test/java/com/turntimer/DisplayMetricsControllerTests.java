@@ -6,11 +6,11 @@ import android.view.WindowManager;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class DisplayMetricsControllerTests
 {
@@ -35,7 +35,7 @@ public class DisplayMetricsControllerTests
     public void getScreenHeight_shouldReturnActualHeight()
     {
         int height = 1000;
-        initMocks(this);
+        MockitoAnnotations.openMocks(this);
         doReturn(displayMock).when(windowManagerMock).getDefaultDisplay();
         doAnswer((Answer<Void>) invocation ->
         {
@@ -53,7 +53,7 @@ public class DisplayMetricsControllerTests
     public void getScreenWidth_shouldReturnActualWidth()
     {
         int width = 1000;
-        initMocks(this);
+        MockitoAnnotations.openMocks(this);
         doReturn(displayMock).when(windowManagerMock).getDefaultDisplay();
         doAnswer((Answer<Void>) invocation ->
         {
