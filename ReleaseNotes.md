@@ -3,4 +3,4 @@
 - text fonts now follow system font size
 - various fixes for landscape orientation
 - state saving fixes
-- fix apk release
+- fix apk signing
