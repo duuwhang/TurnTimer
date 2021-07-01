@@ -41,10 +41,45 @@ jobs:
         clean: true
         persistCredentials: true
 
+      - task: Gradle@2
+        displayName: Gradle Build Release APK
+        condition: and(succeeded(), eq(variables['Condition'], 0))
+        inputs:
+          workingDirectory: ''
+          gradleWrapperFile: 'gradlew'
+          gradleOptions: '-Xmx3072m'
+          publishJUnitResults: false
+          javaHomeOption: 'JDKVersion'
+          tasks: 'assembleRelease'
+
+      - task: AndroidSigning@3
+        displayName: Sign APK
+        condition: and(succeeded(), eq(variables['Condition'], 0))
+        inputs:
+          apkFiles: '$(Root)$(ReleaseDirectory)/*.apk'
+          apksign: true
+          apksignerKeystoreFile: 'duuwhang.keystore'
+          apksignerKeystorePassword: '$(Keystore.Password)'
+          apksignerKeystoreAlias: 'release_key'
+          apksignerKeyPassword: '$(Release.Key.Password)'
+          zipalign: true
+
+      - task: CopyFiles@2
+        displayName: Copy APK to Root
+        condition: and(succeeded(), eq(variables['Condition'], 0))
+        inputs:
+          sourceFolder: '$(Root)$(ReleaseDirectory)/'
+          Contents: '*.apk'
+          TargetFolder: '$(Root)/'
+          OverWrite: true
+
       - script: |
           git config user.email "maxipulstorm@aon.at"
           git config user.name "duuwhang"
           git checkout master
+          git add .
+          git commit -m "new version $(Version)"
+          git push origin
           git tag $(Version)
           git push origin --tags
         displayName: Create GitHub Release Tag
@@ -55,7 +90,7 @@ jobs:
         condition: and(succeeded(), eq(variables['Condition'], 0))
         inputs:
           gitHubConnection: github.com_duuwhang
-          repositoryName: duuwhang/$(ProjectName)
+          repositoryName: duuwhang/$(RepoName)
           action: create
           target: '$(Build.SourceVersion)'
           tagSource: manual
