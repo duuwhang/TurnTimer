@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.stubbing.Answer;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 
@@ -31,6 +31,7 @@ public class DisplayMetricsControllerTests
         Assert.assertEquals(44, displayMetricsController.dpToPx(dp));
     }
     
+    @SuppressWarnings({"deprecation", "RedundantSuppression"})
     @Test
     public void getScreenHeight_shouldReturnActualHeight()
     {
@@ -49,6 +50,7 @@ public class DisplayMetricsControllerTests
         Assert.assertEquals(height, displayMetricsController.getScreenHeight());
     }
     
+    @SuppressWarnings({"deprecation", "RedundantSuppression"})
     @Test
     public void getScreenWidth_shouldReturnActualWidth()
     {
