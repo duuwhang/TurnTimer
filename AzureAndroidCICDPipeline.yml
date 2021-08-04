@@ -1,103 +1,191 @@
-jobs:
-  - job: AndroidTestCIPipeline
-    timeoutInMinutes: 25
-    steps:
-      - checkout: self
-        displayName: Checkout GitHub Repository
-        clean: true
-        persistCredentials: true
+stages:
+  - stage: AndroidTestCIPipeline
+    displayName: Android Test CI Pipeline
+    pool:
+      vmImage: 'macOS-latest'
+    jobs:
+      - job: InitializeTests
+        displayName: Initialize Tests
+        steps:
+          - checkout: self
+            displayName: Checkout GitHub Repository
+            clean: true
+            persistCredentials: true
 
-      - script: |
-          echo "##vso[task.setvariable variable=ReleaseVersion;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
-        displayName: Read Release Version
-        name: ReadReleaseVersion
+          - script: |
+              echo "##vso[task.setvariable variable=MinSdkVersion;isOutput=true]`grep 'minSdkVersion' $(MacRoot)/app/build.gradle | tr 'minSdkVersion' ' '| sed 's/ //g'`"
+              echo "##vso[task.setvariable variable=TargetSdkVersion;isOutput=true]`grep 'targetSdkVersion' $(MacRoot)/app/build.gradle | tr 'targetSdkVersion' ' '| sed 's/ //g'`"
+            displayName: Read SDK Versions
+            name: ReadSDKVersions
 
-      - task: Gradle@2
-        displayName: Gradle Unit Tests
-        inputs:
-          workingDirectory: ''
-          gradleWrapperFile: 'gradlew'
-          gradleOptions: '-Xmx3072m'
-          javaHomeOption: 'JDKVersion'
-          publishJUnitResults: false
-          tasks: 'build test'
+      - job: MinSdkAndroidTests
+        displayName: Min Sdk Android Tests
+        dependsOn: InitializeTests
+        variables:
+          MinSdkVersion: $[ dependencies.InitializeTests.outputs['ReadSDKVersions.MinSdkVersion'] ]
+        steps:
+          - checkout: self
+            displayName: Checkout GitHub Repository
+            clean: true
+            persistCredentials: true
 
-  - job: AndroidReleaseCDPipeline
+          - script: |
+                #!/usr/bin/env bash
+                # Install AVD Files
+                echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-$(MinSdkVersion);google_apis;x86'
+
+                # Create Emulator
+                echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n xamarin_android_emulator -k 'system-images;android-$(MinSdkVersion);google_apis;x86' --force
+                $ANDROID_HOME/emulator/emulator -list-avds
+
+                echo "Starting emulator"
+                # Start Emulator in Background
+                nohup $ANDROID_HOME/emulator/emulator -avd xamarin_android_emulator -no-snapshot > /dev/null 2>&1 &
+                $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+                $ANDROID_HOME/platform-tools/adb devices
+                echo "Emulator started"
+            displayName: Launch Emulator
+            condition: always()
+            timeoutInMinutes: 15
+
+          - task: Gradle@2
+            displayName: Run Unit and UI Tests
+            condition: succeeded()
+            inputs:
+              workingDirectory: ''
+              gradleWrapperFile: 'gradlew'
+              gradleOptions: '-Xmx3072m'
+              javaHomeOption: 'JDKVersion'
+              publishJUnitResults: false
+              tasks: 'test connectedAndroidTest'
+
+      - job: TargetSdkAndroidTests
+        displayName: Target Sdk Android Tests
+        dependsOn: InitializeTests
+        variables:
+          TargetSdkVersion: $[ dependencies.InitializeTests.outputs['ReadSDKVersions.TargetSdkVersion'] ]
+        steps:
+          - checkout: self
+            displayName: Checkout GitHub Repository
+            clean: true
+            persistCredentials: true
+
+          - script: |
+                #!/usr/bin/env bash
+                # Delete AVD
+                $ANDROID_HOME/tools/bin/avdmanager delete avd -n xamarin_android_emulator
+
+                # Install AVD Files
+                echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-$(TargetSdkVersion);google_apis;x86'
+
+                # Create Emulator
+                echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n xamarin_android_emulator -k 'system-images;android-$(TargetSdkVersion);google_apis;x86' --force
+                $ANDROID_HOME/emulator/emulator -list-avds
+
+                echo "Starting emulator"
+                # Start Emulator in Background
+                nohup $ANDROID_HOME/emulator/emulator -avd xamarin_android_emulator -no-snapshot > /dev/null 2>&1 &
+                $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
+                $ANDROID_HOME/platform-tools/adb devices
+                echo "Emulator started"
+            displayName: Launch Emulator
+            condition: always()
+            timeoutInMinutes: 15
+
+          - task: Gradle@2
+            displayName: Run Unit and UI Tests
+            condition: succeeded()
+            inputs:
+              workingDirectory: ''
+              gradleWrapperFile: 'gradlew'
+              gradleOptions: '-Xmx3072m'
+              javaHomeOption: 'JDKVersion'
+              publishJUnitResults: false
+              tasks: 'test connectedAndroidTest'
+
+
+  - stage: AndroidReleaseCDPipeline
+    displayName: Android Release CD Pipeline
     condition: always()
-    timeoutInMinutes: 10
     dependsOn: AndroidTestCIPipeline
-    variables:
-      Version: $[ dependencies.AndroidTestCIPipeline.outputs['ReadReleaseVersion.ReleaseVersion'] ]
-      Condition: $[ counter(variables['Version'], 0) ]
+    jobs:
+      - job: CheckForNewVersion
+        displayName: Check For New Version
 
-    steps:
-      - script: |
-          echo "##vso[build.updatebuildnumber]$(Version)_$(Condition)"
-        displayName: Update Run Name
+        steps:
+          - checkout: self
+            displayName: Checkout GitHub Repository
+            clean: true
+            persistCredentials: true
 
-      - checkout: self
-        displayName: Checkout GitHub Repository
-        condition: and(succeeded(), eq(variables['Condition'], 0))
-        clean: true
-        persistCredentials: true
+          - script: |
+              echo "##vso[task.setvariable variable=Version;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
+            displayName: Read Release Version
+            name: ReadReleaseVersion
 
-      - task: Gradle@2
-        displayName: Gradle Build Release APK
-        condition: and(succeeded(), eq(variables['Condition'], 0))
-        inputs:
-          workingDirectory: ''
-          gradleWrapperFile: 'gradlew'
-          gradleOptions: '-Xmx3072m'
-          publishJUnitResults: false
-          javaHomeOption: 'JDKVersion'
-          tasks: 'assembleRelease'
+      - job: ReleaseAPK
+        displayName: Realease APK
+        timeoutInMinutes: 10
+        dependsOn: CheckForNewVersion
+        variables:
+          Version: $[ dependencies.CheckForNewVersion.outputs['ReadReleaseVersion.Version'] ]
+          Condition: $[ counter(variables['Version'], 0) ]
 
-      - task: AndroidSigning@3
-        displayName: Sign APK
-        condition: and(succeeded(), eq(variables['Condition'], 0))
-        inputs:
-          apkFiles: '$(Root)$(ReleaseDirectory)/*.apk'
-          apksign: true
-          apksignerKeystoreFile: 'duuwhang.keystore'
-          apksignerKeystorePassword: '$(Keystore.Password)'
-          apksignerKeystoreAlias: 'release_key'
-          apksignerKeyPassword: '$(Release.Key.Password)'
-          zipalign: true
+        steps:
+          - checkout: self
+            displayName: Checkout GitHub Repository
+            clean: true
+            persistCredentials: true
 
-      - task: CopyFiles@2
-        displayName: Copy APK to Root
-        condition: and(succeeded(), eq(variables['Condition'], 0))
-        inputs:
-          sourceFolder: '$(Root)$(ReleaseDirectory)/'
-          Contents: '*.apk'
-          TargetFolder: '$(Root)/'
-          OverWrite: true
+          - script: |
+              echo "##vso[build.updatebuildnumber]$(Version)_$(Condition)"
+            displayName: Update Run Name
 
-      - script: |
-          git config user.email "maxipulstorm@aon.at"
-          git config user.name "duuwhang"
-          git checkout master
-          git add .
-          git commit -m "new version $(Version)"
-          git push origin
-          git tag $(Version)
-          git push origin --tags
-        displayName: Create GitHub Release Tag
-        condition: and(succeeded(), eq(variables['Condition'], 0))
+          - task: Gradle@2
+            displayName: Build Release APK
+            condition: and(succeeded(), eq(variables['Condition'], 0))
+            inputs:
+              workingDirectory: ''
+              gradleWrapperFile: 'gradlew'
+              gradleOptions: '-Xmx3072m'
+              publishJUnitResults: false
+              javaHomeOption: 'JDKVersion'
+              tasks: 'assembleRelease'
 
-      - task: GitHubRelease@0
-        displayName: Create GitHub Release
-        condition: and(succeeded(), eq(variables['Condition'], 0))
-        inputs:
-          gitHubConnection: github.com_duuwhang
-          repositoryName: duuwhang/$(RepoName)
-          action: create
-          target: '$(Build.SourceVersion)'
-          tagSource: manual
-          tagPattern: 'Git tag'
-          tag: '$(Version)'
-          title: '$(ProjectName) Version $(Version)'
-          assets: '$(Root)/$(ProjectName).apk'
-          addChangeLog: false
-          releaseNotesSource: 'file'
-          releaseNotesFile: '$(Root)/ReleaseNotes.md'
+          - task: AndroidSigning@3
+            displayName: Sign APK
+            condition: and(succeeded(), eq(variables['Condition'], 0))
+            inputs:
+              apkFiles: '$(Root)$(ReleaseDirectory)/*.apk'
+              apksign: true
+              apksignerKeystoreFile: 'duuwhang.keystore'
+              apksignerKeystorePassword: '$(Keystore.Password)'
+              apksignerKeystoreAlias: 'release_key'
+              apksignerKeyPassword: '$(Release.Key.Password)'
+              zipalign: true
+
+          - script: |
+              git config user.email "maxipulstorm@aon.at"
+              git config user.name "duuwhang"
+              git checkout master
+              git tag $(Version)
+              git push origin --tags
+            displayName: Create GitHub Release Tag
+            condition: and(succeeded(), eq(variables['Condition'], 0))
+
+          - task: GitHubRelease@0
+            displayName: Create GitHub Release
+            condition: and(succeeded(), eq(variables['Condition'], 0))
+            inputs:
+              gitHubConnection: github.com_duuwhang
+              repositoryName: duuwhang/$(RepoName)
+              action: create
+              target: '$(Build.SourceVersion)'
+              tagSource: manual
+              tagPattern: 'Git tag'
+              tag: '$(Version)'
+              title: '$(ProjectName) Version $(Version)'
+              assets: '$(Root)$(ReleaseDirectory)/$(ProjectName).apk'
+              addChangeLog: false
+              releaseNotesSource: 'file'
+              releaseNotesFile: '$(Root)/ReleaseNotes.md'
