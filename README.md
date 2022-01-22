@@ -8,10 +8,10 @@ The user is able to adjust:
 - the start time of the countdown
 - whether or not the state of the application should be saved
 
-<div style="display: flex;">
-    <img src="images/Settings.jpg" alt="Settings" width=33% /> 
-    <img src="images/Dynamic_Timers1.jpg" alt="Dynamic Timer Arrangement" width=33% /> 
-    <img src="images/Dynamic_Timers2.jpg" alt="Dynamic Timer Arrangement" width=33% />
+<div style="display: grid; grid-template-columns: 33.3% 33.3% 33.3%;">
+    <img src="images/Settings.jpg" alt="Settings"/>
+    <img src="images/Dynamic_Timers1.jpg" alt="Dynamic Timer Arrangement"/>
+    <img src="images/Dynamic_Timers2.jpg" alt="Dynamic Timer Arrangement"/>
 </div>
 
 
