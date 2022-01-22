@@ -8,11 +8,12 @@ The user is able to adjust:
 - the start time of the countdown
 - whether or not the state of the application should be saved
 
-<p>
-<img src="images/Settings.jpg?raw=true" alt="drawing" title="Settings"  width=250 /> 
-<img src="images/Dynamic_Timers1.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement"  width=250 /> 
-<img src="images/Dynamic_Timers2.jpg?raw=true" alt="drawing" title="Dynamic Timer Arrangement"  width=250 />
-</p>
+<div style="display: flex;">
+    <img src="images/Settings.jpg" alt="Settings" width=33% /> 
+    <img src="images/Dynamic_Timers1.jpg" alt="Dynamic Timer Arrangement" width=33% /> 
+    <img src="images/Dynamic_Timers2.jpg" alt="Dynamic Timer Arrangement" width=33% />
+</div>
+
 
 
 
