@@ -9,9 +9,9 @@ The user is able to adjust:
 - whether or not the state of the application should be saved
 
 <div style="display: flex;">
-    <img src="images/Settings.jpg" alt="Settings" width=33%/>
-    <img src="images/Dynamic_Timers1.jpg" alt="Dynamic Timer Arrangement" width=33%/>
-    <img src="images/Dynamic_Timers2.jpg" alt="Dynamic Timer Arrangement" width=33%/>
+    <img src="images/Settings.jpg" alt="Settings" width=32%/>
+    <img src="images/Dynamic_Timers1.jpg" alt="Dynamic Timer Arrangement" width=32%/>
+    <img src="images/Dynamic_Timers2.jpg" alt="Dynamic Timer Arrangement" width=32%/>
 </div>
 
 
