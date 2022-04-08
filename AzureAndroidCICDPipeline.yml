@@ -31,22 +31,29 @@ stages:
 
           - script: |
                 #!/usr/bin/env bash
-                # Install AVD Files
-                echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-$(MinSdkVersion);google_apis;x86'
+                # Delete AVD
+                $ANDROID_HOME/tools/bin/avdmanager delete avd -n xamarin_android_emulator
 
-                # Create Emulator
+                # Install And Create Emulator
+                echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-$(MinSdkVersion);google_apis;x86'
                 echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n xamarin_android_emulator -k 'system-images;android-$(MinSdkVersion);google_apis;x86' --force
+
                 $ANDROID_HOME/emulator/emulator -list-avds
 
-                echo "Starting emulator"
                 # Start Emulator in Background
                 nohup $ANDROID_HOME/emulator/emulator -avd xamarin_android_emulator -no-snapshot > /dev/null 2>&1 &
                 $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
                 $ANDROID_HOME/platform-tools/adb devices
-                echo "Emulator started"
             displayName: Launch Emulator
             condition: always()
             timeoutInMinutes: 15
+
+          - task: JavaToolInstaller@0
+            displayName: Set Java Home
+            inputs:
+              versionSpec: '17'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
 
           - task: Gradle@2
             displayName: Run Unit and UI Tests
@@ -75,22 +82,32 @@ stages:
                 # Delete AVD
                 $ANDROID_HOME/tools/bin/avdmanager delete avd -n xamarin_android_emulator
 
-                # Install AVD Files
-                echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-$(TargetSdkVersion);google_apis;x86'
+                # Install And Create Emulator
+                if [ $(MaxSdkVersion) -lt $(TargetSdkVersion) ]
+                then
+                  echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-$(MaxSdkVersion);google_apis;x86'
+                  echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n xamarin_android_emulator -k 'system-images;android-$(MaxSdkVersion);google_apis;x86' --force
+                else
+                  echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-$(TargetSdkVersion);google_apis;x86'
+                  echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n xamarin_android_emulator -k 'system-images;android-$(TargetSdkVersion);google_apis;x86' --force
+                fi
 
-                # Create Emulator
-                echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n xamarin_android_emulator -k 'system-images;android-$(TargetSdkVersion);google_apis;x86' --force
                 $ANDROID_HOME/emulator/emulator -list-avds
 
-                echo "Starting emulator"
                 # Start Emulator in Background
                 nohup $ANDROID_HOME/emulator/emulator -avd xamarin_android_emulator -no-snapshot > /dev/null 2>&1 &
                 $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do sleep 1; done; input keyevent 82'
                 $ANDROID_HOME/platform-tools/adb devices
-                echo "Emulator started"
             displayName: Launch Emulator
             condition: always()
             timeoutInMinutes: 15
+
+          - task: JavaToolInstaller@0
+            displayName: Set Java Home
+            inputs:
+              versionSpec: '17'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
 
           - task: Gradle@2
             displayName: Run Unit and UI Tests
@@ -106,12 +123,13 @@ stages:
 
   - stage: AndroidReleaseCDPipeline
     displayName: Android Release CD Pipeline
-    condition: always()
     dependsOn: AndroidTestCIPipeline
+    condition: succeeded()
+    pool:
+      vmImage: 'ubuntu-latest'
     jobs:
       - job: CheckForNewVersion
         displayName: Check For New Version
-
         steps:
           - checkout: self
             displayName: Checkout GitHub Repository
@@ -122,9 +140,10 @@ stages:
               echo "##vso[task.setvariable variable=Version;isOutput=true]`grep 'versionName' $(Root)/app/build.gradle | tr '"' ' ' | tr 'versionName' ' '| sed 's/ //g'`"
             displayName: Read Release Version
             name: ReadReleaseVersion
+            condition: always()
 
       - job: ReleaseAPK
-        displayName: Realease APK
+        displayName: Release APK
         timeoutInMinutes: 10
         dependsOn: CheckForNewVersion
         variables:
@@ -140,6 +159,14 @@ stages:
           - script: |
               echo "##vso[build.updatebuildnumber]$(Version)_$(Condition)"
             displayName: Update Run Name
+            condition: always()
+
+          - task: JavaToolInstaller@0
+            displayName: Set Java Home
+            inputs:
+              versionSpec: '17'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'PreInstalled'
 
           - task: Gradle@2
             displayName: Build Release APK
